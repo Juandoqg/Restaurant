@@ -3,8 +3,8 @@ font-family: Verdana;
 color: blue;
 }
 body{
-
-    background: linear-gradient(to left, #a36a3d, #9f6336,#a36a3d);
+    background-image: url("../img/Fondo.jpg");
+    font-family: Arial, sans-serif;
 }
 
 .btn-primary {

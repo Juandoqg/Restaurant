@@ -19,9 +19,7 @@
           <div id="inicio" class="left-section p-4 mt-3 text-center">
             <img src="{% static 'img/Logo.svg' %}" alt="Logo principal" class="img-fluid mb-3"
               style="max-width: 255px" />
-            <h1 class="mb-3 display-4" style="font-family: Verdana, Tahoma, sans-serif">
-              LA PATRANA
-            </h1>
+           
             <form action="" method="post" class="mb-3">
               {% csrf_token %}
               <input type="text" name="username" class="form-control mb-3" placeholder="Usuario" />
@@ -36,6 +34,9 @@
                 Ingresar
               </button>
             </form>
+            <a href="url_de_recuperación" style="color: #e48e3f; text-decoration: underline;">
+              Olvidaste tu contraseña?
+            </a>
           </div>
         </div>
       </div>
