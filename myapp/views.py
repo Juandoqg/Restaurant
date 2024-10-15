@@ -67,6 +67,8 @@ def createUser(request):
                 first_name=request.POST["name"],
                 last_name=request.POST["lastname"],
                 email=request.POST["email"],
+                documento = request.POST["document"],
+                expedicion = request.POST["date"],
                 is_waiter=is_waiter,
                 is_chef=is_chef
             )
