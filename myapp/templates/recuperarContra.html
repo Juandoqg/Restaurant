@@ -8,7 +8,7 @@
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
   <link rel="stylesheet" type="text/css" href="{% static 'css/Index.css' %}" />
   <link rel="icon" href="{% static 'img/Logo-icono.svg' %}" type="image/png" />
-  <title>La patrana</title>
+  <title>Recuperar contraseña</title>
 </head>
 
 <body class="d-flex align-items-center justify-content-center">
@@ -22,21 +22,18 @@
            
             <form action="" method="post" class="mb-3">
               {% csrf_token %}
-              <input type="text" name="username" class="form-control mb-3" placeholder="Usuario" />
+              <input type="number" name="document" class="form-control mb-3" placeholder="Documento" />
               {% if username_error %}
               <p class="text-white">{{ username_error }}</p>
               {% endif %}
-              <input type="password" name="password" class="form-control mb-3" placeholder="Contraseña" />
+              <input type="date" name="date" class="form-control mb-3" placeholder="Fecha de expedicion" />
               {% if password_error %}
               <p class="text-white">{{ password_error }}</p>
               {% endif %}
               <button type="submit" class="btn btn-primary btn-block custom-btn" id="Btningresar">
-                Ingresar
+                Recuperar
               </button>
             </form>
-            <a href="/recuperarContra" style="color: #e48e3f; text-decoration: underline;">
-              Olvidaste tu contraseña?
-            </a>
           </div>
         </div>
       </div>

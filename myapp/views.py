@@ -321,6 +321,11 @@ def borrarPedido (request, idMesa):
     Pedido.objects.filter(mesa=idMesa).delete()
     return redirect('verMesas')  
 
+def recuperarContra (request):
+    return render( request ,"recuperarContra.html")  
+
+
+
 @login_required
 def crearMesas(request):
     if request.method == 'GET':
