@@ -4,6 +4,8 @@ from django.contrib.auth.models import AbstractUser
 
 class User(AbstractUser):
     # Tus propiedades personalizadas
+    documento = models.IntegerField(null= True)
+    expedicion = models.DateField(null=True)
     is_chef = models.BooleanField(default=False)
     is_waiter = models.BooleanField(default=False)
 
