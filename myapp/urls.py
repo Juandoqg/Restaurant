@@ -25,5 +25,6 @@ urlpatterns = [
      path('verFactura/', views.verFactura, name='verFactura'),
      path('crearMesas/', views.crearMesas, name='crearMesas'),
      path('recuperarContra/', views.recuperarContra, name='recuperarContra'),
+     path('actualizarContra/', views.actualizarContra, name='actualizarContra'),
      path('borrarPedido/<int:idMesa>/', views.borrarPedido, name='borrarPedido')
 ] 

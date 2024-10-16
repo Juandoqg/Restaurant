@@ -1,4 +1,4 @@
-from django.http import HttpResponseNotAllowed, HttpResponseServerError
+from django.http import HttpResponseNotAllowed, HttpResponseServerError, HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http.response import JsonResponse
 from django.contrib.auth import login, logout, authenticate
@@ -321,8 +321,54 @@ def borrarPedido (request, idMesa):
     Pedido.objects.filter(mesa=idMesa).delete()
     return redirect('verMesas')  
 
-def recuperarContra (request):
-    return render( request ,"recuperarContra.html")  
+def recuperarContra(request):
+    if request.method == "GET":
+        return render(request, "recuperarContra.html")
+    elif request.method == "POST":
+        documento = request.POST.get("document")
+        expedicion = request.POST.get("date")
+
+        # Almacena los datos en la sesión
+        request.session['documento'] = documento
+        request.session['expedicion'] = expedicion
+        print(documento)
+        print(expedicion)
+
+        return redirect("actualizarContra")
+
+def actualizarContra(request):
+    if request.method == "GET":
+        # Obtén los datos de la sesión
+        documento = request.session.get('documento')
+        expedicion = request.session.get('expedicion')
+
+        return render(request, "actualizarContra.html", {
+            'documento': documento,
+            'expedicion': expedicion
+        })
+    elif request.method == "POST":
+        try: 
+         documento = request.session.get('documento')
+         expedicion = request.session.get('expedicion')
+         contra= request.POST.get("contra")
+         confirmarContra = request.POST.get("confirmarContra")
+         print("Contra:", contra)
+         print("Contra:", confirmarContra)
+         print(documento)
+         print(expedicion)
+         user = get_object_or_404(User, documento = documento , expedicion = expedicion)
+         print(user.id)
+
+        except User.DoesNotExist:
+            return HttpResponse("Usuario no encontrado")
+        user.set_password(contra)
+        user.save()
+        return redirect("signin")
+    
+
+        # Procesa la actualización
+
+    return render(request, "actualizarContra.html")
 
 
 

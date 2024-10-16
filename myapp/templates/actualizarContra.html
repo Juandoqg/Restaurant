@@ -8,7 +8,7 @@
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
   <link rel="stylesheet" type="text/css" href="{% static 'css/Index.css' %}" />
   <link rel="icon" href="{% static 'img/Logo-icono.svg' %}" type="image/png" />
-  <title>Recuperar contraseña</title>
+  <title>Actualizar contraseña</title>
 </head>
 
 <body class="d-flex align-items-center justify-content-center">
@@ -22,11 +22,11 @@
            
             <form action="" method="post" class="mb-3">
               {% csrf_token %}
-              <input type="number" name="document" id = "document" class="form-control mb-3" placeholder="Documento" />
+              <input type="text" name="contra" id = "contra"class="form-control mb-3" placeholder="Contraseña" />
               {% if username_error %}
               <p class="text-white">{{ username_error }}</p>
               {% endif %}
-              <input type="date" name="date" id = "date" class="form-control mb-3" placeholder="Fecha de expedicion" />
+              <input type="text" name="confirmarContra" id = "confirmarContra" class="form-control mb-3" placeholder="Confirmar contraseña" />
               {% if password_error %}
               <p class="text-white">{{ password_error }}</p>
               {% endif %}
