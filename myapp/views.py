@@ -325,16 +325,17 @@ def recuperarContra(request):
     if request.method == "GET":
         return render(request, "recuperarContra.html")
     elif request.method == "POST":
-        documento = request.POST.get("document")
-        expedicion = request.POST.get("date")
-
-        # Almacena los datos en la sesión
-        request.session['documento'] = documento
-        request.session['expedicion'] = expedicion
-        print(documento)
-        print(expedicion)
-
-        return redirect("actualizarContra")
+        try: 
+         documento = request.POST["document"]
+         expedicion = request.POST["date"]
+         print(documento)
+         print(expedicion)
+         user = get_object_or_404(User, documento = documento , expedicion = expedicion)
+         print(user.id)
+         return render(request, 'recuperarContra.html', {'success': True})
+        except Exception as e:
+            return render(request, 'recuperarContra.html', {'error': True, 'error_message': str(e)})
+    return render(request, "recuperarContra.html")
 
 def actualizarContra(request):
     if request.method == "GET":
@@ -358,16 +359,11 @@ def actualizarContra(request):
          print(expedicion)
          user = get_object_or_404(User, documento = documento , expedicion = expedicion)
          print(user.id)
-
-        except User.DoesNotExist:
-            return HttpResponse("Usuario no encontrado")
-        user.set_password(contra)
-        user.save()
-        return redirect("signin")
-    
-
-        # Procesa la actualización
-
+         user.set_password(contra)
+         user.save()
+         return render(request, 'actualizarContra.html', {'success': True})
+        except Exception as e:
+            return render(request, 'actualizarContra.html', {'error': True, 'error_message': str(e)})
     return render(request, "actualizarContra.html")
 
 

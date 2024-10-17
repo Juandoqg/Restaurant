@@ -46,12 +46,12 @@
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       Swal.fire({
-        title: 'Inicio de sesión exitoso',
+        title: 'Usuario encontrado',
         icon: 'success',
         timer: 1500,
         showConfirmButton: false
       }).then(() => {
-        window.location.href = "{{ success_url }}";
+        window.location.href = "{% url 'actualizarContra' %}";
       });
     });
   </script>
@@ -59,7 +59,7 @@
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       Swal.fire({
-        title: 'Error al iniciar sesión',
+        title: 'Error al buscar el usuario',
         text: '{{ error_message }}',
         icon: 'error'
       });
