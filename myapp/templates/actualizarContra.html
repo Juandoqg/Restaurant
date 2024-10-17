@@ -46,12 +46,12 @@
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       Swal.fire({
-        title: 'Inicio de sesión exitoso',
+        title: 'Cambio de contraseña exitoso',
         icon: 'success',
         timer: 1500,
-        showConfirmButton: false
+        showConfirmButton: true
       }).then(() => {
-        window.location.href = "{{ success_url }}";
+        window.location.href = "{% url 'signin' %}";
       });
     });
   </script>

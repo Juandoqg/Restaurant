@@ -328,6 +328,8 @@ def recuperarContra(request):
         try: 
          documento = request.POST["document"]
          expedicion = request.POST["date"]
+         request.session["documento"] = documento
+         request.session["expedicion"] = expedicion
          print(documento)
          print(expedicion)
          user = get_object_or_404(User, documento = documento , expedicion = expedicion)
@@ -342,6 +344,7 @@ def actualizarContra(request):
         # Obtén los datos de la sesión
         documento = request.session.get('documento')
         expedicion = request.session.get('expedicion')
+    
 
         return render(request, "actualizarContra.html", {
             'documento': documento,
