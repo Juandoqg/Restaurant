@@ -1,7 +1,6 @@
 from django.test import TestCase, Client
 from django.urls import reverse
-from myapp.models import User , AbstractUser 
-
+from myapp.models import User
 
 class CreateUserViewTests(TestCase):
 
@@ -24,11 +23,13 @@ class CreateUserViewTests(TestCase):
             'name': 'New',
             'lastname': 'User',
             'email': 'newuser@example.com',
+            'document': '123456789', 
+            'date': '2024-01-01',      
             'Tipo': 'Mesero'
         })
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'createUser.html')
-        self.assertContains(response, 'success')
+        self.assertTrue(response.context['success'])  # Verifica el valor en el contexto
         self.assertTrue(User.objects.filter(username='newuser').exists())
 
     def test_create_user_post_request_invalid(self):
@@ -39,9 +40,11 @@ class CreateUserViewTests(TestCase):
             'name': '',
             'lastname': '',
             'email': '',
+            'document': '',  
+            'date': '',      
             'Tipo': 'Mesero'
         })
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'createUser.html')
-        self.assertContains(response, 'error')
+        self.assertContains(response, 'error')  # Cambia esto si usas mensajes
         self.assertFalse(User.objects.filter(username='').exists())
