@@ -1,4 +1,4 @@
-*{
+* {
     box-sizing: border-box;
     font-family: Helvetica;
 }
@@ -7,12 +7,23 @@ body {
     background-image: url("../img/Fondo.jpg");
     font-family: Arial, sans-serif;
 }
+
 .btn-primary {
-    background-color: green !important;
+    background-color: #cd681b;
+    border: #cd681b;
+    color: white; /* Color del texto */
 }
 
+.btn-primary:focus,
+.btn-primary:active,
+.btn-primary:focus-visible {
+    outline: none !important;
+    box-shadow: none !important; /* Elimina cualquier sombra de foco */
+}
+
+
 .bg-white {
-    background-color: #fbe5ad  !important;
+    background-color: #fbe5ad;
 }
 
 .main {
@@ -22,10 +33,7 @@ body {
     padding: 2%;
 }
 
-
 #Disponible {
-    width: 100px; 
-    font-size: 14px; 
+    width: 100px;
+    font-size: 14px;
 }
-
-

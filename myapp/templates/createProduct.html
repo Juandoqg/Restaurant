@@ -20,7 +20,7 @@
 
 <body class="bg-primary d-flex align-items-center justify-content-center vh-100">
     <article class="bg-white p-4 p-md-5 rounded shadow-sm">
-        <h2 class="text-center font-weight-bold mb-4 text-dark">¡Regístralo ahora!</h2>
+        <h2 class="text-center font-weight-bold mb-4 text-dark">¡Regístrar producto!</h2>
         <form method="POST" enctype="multipart/form-data">
             <div class="mb-3">
                 {% csrf_token %}
@@ -53,7 +53,7 @@
                 <label for="Descripcion" class="form-label text-dark">Descripción</label>
                 <textarea id="Descripcion" name="Descripcion" class="form-control" placeholder="Descripción" required rows="5"></textarea>
             </div>
-            <button type="submit" class="btn btn-primary w-100">Registrar producto</button>
+            <button type="submit" class="btn btn-primary w-100 mt-3">Registrar producto</button>
         </form>
     </article>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
