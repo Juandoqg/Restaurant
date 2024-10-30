@@ -41,13 +41,13 @@
                 <tr>
                     <td class="left-align">{{ pedido.idProducto.nombre }}</td>
                     <td class="left-align">{{ pedido.cantidad }}</td>
-                    <td>${{ pedido.idProducto.precio }}</td>
+                    <td>${{ pedido.idProducto.precio|floatformat:0 }} COP</td>
                 </tr>
                 {% endfor %}
                 <tr>
                     <th>Total</th>
                     <td class="left-align">{{ total_quantity }}</td>
-                    <td>${{ total }}</td>
+                    <td>${{ total|floatformat:0 }} COP</td>
                 </tr>
             </table>
             <div class="text-center mt-4">

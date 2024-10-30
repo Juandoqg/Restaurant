@@ -10,40 +10,53 @@ h1 {
 
 .selected-card {
     border: 2px solid #ef8b1b;
-    /* Highlight selected card */
 }
 
 .card {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    /* Smooth transition for hover effect */
     cursor: pointer;
-    /* Change cursor on hover */
     background-color: #fbe5ad;
+    padding: 10px; /* Reduce el padding general de la tarjeta */
 }
 
 .card:hover {
     transform: scale(1.03);
-    /* Slightly scale up the card on hover */
     box-shadow: 0 50px 15px rgba(245, 3, 3, 0.1);
-    /* Add shadow on hover */
 }
 
-/* Custom CSS for floating buttons */
+.card-body {
+    padding: 5px; /* Reduce el padding interno de la tarjeta */
+}
+
+.card-title {
+    margin-bottom: 3px; /* Espacio inferior más pequeño */
+    font-size: 1.25rem;
+}
+
+.card-text {
+    margin-bottom: 3px; /* Espaciado aún más reducido */
+    line-height: 1.1; 
+}
+
+/* Estilos para los textos de disponibilidad */
+.disponible {
+    font-weight: bold;
+    padding-top: 2px; 
+    font-size: 0.9rem; 
+}
+
+/* Botones flotantes personalizados */
 .floating-button {
     position: fixed;
     bottom: 20px;
     z-index: 1050;
     top: 20px;
-    /* Above most elements */
 }
 
 .logout-button {
     right: 20px;
-    /* Positioned to the right */
 }
 
 .back-button {
     left: 20px;
-    /* Positioned to the left */
-
 }

@@ -44,7 +44,7 @@
                         {% endfor %}
                         <tr>
                             <th>Total</th>
-                            <td class="left-align">${{ processed_factura.factura.valor }}</td>
+                            <td class="left-align">${{ processed_factura.factura.valor|floatformat:0 }} COP </td>
                         </tr>
                     </table>
                     <div class="footer text-center">

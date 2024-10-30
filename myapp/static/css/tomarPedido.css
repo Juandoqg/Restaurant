@@ -1,0 +1,64 @@
+body {
+    font-family: sans-serif;
+    background-image: url('../img/Fondo.jpg');
+}
+
+h1 {
+    font-family: Helvetica;
+    color: rgb(241, 234, 234);
+}
+
+/* Estilo de las tarjetas de producto */
+.card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer; 
+    background-color: #fbe5ad; 
+    margin-bottom: 20px; 
+}
+
+/* Efecto de hover en las tarjetas */
+.card:hover {
+    transform: scale(1.03); 
+    box-shadow: 0 50px 15px rgba(245, 3, 3, 0.1);
+}
+
+/* Espaciado dentro de la tarjeta */
+.card-body {
+    padding: 15px; 
+}
+
+/* Espaciado entre elementos en el contenido de la tarjeta */
+.card-body h5 {
+    margin-bottom: 10px;
+}
+
+.card-body p {
+    margin-bottom: 5px; 
+}
+
+/* Estilo para las etiquetas y entradas */
+.form-group {
+    margin-bottom: 5px; 
+}
+
+/* Espaciado entre etiquetas y campos de entrada */
+.form-group label {
+    margin-bottom: 3px;
+}
+
+.form-control {
+    margin-top: 0; 
+    padding: 5px; 
+}
+
+/* Botón de realizar pedido */
+.btn-success {
+    margin-top: 20px; 
+    background-color: #28a745; 
+    border-color: #28a745; 
+}
+
+.btn-success:hover {
+    background-color: #218838; 
+    border-color: #1e7e34; 
+}
