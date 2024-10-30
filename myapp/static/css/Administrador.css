@@ -49,7 +49,8 @@ body {
 
 .logo {
     text-align: center;
-    margin: 20px 0;
+    margin: 0; /* Eliminar márgenes */
+    overflow: hidden; /* Evitar desbordamiento */
 }
 
 .logout {
@@ -80,4 +81,9 @@ body {
 
 .hide-sidebar .toggle-sidebar {
     left: 10px;
+}
+.logo img {
+    width: 100%; /* Asegura que la imagen cubra todo el ancho del div */
+    height: auto; /* Mantiene la proporción de la imagen */
+    display: block; /* Elimina espacio extra en la parte inferior */
 }
