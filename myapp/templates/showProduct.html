@@ -20,11 +20,7 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
     />
-    <link
-      rel="icon"
-      href="{% static 'img/Logo-icono.svg' %}"
-      type="image/png"
-    />
+  
     
   </head>
   <body>
@@ -38,7 +34,7 @@
             <div class="card-body">
               <h5 class="card-title">{{ producto.nombre }}</h5>
               <p class="card-text">{{ producto.descripcion }}</p>
-              <p class="card-text">Precio: {{ producto.precio }}</p>
+              <p class="card-text">Precio: {{ producto.precio|floatformat:0 }} COP</p>
               {% if producto.disponible %}
                 <div class="disponible" style="color: green">Disponible</div>
               {% else %}
