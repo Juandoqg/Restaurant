@@ -10,13 +10,39 @@ body {
 
 .titulos {
     text-align: center;
-    border-radius: 15px;
+    border-radius: 15px 15px 0 0;
     background-color: #fbe5ad;
     width: 100%;
     max-width: 600px;
-    margin: 0 auto;
     color: black;
+    padding: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 0 auto 20px; /* Agrega margen inferior para separación */
 }
+
+.titulo-tabla {
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    border-radius: 0;
+    background-color: #87694c;
+    color: white;
+    padding: 10px;
+    margin: 20px auto 0; /* Margen superior para más separación */
+    width: 100%;
+}
+
+.table {
+    border-radius: 0 0 15px 15px;
+    overflow: hidden;
+    background-color: #eed9a4;
+    color: black;
+    margin: 0 auto;
+    border-top: none;
+}
+
+
+
 
 .head-tabla {
     background-color: #87694c; /* Dark background for header */
@@ -36,13 +62,7 @@ body {
     color: black; /* Light gray stripe for odd rows */
 }
 
-.table {
-    border-radius: 15px;
-    overflow: hidden; /* Ensures rounded corners are visible */
-    background-color: #eed9a4; /* Light background for the table */
-    color: black; 
-    margin: 0 auto; /* Center the table */
-}
+
 
 .table td, .table th {
     vertical-align: middle;
