@@ -1,12 +1,20 @@
 *{
 font-family: Verdana;
-color: blue;
 }
 body{
-    background-image: url("../img/Fondo.jpg");
-    font-family: Arial, sans-serif;
+
+    background-image: url('../img/Fondo.jpg');
 }
 
 .btn-primary {
     background-color: #cd681b !important;
+    border-color: #cd681b;
+}
+
+.btn-primary:focus, .btn-primary:hover {
+    outline: none;
+    box-shadow: none;
+    color: white; /* Cambia el color de texto si quieres */
+    background-color: #000000; /* Puedes personalizar este color */
+    border-color: #000000; /* Personaliza el color del borde si es necesario */
 }

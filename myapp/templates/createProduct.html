@@ -15,12 +15,28 @@
             margin-top: 10px;
             display: none;
         }
+
+        /* Estilo para el botón Volver */
+        .volver-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;  /* Cambiado de 'left' a 'right' */
+            z-index: 1000;
+        }
     </style>
 </head>
 
 <body class="bg-primary d-flex align-items-center justify-content-center vh-100">
+    
+    <!-- Botón para volver al menú -->
+    <div class="volver-btn">
+        <a href="{% url 'administrador' %}" class="btn btn-danger">
+            <i class="fas fa-sign-out-alt"></i> Volver al menú
+        </a>
+    </div>
+
     <article class="bg-white p-4 p-md-5 rounded shadow-sm">
-        <h2 class="text-center font-weight-bold mb-4 text-dark">¡Regístrar producto!</h2>
+        <h2 class="text-center font-weight-bold mb-4 text-dark">¡Regístralo ahora!</h2>
         <form method="POST" enctype="multipart/form-data">
             <div class="mb-3">
                 {% csrf_token %}
@@ -56,8 +72,10 @@
             <button type="submit" class="btn btn-primary w-100 mt-3">Registrar producto</button>
         </form>
     </article>
+
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
     {% if success %}
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -73,14 +91,14 @@
     </script>
     {% elif error %}
     <script>
-      document.addEventListener('DOMContentLoaded', function() {
-              Swal.fire({
-                  title: 'Error al registrar el producto',
-                  text: '{{ error }}',
-                  icon: 'error'
-              });
-      });
-  </script>
+        document.addEventListener('DOMContentLoaded', function() {
+                Swal.fire({
+                    title: 'Error al registrar el producto',
+                    text: '{{ error }}',
+                    icon: 'error'
+                });
+        });
+    </script>
     {% endif %}
 </body>
 

@@ -379,7 +379,7 @@ const guardarCambios = async (userId) => {
     console.log("ID usuario editar: " + userId)
     try {
         const result = await Swal.fire({
-            title: "¿Quieres guardar los datos del usuaio??",
+            title: "¿Quieres guardar los datos del usuario?",
             showDenyButton: true,
             confirmButtonText: "Guardar",
             confirmButtonColor: "#28a745",

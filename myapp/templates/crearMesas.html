@@ -31,31 +31,16 @@
     </div>
 
     <div class="floating-button logout-button">
-        <a href="{% url 'signout'%}" class="btn btn-danger d-none d-md-block">
+        <a href="{% url 'administrador'%}" class="btn btn-danger d-none d-md-block">
           <i class="fas fa-sign-out-alt"></i>
-          <span class="btn-text">Cerrar sesión</span>
+          <span class="btn-text">Volver al menu</span>
         </a>
         <a href="{% url 'signout'%}" class="btn btn-danger d-block d-md-none"
           ><i class="fas fa-sign-out-alt"></i
         ></a>
       </div>
   
-      <div class="floating-button back-button">
-        <a
-          href="#"
-          onclick="history.back()"
-          class="btn btn-secondary d-none d-md-block"
-        >
-          <i class="fas fa-arrow-left"></i>
-          <span class="btn-text">Volver</span>
-        </a>
-        <a
-          href="#"
-          onclick="history.back()"
-          class="btn btn-secondary d-block d-md-none"
-          ><i class="fas fa-arrow-left"></i
-        ></a>
-      </div>
+
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>

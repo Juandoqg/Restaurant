@@ -7,6 +7,7 @@
     <title>Factura</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="{% static 'css/verFactura.css' %}" />
+    <link rel="icon" href="{% static 'img/Logo-icono.svg' %}" type="image/png" />
 </head>
 <body>
     <div class="container mt-4">
@@ -15,7 +16,7 @@
                 <div class="invoice-container">
                     <h1 class="text-center">Factura #{{ processed_factura.factura.idFactura }}</h1>
                     <div class="d-flex justify-content-center mb-3">
-                        <img src="{% static 'img/Logo-icono1.png' %}" alt="Logo principal" class="img-fluid mb-3" style="max-width: 255px" />
+                        <img src="{% static 'img/Logo.svg' %}" alt="Logo principal" class="img-fluid" style="max-width: 255px">
                     </div>
                     <table class="table info-table">
                         <tr>
@@ -44,7 +45,7 @@
                         {% endfor %}
                         <tr>
                             <th>Total</th>
-                            <td class="left-align">${{ processed_factura.factura.valor|floatformat:0 }} COP </td>
+                            <td class="left-align">${{ processed_factura.factura.valor|floatformat:0 }} COP</td>
                         </tr>
                     </table>
                     <div class="footer text-center">
@@ -53,9 +54,9 @@
                 </div>
             {% endfor %}
         {% else %}
-            <div class="container">
-                <h2 style="color: white;">No hay facturas disponibles</h2>
-            </div>
+        <div class="noFacts">
+            <h2 style="color: #ffffff;">No hay facturas disponibles</h2>
+        </div>
         {% endif %}
     </div>
 </body>
