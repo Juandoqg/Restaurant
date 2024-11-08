@@ -38,7 +38,7 @@
             <div class="card-body">
               <h5 class="card-title">{{ producto.nombre }}</h5>
               <p class="card-text">{{ producto.descripcion }}</p>
-              <p class="card-text">Precio: {{ producto.precio }}</p>
+              <p class="card-text">Precio: {{ producto.precio|floatformat:0 }} COP</p>
               {% if producto.disponible %}
                 <div class="disponible" style="color: green">Disponible</div>
               {% else %}
