@@ -15,30 +15,28 @@ body {
     background-color: #fbe5ad;
     transition: width 0.5s;
 }
-.btn{
-    background-color: #ff0000;
-}
+
 .sidebar-option {
     padding: 10px;
     border-bottom: 1px solid #000000;
-    transition: background-color 0.3s; 
+    transition: background-color 0.3s;
 }
 
 .sidebar-option:hover {
-    background-color: #ef8b1b; 
+    background-color: #ef8b1b;
 }
 
 .sidebar-option a {
-    color: black; 
-    text-decoration: none; 
+    color: black;
+    text-decoration: none;
     display: flex;
     align-items: center;
-    width: 100%; 
-    padding: 10px 0; 
+    width: 100%;
+    padding: 10px 0;
 }
 
 .sidebar-option a i {
-    margin-right: 10px; 
+    margin-right: 10px;
 }
 
 .content {
@@ -49,8 +47,8 @@ body {
 
 .logo {
     text-align: center;
-    margin: 0; /* Eliminar márgenes */
-    overflow: hidden; /* Evitar desbordamiento */
+    margin: 0;
+    overflow: hidden;
 }
 
 .logout {
@@ -82,8 +80,35 @@ body {
 .hide-sidebar .toggle-sidebar {
     left: 10px;
 }
+
 .logo img {
-    width: 100%; /* Asegura que la imagen cubra todo el ancho del div */
-    height: auto; /* Mantiene la proporción de la imagen */
-    display: block; /* Elimina espacio extra en la parte inferior */
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Estilos específicos para el gráfico */
+#histograma {
+    width: 100%; /* El gráfico ocupará todo el ancho disponible */
+    height: 400px; /* Altura del gráfico */
+    background-color: white; /* Fondo blanco */
+    margin-top: 30px;
+    border-radius: 8px; /* Bordes redondeados */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
+  }
+  
+  
+
+.content h2 {
+    font-size: 28px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.chart-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
 }
