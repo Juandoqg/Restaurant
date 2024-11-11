@@ -6,12 +6,34 @@ document.addEventListener("DOMContentLoaded", function() {
       // Verificar los datos
       console.log("Datos recibidos:", data);
       
-      // Obtener fechas y valores de la respuesta
+      // Obtener las fechas y valores de la respuesta
       const fechas = data.fechas;
       const valores = data.valores;
 
-      // Llamar a la función para crear el gráfico con los datos obtenidos
-      crearGrafico(fechas, valores);
+      // Agrupar las facturas por fecha y sumar los valores
+      const fechasAgrupadas = [];
+      const valoresSumados = [];
+
+      // Crear un objeto para almacenar las fechas únicas y sus valores sumados
+      const sumaPorFecha = {};
+
+      // Agrupar por fecha
+      fechas.forEach((fecha, index) => {
+        if (sumaPorFecha[fecha]) {
+          sumaPorFecha[fecha] += valores[index]; // Sumar el valor de las facturas del mismo día
+        } else {
+          sumaPorFecha[fecha] = valores[index]; // Crear una nueva entrada para la fecha
+        }
+      });
+
+      // Convertir el objeto de fechas agrupadas a arreglos para las etiquetas y valores del gráfico
+      for (const fecha in sumaPorFecha) {
+        fechasAgrupadas.push(fecha);
+        valoresSumados.push(sumaPorFecha[fecha]);
+      }
+
+      // Llamar a la función para crear el gráfico con los datos agrupados
+      crearGrafico(fechasAgrupadas, valoresSumados);
     })
     .catch(error => {
       console.error("Error al obtener los datos:", error);
@@ -21,15 +43,16 @@ document.addEventListener("DOMContentLoaded", function() {
 const crearGrafico = (fechas, valores) => {
   const ctx = document.getElementById('histograma').getContext('2d');
   const myChart = new Chart(ctx, {
-    type: 'line', // Tipo de gráfico
+    type: 'line', // Tipo de gráfico: Línea
     data: {
       labels: fechas, // Las fechas se pasan como etiquetas en el eje X
       datasets: [{
-        label: 'Total venta del dia',
-        data: valores, // Los valores asociados a cada fecha
-        backgroundColor: 'rgba(54, 162, 235, 1)', // Color de las barras (sólido, no transparente)
-        borderColor: 'rgba(54, 162, 235, 1)', // Color del borde de las barras
-        borderWidth: 1
+        label: 'Valor de Facturas',
+        data: valores, // Los valores sumados para cada fecha
+        fill: false, // Evitar el relleno bajo la línea
+        borderColor: 'rgba(54, 162, 235, 1)', // Color de la línea
+        borderWidth: 2, // Ancho de la línea
+        tension: 0.4 // Suaviza la curva de la línea
       }]
     },
     options: {
@@ -72,11 +95,11 @@ const crearGrafico = (fechas, valores) => {
           bottom: 10
         }
       },
-      // Fondo blanco para la zona de las barras y cuadrículas
       backgroundColor: '#ffffff', // Fondo blanco para el gráfico
       elements: {
-        bar: {
-          backgroundColor: 'rgba(54, 162, 235, 1)' // Aseguramos que las barras sean de color sólido
+        line: {
+          borderColor: 'rgba(54, 162, 235, 1)', // línea  azul
+          borderWidth: 2, 
         }
       }
     }

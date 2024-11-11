@@ -84,14 +84,14 @@ def administrador(request):
     return render(request, 'administrador.html')
 
 def datos_facturas(request):
-  
+
+    # Obtener datos
     facturas = Factura.objects.all()
 
-    # Crear listas de fechas y valores
     fechas = [factura.fecha.strftime('%Y-%m-%d') for factura in facturas]
     valores = [float(factura.valor) for factura in facturas]
 
-    # Crear el diccionario de respuesta
+
     data = {
         'fechas': fechas,
         'valores': valores
