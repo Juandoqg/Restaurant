@@ -47,7 +47,7 @@ const crearGrafico = (fechas, valores) => {
     data: {
       labels: fechas, // Las fechas se pasan como etiquetas en el eje X
       datasets: [{
-        label: 'Valor de Facturas',
+        label: 'Total venta del dia',
         data: valores, // Los valores sumados para cada fecha
         fill: false, // Evitar el relleno bajo la línea
         borderColor: 'rgba(54, 162, 235, 1)', // Color de la línea
