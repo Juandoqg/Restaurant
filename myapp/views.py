@@ -13,6 +13,8 @@ import os
 from django.views.decorators.csrf import csrf_exempt
 from django.utils import timezone
 import json
+from django.db.models import Sum
+from django.utils.dateformat import DateFormat
 # Create your views here.
 
 def signin(request):
@@ -67,8 +69,8 @@ def createUser(request):
                 first_name=request.POST["name"],
                 last_name=request.POST["lastname"],
                 email=request.POST["email"],
-                #documento = request.POST["document"],
-                #expedicion = request.POST["date"],
+                documento = request.POST["document"],
+                expedicion = request.POST["date"],
                 is_waiter=is_waiter,
                 is_chef=is_chef
             )
@@ -76,12 +78,25 @@ def createUser(request):
             return render(request, 'createUser.html', {'success': True})
         except Exception as e:
             return render(request, 'createUser.html', {'success': False, 'error': str(e)}) 
-
-@login_required       
+        
+@login_required
 def administrador(request):
-    user_id = request.user.id
-    users = User.objects.get(id=user_id)
-    return render(request,'administrador.html',{'users':users})
+    return render(request, 'administrador.html')
+
+def datos_facturas(request):
+
+    # Obtener datos
+    facturas = Factura.objects.all()
+
+    fechas = [factura.fecha.strftime('%Y-%m-%d') for factura in facturas]
+    valores = [float(factura.valor) for factura in facturas]
+
+
+    data = {
+        'fechas': fechas,
+        'valores': valores
+    }
+    return JsonResponse(data)
 
 @login_required
 def verMesas(request):

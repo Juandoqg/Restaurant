@@ -52,7 +52,8 @@
       </div>
       <div class="content">
         <i class="fas fa-bars toggle-sidebar"></i>
-        <!-- Content will be displayed here -->
+        <canvas id="histograma" width="200" height="100"></canvas>
+
       </div>
     </div>
     <a href="{% url 'signout' %}" class="btn btn-secondary btn-sm logout">Cerrar sesión</a>
@@ -70,6 +71,9 @@
         })
       })
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script src="{% static 'js/grafico.js' %}"></script>
     
   </body>
 </html>
