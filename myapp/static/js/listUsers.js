@@ -311,7 +311,6 @@ const listusers = async () => {
                     <td>${userType}</td>
                     <td>
                     <button class='btn btn-sm btn-primary' onclick="editUser(${user.id})"><i class='fa-solid fa-pencil'></i></button>
-
                         ${userType == 'Administrador' ?
                     "" :
                     `<button class='btn btn-sm btn-danger' onclick="deleteUser(${user.id})"><i class='fa-solid fa-trash-can'></i></button>`}
@@ -364,12 +363,49 @@ const deleteUser = async (userId) => {
 };
 
 
+// Función que se llama cuando el modal se abre y llena los campos
+const cargarDatosUsuario = async(userId) => {
+    console.log(userId);
+    const response = await fetch(`/listUserPorId/${userId}`);
+    
+    // Verificar si la respuesta es exitosa
+    if (!response.ok) {
+        console.error("Error en la respuesta del servidor:", response.status);
+        return;
+    }
+    
+    // Obtener los datos JSON de la respuesta
+    const usuario = await response.json();
+    
+    console.log("Datos del usuario:", usuario);
+
+    // Llenar los campos con los valores del usuario
+    document.getElementById('edit-user-id').value = usuario.id;
+    document.getElementById('edit-user-email').value = usuario.email;
+    document.getElementById('edit-user-firstname').value = usuario.first_name;
+    document.getElementById('edit-user-lastname').value = usuario.last_name;
+    document.getElementById('edit-user-username').value = usuario.username;
+    
+    // Establecer el tipo de usuario (esto se basa en tu lógica)
+    document.getElementById('edit-usertype').value = usuario.is_waiter ? 'Mesero' : 'Chef';
+
+    // Establecer el estado del usuario
+    if (usuario.is_active) {
+        document.getElementById('option1').checked = true;
+    } else {
+        document.getElementById('option2').checked = true;
+    }
+}
+
+ 
+  
+
 const editUser = async (userId) => {
     try {
 
         $('#edit-user-id').val(userId);
+        cargarDatosUsuario(userId)
         $('#editUserModal').modal('show');
-        console.log(userId)
     } catch (ex) {
         alert(ex);
     }
@@ -379,7 +415,7 @@ const guardarCambios = async (userId) => {
     console.log("ID usuario editar: " + userId)
     try {
         const result = await Swal.fire({
-            title: "¿Quieres guardar los datos del usuario?",
+            title: "¿Quieres guardar los datos del usuaio?",
             showDenyButton: true,
             confirmButtonText: "Guardar",
             confirmButtonColor: "#28a745",
@@ -397,12 +433,16 @@ const guardarCambios = async (userId) => {
             const firstName = document.getElementById('edit-user-firstname').value;
             const lastName = document.getElementById('edit-user-lastname').value;
             const username = document.getElementById('edit-user-username').value;
+            const userType = document.getElementById('edit-usertype').value;
+            const userStatus = document.querySelector('input[name="option"]:checked').value;
 
             const data = {
                 email: email,
                 first_name: firstName,
                 last_name: lastName,
-                username: username
+                username: username,
+                userType: userType,
+                user_status: userStatus
             };
 
             console.log(data)
@@ -433,7 +473,6 @@ const guardarCambios = async (userId) => {
         alert(ex);
     }
 };
-
 
 
 

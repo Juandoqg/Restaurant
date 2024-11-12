@@ -113,7 +113,7 @@ def listMesas(request):
    data = {'mesa': mesa}
    return JsonResponse(data)
 
-@login_required
+
 def listMesasPorId(request, idMesa):
     if request.method == 'GET':
         mesa = get_object_or_404(Mesa, idMesa=idMesa)
@@ -122,6 +122,28 @@ def listMesasPorId(request, idMesa):
             'numero': mesa.numero,
         }
         return JsonResponse(data)
+    else:
+        return JsonResponse({'error': 'Método no permitido'}, status=405)
+ 
+
+def listUserPorId(request, user_id):
+    if request.method == 'GET':
+        usuario = get_object_or_404(User, id=user_id)
+        
+        # Crear un diccionario con los datos del usuario
+        data = {
+            'id': usuario.id,
+            'email': usuario.email,
+            'first_name': usuario.first_name,
+            'last_name': usuario.last_name,
+            'username': usuario.username,
+            'is_active': usuario.is_active,
+            'is_waiter': usuario.is_waiter,
+            'is_chef': usuario.is_chef,
+            'is_superuser': usuario.is_superuser
+        }
+        
+        return JsonResponse(data)  # Ahora `data` es un diccionario válido
     else:
         return JsonResponse({'error': 'Método no permitido'}, status=405)
 
@@ -226,34 +248,64 @@ def cambiar_estado_pedido(request, pedido_id):
     return redirect('chef') 
 
 @csrf_exempt
+@csrf_exempt
 def actualizarDatosUsuario(request, user_id):
-    print(request.body)
     if request.method == 'PUT':
         try:
+            # Obtener el objeto User por su ID
             user = get_object_or_404(User, id=user_id)
+            
+            # Cargar los datos del cuerpo de la solicitud
             data = json.loads(request.body)
 
+            # Actualizar los campos del usuario con los datos recibidos
             user.email = data.get('email', user.email)
             user.first_name = data.get('first_name', user.first_name)
             user.last_name = data.get('last_name', user.last_name)
             user.username = data.get('username', user.username)
+            
+            # Determinar los valores de is_waiter y is_chef según el userType
+            user_type = data.get('userType')
+            if user_type == 'Mesero':
+                user.is_waiter = True
+                user.is_chef = False
+            elif user_type == 'Chef':
+                user.is_waiter = False
+                user.is_chef = True
+            else:
+                # Si no es ni 'Mesero' ni 'Chef', asignar ambos como False
+                user.is_waiter = False
+                user.is_chef = False
+            
+            # Actualizar el estado de actividad (is_active) según el user_status
+            user_status = data.get('user_status')
+            if user_status == 'option1':  # Si está activo
+                user.is_active = True
+            else:  # Si no está activo
+                user.is_active = False
 
+            # Guardar los cambios en la base de datos
             user.save()
             
-            # Devuelve una respuesta de éxito
+            # Devuelve una respuesta con los datos actualizados
             return JsonResponse({
                 'id': user.id,
                 'email': user.email,
                 'first_name': user.first_name,
                 'last_name': user.last_name,
                 'username': user.username,
+                'is_active': user.is_active,
+                'is_waiter': user.is_waiter,
+                'is_chef': user.is_chef,
             })
 
         except json.JSONDecodeError:
             return JsonResponse({'error': 'Invalid JSON'}, status=400)
         except Exception as e:
             return JsonResponse({'error': str(e)}, status=500)
+
     else:
+        # Si el método no es PUT
         return HttpResponseNotAllowed(['PUT'])
 
 @login_required            
@@ -391,7 +443,7 @@ def crearMesas(request):
                 with open(ruta_imagen, 'wb') as f:
                     for chunk in imagen.chunks():
                         f.write(chunk)
-                producto.imgProducto = os.path.join('img/', imagen.name)
+                Producto.imgProducto = os.path.join('img/', imagen.name)
             return render(request, 'crearMesas.html', {'success': True})
         except Exception as e:
             return render(request, 'crearMesas.html', {'success': False, 'error': str(e)})

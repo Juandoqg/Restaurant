@@ -10,6 +10,7 @@ urlpatterns = [
      path('createUser/', views.createUser, name='createUser'),
      path("showUsers/",views.showUsers, name ="showUsers"),
      path("listUsers/",views.listUsers, name = "listUsers"),
+      path("listUserPorId/<int:user_id>",views.listUserPorId, name = "listUsersPorId"),
      path("listMesas/",views.listMesas, name = "listMesas"),
      path("listMesasPorId/<int:idMesa>",views.listMesasPorId, name = "listMesasPorId"),
      path("listProductos/",views.listProductos, name = "listProductos"),
