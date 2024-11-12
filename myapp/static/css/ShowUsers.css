@@ -1,6 +1,6 @@
 body {
     
-    background-image: url("../img/Fondo.jpg");
+    background-image: url("../img/Fondo2.jpg");
     background-size: cover; 
    
     margin: 0;
@@ -46,11 +46,11 @@ a:hover {
 /* Añadir este CSS para bordes redondeados en la tabla */
 /* CSS para redondear solo la parte superior de la tabla */
 .table {
-  border-top-left-radius: 25px; /* Ajusta el valor según el redondeado deseado */
-  border-top-right-radius: 25px;
+  border-top-left-radius: 10px; /* Ajusta el valor según el redondeado deseado */
+  border-top-right-radius: 10px;
   
-  border-bottom-left-radius: 25px; /* Ajusta el valor según el redondeado deseado */
-  border-bottom-right-radius: 25px;
+  border-bottom-left-radius: 10px; /* Ajusta el valor según el redondeado deseado */
+  border-bottom-right-radius: 10px;
 
   overflow: hidden; /* Asegura que las esquinas redondeadas afecten las celdas */
   border-collapse: separate; /* Para que el border-radius funcione correctamente */
