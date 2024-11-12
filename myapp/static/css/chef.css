@@ -3,7 +3,7 @@ body {
     font-family: 'Helvetica Neue', sans-serif;
     margin: 0;
     padding: 20px;
-    background-image: url('../img/Fondo.jpg');
+    background-image: url('../img/Fondo2.jpg');
     background-size: cover;
     background-attachment: fixed;
 }
@@ -20,20 +20,10 @@ body {
     margin: 0 auto 20px; /* Agrega margen inferior para separación */
 }
 
-.titulo-tabla {
-    text-align: center;
-    font-size: 1.5rem;
-    font-weight: bold;
-    border-radius: 0;
-    background-color: #87694c;
-    color: white;
-    padding: 10px;
-    margin: 20px auto 0; /* Margen superior para más separación */
-    width: 100%;
-}
+
 
 .table {
-    border-radius: 0 0 15px 15px;
+    border-radius: 10px 10px 10px 10px;
     overflow: hidden;
     background-color: #eed9a4;
     color: black;
@@ -44,23 +34,21 @@ body {
 
 
 
-.head-tabla {
-    background-color: #87694c; /* Dark background for header */
-    color: white;
-    text-align: center;
-}
-
-.table-hover tbody tr:hover {
-    background-color: rgba(128, 128, 128, 0.2); /* Light gray hover effect */
-    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-    transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-}
-
-.table-striped tbody tr:nth-of-type(odd) {
-    background-color: #fbe5ad;
-    color: black; /* Light gray stripe for odd rows */
-}
+.table td {
+    background-color: #f8f9fa; /* Color de fondo claro para las celdas de la tabla */
+    color: #212529; /* Color de texto para las celdas de la tabla */
+  }
+  
+  .table th {
+    background-color: #e9dede;
+    color: black;
+  }
+  
+  .centered {
+    text-align: center !important;
+    vertical-align: middle !important;
+  }
+  
 
 
 
@@ -70,9 +58,7 @@ body {
     text-align: center;
 }
 
-.table thead th {
-    border-bottom: 2px solid #ffffff;
-}
+
 
 #botones {
     background-color: #07730e; /* Dark background for buttons */
@@ -97,49 +83,5 @@ body {
     z-index: 1000; 
 }
 
-@media (max-width: 767px) {
-    .titulos {
-       margin-top: 50px;
-    }
-    .table-responsive {
-        display: block;
-        width: 100%;
-        overflow-x: auto;
-    }
 
-    .table {
-        background-color: transparent;
-    }
 
-    .table thead {
-        display: none;
-    }
-
-    .table tr {
-        display: block;
-        margin-bottom: 1rem;
-        background-color: rgba(80, 77, 69, 0.9); /* Dark background for mobile cards */
-        border-radius: 10px;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        padding: 10px;
-        color: white;
-    }
-
-    .table td {
-        display: flex;
-        justify-content: space-between;
-        font-size: 1rem;
-        border-bottom: 1px solid #ddd;
-        padding: 8px 10px;
-    }
-
-    .table td::before {
-        content: attr(data-label);
-        font-weight: bold;
-        margin-right: 10px;
-    }
-
-    .table td:last-child {
-        border-bottom: 0;
-    }
-}
