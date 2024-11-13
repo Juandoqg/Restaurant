@@ -15,8 +15,10 @@ h1 {
 .card {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     cursor: pointer;
+    padding: 0; /* Eliminar padding de la tarjeta */
+    margin: 0; /* Eliminar margen de la tarjeta */
     background-color: #fbe5ad;
-    padding: 10px; /* Reduce el padding general de la tarjeta */
+    border: none; /* Opcional: Elimina el borde de la tarjeta */
 }
 
 .card:hover {
@@ -25,7 +27,7 @@ h1 {
 }
 
 .card-body {
-    padding: 5px; /* Reduce el padding interno de la tarjeta */
+    padding: 5; /* Reduce el padding interno de la tarjeta */
 }
 
 .card-title {
@@ -36,6 +38,15 @@ h1 {
 .card-text {
     margin-bottom: 3px; /* Espaciado aún más reducido */
     line-height: 1.1; 
+}
+
+/* Ajustes para la imagen */
+.card-img-top {
+    padding: 0;  /* Eliminar padding de la imagen */
+    margin: 0;   /* Eliminar cualquier margen extra */
+    width: 100%;  /* Asegura que la imagen ocupe el 100% del ancho de la tarjeta */
+    height: 200px; /* Ajustar la altura según sea necesario */
+    object-fit: cover; /* Asegura que la imagen se recorte adecuadamente para llenar el área */
 }
 
 /* Estilos para los textos de disponibilidad */
@@ -60,3 +71,4 @@ h1 {
 .back-button {
     left: 20px;
 }
+
