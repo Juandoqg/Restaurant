@@ -1,0 +1,11 @@
+
+*.pyc
+
+# Ignorar todas las carpetas __pycache__
+__pycache__/
+
+# Ignorar archivos de migración en Django
+myapp/migrations/*.pyc
+
+# Opcionalmente, si quieres ignorar también los archivos de configuración y archivos binarios específicos:
+mysite/__pycache__/
