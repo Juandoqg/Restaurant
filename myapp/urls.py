@@ -5,6 +5,7 @@ from .views import viewsMesa
 from .views import viewsProducto
 from .views import viewsPedido
 from .views import viewsFactura
+
 urlpatterns = [
      path('',views.signin, name = "signin"),
      path('administrador/', views.administrador, name="administrador"),
