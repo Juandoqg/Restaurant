@@ -27,7 +27,7 @@ body {
 }
 
 button.btn-primary {
-    color: #000000;
+    color: white;
     background-color: #cd681b;
     border-color: #cd681b;
 }
@@ -35,7 +35,6 @@ button.btn-primary {
 button.btn-primary:hover, button.btn-primary:focus {
     color: white;
     background-color: #1e9b29;
-    border-color: #000000;
 }
 
 
