@@ -1,64 +1,100 @@
 body {
     font-family: sans-serif;
     background-image: url('../img/Fondo2.jpg');
+    background-size: cover;
+    background-position: center center;
 }
 
 h1 {
     font-family: Helvetica;
     color: rgb(241, 234, 234);
+    text-align: center;
+    font-size: 2rem;
 }
 
 /* Estilo de las tarjetas de producto */
 .card {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    cursor: pointer; 
-    background-color: #fbe5ad; 
-    margin-bottom: 20px; 
+    cursor: pointer;
+    background-color: #fbe5ad;
+    margin-bottom: 15px; /* Reducir margen inferior */
+    border-radius: 10px; /* Mantener bordes redondeados */
+    overflow: hidden;
+    border: none; /* Eliminar borde de la tarjeta */
 }
 
 /* Efecto de hover en las tarjetas */
 .card:hover {
-    transform: scale(1.03); 
+    transform: scale(1.03);
     box-shadow: 0 50px 15px rgba(245, 3, 3, 0.1);
 }
 
 /* Espaciado dentro de la tarjeta */
 .card-body {
-    padding: 15px; 
+    padding: 5px; /* Reducir el padding de la tarjeta */
 }
 
 /* Espaciado entre elementos en el contenido de la tarjeta */
 .card-body h5 {
-    margin-bottom: 10px;
+    margin-bottom: 0px; /* Reducir el margen inferior */
+    font-size: 1.25rem;
+    font-weight: bold;
 }
 
 .card-body p {
-    margin-bottom: 5px; 
+    margin-bottom: 0px; /* Reducir el espacio entre las líneas de descripción */
+    line-height: 1.4;
+    font-size: 0.95rem;
 }
 
 /* Estilo para las etiquetas y entradas */
 .form-group {
-    margin-bottom: 5px; 
+    margin-bottom: 5px; /* Reducir margen entre los campos de formulario */
 }
 
 /* Espaciado entre etiquetas y campos de entrada */
 .form-group label {
-    margin-bottom: 3px;
+    margin-bottom: 0px; /* Reducir margen entre etiqueta y campo */
 }
 
 .form-control {
-    margin-top: 0; 
-    padding: 5px; 
+    margin-top: 0;
+    padding: 5px; /* Reducir el padding de las entradas */
+    font-size: 1rem;
+    border-radius: 5px;
+}
+
+/* Estilo del checkbox */
+input[type="checkbox"] {
+    margin-top: 5px;
+    transform: scale(1.2);
 }
 
 /* Botón de realizar pedido */
 .btn-success {
-    margin-top: 20px; 
-    background-color: #28a745; 
-    border-color: #28a745; 
+    margin-top: 20px;
+    background-color: #28a745;
+    border-color: #28a745;
+    padding: 12px 20px;
+    font-size: 1rem;
+    border-radius: 5px;
 }
 
 .btn-success:hover {
-    background-color: #218838; 
-    border-color: #1e7e34; 
+    background-color: #218838;
+    border-color: #1e7e34;
+    transform: scale(1.05);
+}
+
+/* Eliminar el borde de la tarjeta seleccionada */
+.selected-card {
+    border: none; /* Eliminar borde de tarjeta seleccionada */
+    box-shadow: 0 0 15px rgba(239, 139, 27, 0.3);
+}
+
+/* Ajustar la imagen de la tarjeta para que ocupe todo el espacio de la tarjeta */
+.card-img-top {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
 }
