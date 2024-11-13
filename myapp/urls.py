@@ -5,13 +5,14 @@ from .views import viewsMesa
 from .views import viewsProducto
 from .views import viewsPedido
 from .views import viewsFactura
+from .views import viewsChef
 
 urlpatterns = [
      path('',views.signin, name = "signin"),
      path('administrador/', views.administrador, name="administrador"),
      path('datos_facturas/', viewsFactura.datos_facturas, name="datos_facturas"),
      path('verMesas/', viewsMesa.verMesas, name = "verMesas"),
-     path('chef/', views.chef, name = "chef"),
+     path('chef/', viewsChef.chef, name = "chef"),
      path('signout/', views.signout, name='signout'),
      path('createUser/', views.createUser, name='createUser'),
      path("showUsers/",viewsUser.showUsers, name ="showUsers"),

@@ -72,14 +72,6 @@ def createUser(request):
 def administrador(request):
     return render(request, 'administrador.html')
 
-  
-@login_required
-def chef(request):
-    user_id = request.user.id
-    usuario = User.objects.get(id=user_id)
-    pedidos = Pedido.objects.all()  # Obtén todos los pedidos
-    return render(request, 'chef.html', {'usuario': usuario, 'pedidos': pedidos})
-
    
 @login_required
 def signout(request):
