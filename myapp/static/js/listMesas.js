@@ -26,7 +26,7 @@ const listMesas = async () => {
         <h5 class="card-title text-center mb-4">Mesa ${mesa.idMesa}</h5>
         <img src="/static/img/mesa.jpeg" alt="Imagen de mesa" style="border-radius: 10px;">
         <div class="card-body">
-            <div class="btn-group d-flex justify-content-center gap-2 mb-4" role="group">
+            <div class=" d-flex justify-content-center gap-5 mb-4" >
                 <a href="${tomarPedidoURL}" class="btn btn-success">Realizar pedido</a>
                 <a href="${verPedidoURL}" class="btn btn-warning">Ver pedido</a>
             </div>

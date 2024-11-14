@@ -12,7 +12,7 @@
 </head>
 <body>
     <div class="container">
-        <h1 class="text-center">Crear Mesas</h1>
+        <h1 class="text-center">Registrar mesas</h1>
         <form action="{% url 'crearMesas' %}" method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
             {% csrf_token %}
             <div class="form-group">
@@ -32,12 +32,8 @@
 
     <div class="floating-button logout-button">
         <a href="{% url 'administrador'%}" class="btn btn-danger d-none d-md-block">
-          <i class="fas fa-sign-out-alt"></i>
           <span class="btn-text">Volver al menu</span>
         </a>
-        <a href="{% url 'signout'%}" class="btn btn-danger d-block d-md-none"
-          ><i class="fas fa-sign-out-alt"></i
-        ></a>
       </div>
   
 

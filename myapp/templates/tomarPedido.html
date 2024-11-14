@@ -27,19 +27,16 @@
                       <h5 class="card-title">{{ producto.nombre }}</h5>
                       <p class="card-text">{{ producto.descripcion }}</p>
                       <p class="card-text">Precio: {{ producto.precio|floatformat:0 }} COP</p>
-                      <div class="form-group mt-3">
                         <label for="cantidad-{{ producto.idProducto }}">Cantidad:</label>
                         <input type="number" id="cantidad-{{ producto.idProducto }}" name="cantidad_{{ producto.idProducto }}" class="form-control" value="1" min="1">
-                        <div>
-                          <label for="producto-{{ producto.idProducto }}">Pedir:</label>
-                          <input type="checkbox" id="producto-{{ producto.idProducto }}" name="productos_seleccionados[]" value="{{ producto.idProducto }}">
-                        </div>
-
-
-                      </div>
-                      <div class="form-group mt-3">
-                        <label for="nota-{{ producto.idProducto }}">Nota:</label>
-                        <input type="text" id="nota-{{ producto.idProducto }}" name="notas_{{ producto.idProducto }}" class="form-control" placeholder="Alergias, observaciones, etc.">
+                        
+                       
+                          <label for="nota-{{ producto.idProducto }}">Nota:</label>
+                          <input type="text" id="nota-{{ producto.idProducto }}" name="notas_{{ producto.idProducto }}" class="form-control" placeholder="Alergias, observaciones, etc.">
+                       
+                      <div>
+                        <label for="producto-{{ producto.idProducto }}">Pedir:</label>
+                        <input type="checkbox" id="producto-{{ producto.idProducto }}" name="productos_seleccionados[]" value="{{ producto.idProducto }}">
                       </div>
                     </div>
                   </div>
