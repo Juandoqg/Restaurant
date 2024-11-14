@@ -73,3 +73,26 @@ img {
     margin-top: 20px;
 }
 
+/* Estilo para el botón flotante en la parte superior derecha */
+.floating-button {
+    position: fixed; /* Fija el botón en la pantalla */
+    top: 20px; /* Distancia desde la parte superior */
+    right: 20px; /* Distancia desde la parte derecha */
+    z-index: 1000; /* Asegura que el botón esté sobre otros elementos */
+}
+
+.floating-button {
+    position: fixed;
+    bottom: 20px;
+    z-index: 1050;
+    top: 20px;
+    /* Above most elements */
+}
+
+.floating-button a:hover {
+    background-color: darkred;
+}
+
+.floating-button .btn-text {
+    margin-left: 10px; /* Espacio entre el icono y el texto */
+}
