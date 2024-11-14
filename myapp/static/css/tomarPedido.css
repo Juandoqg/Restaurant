@@ -42,9 +42,9 @@ h1 {
 }
 
 .card-body p {
-    margin-bottom: 0px; /* Reducir el espacio entre las líneas de descripción */
+    margin-bottom: 2px; /* Reducir el espacio entre las líneas de descripción */
     line-height: 1.4;
-    font-size: 0.95rem;
+    font-size: 1rem;
 }
 
 /* Estilo para las etiquetas y entradas */

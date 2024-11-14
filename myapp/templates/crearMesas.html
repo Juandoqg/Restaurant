@@ -12,7 +12,7 @@
 </head>
 <body>
     <div class="container">
-        <h1 class="text-center">Crear Mesas</h1>
+        <h1 class="text-center">Registrar mesas</h1>
         <form action="{% url 'crearMesas' %}" method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
             {% csrf_token %}
             <div class="form-group">

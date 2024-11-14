@@ -51,7 +51,7 @@ h1 {
 .card-text {
     margin-bottom: 3px; /* Reducir margen inferior */
     line-height: 1.4;
-    font-size: 0.95rem;
+    font-size: 1rem;
 }
 
 /* Ajustes para la imagen */
