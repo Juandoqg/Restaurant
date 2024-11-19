@@ -5,6 +5,8 @@ document.addEventListener("DOMContentLoaded", function() {
     .then(data => {
       // Verificar los datos
       console.log("Datos recibidos:", data);
+    
+
       
       // Obtener las fechas y valores de la respuesta
       const fechas = data.fechas;

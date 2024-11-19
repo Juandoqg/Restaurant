@@ -5,21 +5,48 @@ from ..models import Pedido
 from ..models import Factura
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
-
+import re
 
 def datos_facturas(request):
     # Obtener datos
     facturas = Factura.objects.all()
 
+    # Inicializar listas para fechas y valores
     fechas = [factura.fecha.strftime('%Y-%m-%d') for factura in facturas]
     valores = [float(factura.valor) for factura in facturas]
+    
+    # Diccionario para acumular las cantidades de productos vendidos por cada mesero
+    cantidad_por_mesero = {}
 
+    # Recorrer cada factura y extraer las cantidades de los productos
+    for factura in facturas:
+        # Extraer la lista de productos y cantidades usando regex
+        productos = re.findall(r'([A-Za-z\s]+)\s\(Cantidad:\s(\d+)\)', factura.cosasPedidas)
 
+        # Iterar sobre los productos y acumular las cantidades
+        for producto, cantidad in productos:
+            cantidad = int(cantidad)
+            # Sumar la cantidad al mesero correspondiente
+            mesero_id = factura.idMesero.id
+            if mesero_id in cantidad_por_mesero:
+                cantidad_por_mesero[mesero_id]['cantidad'] += cantidad
+            else:
+                cantidad_por_mesero[mesero_id] = {'nombre': factura.idMesero.username, 'cantidad': cantidad}
+
+    # Preparar los datos para la respuesta JSON
+    nombres_meseros = [info['nombre'] for info in cantidad_por_mesero.values()]
+    cantidades_vendidas = [info['cantidad'] for info in cantidad_por_mesero.values()]
+
+    # Crear el diccionario de datos para la respuesta JSON
     data = {
         'fechas': fechas,
-        'valores': valores
+        'valores': valores,
+        'nombres_meseros': nombres_meseros,  # Nombres de los meseros
+        'cantidades_vendidas': cantidades_vendidas  # Cantidad total vendida por cada mesero
     }
+
     return JsonResponse(data)
+
 
 
 @login_required            
