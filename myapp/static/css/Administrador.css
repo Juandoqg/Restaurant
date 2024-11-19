@@ -54,10 +54,14 @@ body {
     text-align: center;     /* Centrar el contenido */
 }
 
-canvas {
+canvas  {
     max-width: 100%;        /* Aseguramos que el canvas no desborde */
     height: auto;           /* Mantener la relación de aspecto */
 }
+#histograma, #meseros, #mesas {
+    background-color: #ffffff !important; /* Forzamos el fondo blanco */
+  }
+
 
 .logo {
     text-align: center;

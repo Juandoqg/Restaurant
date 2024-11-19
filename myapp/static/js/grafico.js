@@ -168,24 +168,25 @@ const crearGrafico2 = (nombres, ventas) => {
   });
 };
 
+
 const crearGrafico3 = (mesas, ventas_mesas) => {
   const ctx = document.getElementById('mesas').getContext('2d');
   const myChart = new Chart(ctx, {
-    type: 'pie', // Cambiar el tipo de gráfico a 'pie' (gráfico de torta)
+    type: 'pie', // Tipo de gráfico: Torta
     data: {
       labels: mesas, // Las mesas se pasan como etiquetas en el gráfico
       datasets: [{
         label: 'Total venta por mesa',
         data: ventas_mesas, // Los valores sumados para cada mesa
-        backgroundColor: [
-          'rgba(54, 162, 235, 0.6)', // Color para la primera sección
-          'rgba(255, 99, 132, 0.6)', // Color para la segunda sección
-          'rgba(255, 159, 64, 0.6)', // Color para la tercera sección
-          'rgba(75, 192, 192, 0.6)', // Color para la cuarta sección
-          'rgba(153, 102, 255, 0.6)', // Color para la quinta sección
-          'rgba(255, 159, 64, 0.6)', // Color para más secciones
-          'rgba(255, 205, 86, 0.6)'  // Otro color si hay más mesas
-        ],
+          backgroundColor: [
+            'rgba(54, 162, 235, 1)', // Color para la primera sección
+            'rgba(255, 99, 132, 1)', // Color para la segunda sección
+            'rgba(255, 159, 64, 1)', // Color para la tercera sección
+            'rgba(75, 192, 192, 1)', // Color para la cuarta sección
+            'rgba(153, 102, 255, 1)', // Color para la quinta sección
+            'rgba(255, 159, 64, 1)', // Color para más secciones
+            'rgba(255, 205, 86, 1)'  // Otro color si hay más mesas
+          ],
         borderColor: [
           'rgba(54, 162, 235, 1)', // Color de borde para la primera sección
           'rgba(255, 99, 132, 1)', // Color de borde para la segunda sección
