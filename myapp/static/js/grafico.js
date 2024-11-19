@@ -45,16 +45,15 @@ document.addEventListener("DOMContentLoaded", function() {
 const crearGrafico = (fechas, valores) => {
   const ctx = document.getElementById('histograma').getContext('2d');
   const myChart = new Chart(ctx, {
-    type: 'line', // Tipo de gráfico: Línea
+    type: 'bar', // Cambiar el tipo de gráfico a 'bar' (barras)
     data: {
       labels: fechas, // Las fechas se pasan como etiquetas en el eje X
       datasets: [{
-        label: 'Total venta del dia',
+        label: 'Total venta del día',
         data: valores, // Los valores sumados para cada fecha
-        fill: false, // Evitar el relleno bajo la línea
-        borderColor: 'rgba(54, 162, 235, 1)', // Color de la línea
-        borderWidth: 2, // Ancho de la línea
-        tension: 0.4 // Suaviza la curva de la línea
+        backgroundColor: 'rgba(54, 162, 235, 0.6)', // Color de las barras (azul con opacidad)
+        borderColor: 'rgba(54, 162, 235, 1)', // Color del borde de las barras (azul)
+        borderWidth: 1, // Ancho del borde de las barras
       }]
     },
     options: {
@@ -98,12 +97,6 @@ const crearGrafico = (fechas, valores) => {
         }
       },
       backgroundColor: '#ffffff', // Fondo blanco para el gráfico
-      elements: {
-        line: {
-          borderColor: 'rgba(54, 162, 235, 1)', // línea  azul
-          borderWidth: 2, 
-        }
-      }
     }
   });
 };
