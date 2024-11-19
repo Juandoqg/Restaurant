@@ -168,49 +168,53 @@ const crearGrafico2 = (nombres, ventas) => {
   });
 };
 
-const crearGrafico3= (mesas, ventas_mesas) => {
+const crearGrafico3 = (mesas, ventas_mesas) => {
   const ctx = document.getElementById('mesas').getContext('2d');
   const myChart = new Chart(ctx, {
-    type: 'bar', // Cambiar el tipo de gráfico a 'bar' (barras)
+    type: 'pie', // Cambiar el tipo de gráfico a 'pie' (gráfico de torta)
     data: {
-      labels: mesas, // Las fechas se pasan como etiquetas en el eje X
+      labels: mesas, // Las mesas se pasan como etiquetas en el gráfico
       datasets: [{
-        label: 'Total venta del día',
-        data: ventas_mesas, // Los valores sumados para cada fecha
-        backgroundColor: 'rgba(54, 162, 235, 0.6)', // Color de las barras (azul con opacidad)
-        borderColor: 'rgba(54, 162, 235, 1)', // Color del borde de las barras (azul)
-        borderWidth: 1, // Ancho del borde de las barras
+        label: 'Total venta por mesa',
+        data: ventas_mesas, // Los valores sumados para cada mesa
+        backgroundColor: [
+          'rgba(54, 162, 235, 0.6)', // Color para la primera sección
+          'rgba(255, 99, 132, 0.6)', // Color para la segunda sección
+          'rgba(255, 159, 64, 0.6)', // Color para la tercera sección
+          'rgba(75, 192, 192, 0.6)', // Color para la cuarta sección
+          'rgba(153, 102, 255, 0.6)', // Color para la quinta sección
+          'rgba(255, 159, 64, 0.6)', // Color para más secciones
+          'rgba(255, 205, 86, 0.6)'  // Otro color si hay más mesas
+        ],
+        borderColor: [
+          'rgba(54, 162, 235, 1)', // Color de borde para la primera sección
+          'rgba(255, 99, 132, 1)', // Color de borde para la segunda sección
+          'rgba(255, 159, 64, 1)', // Color de borde para la tercera sección
+          'rgba(75, 192, 192, 1)', // Color de borde para la cuarta sección
+          'rgba(153, 102, 255, 1)', // Color de borde para la quinta sección
+          'rgba(255, 159, 64, 1)', // Color de borde para más secciones
+          'rgba(255, 205, 86, 1)'  // Otro color de borde
+        ],
+        borderWidth: 1, // Ancho del borde de las secciones
       }]
     },
     options: {
       responsive: true,
       plugins: {
         legend: {
-          position: 'top',
+          position: 'top', // Posición de la leyenda
           labels: {
             font: {
               family: 'Arial',
               size: 14
             }
           }
-        }
-      },
-      scales: {
-        y: {
-          beginAtZero: true,
-          ticks: {
-            color: 'black' // Color de los ticks del eje Y
-          },
-          grid: {
-            color: 'rgba(0, 0, 0, 0.1)' // Color de la cuadrícula en el eje Y
-          }
         },
-        x: {
-          ticks: {
-            color: 'black' // Color de los ticks del eje X
-          },
-          grid: {
-            color: 'rgba(0, 0, 0, 0.1)' // Color de la cuadrícula en el eje X
+        tooltip: {
+          callbacks: {
+            label: function(tooltipItem) {
+              return `${tooltipItem.label}: ${tooltipItem.raw}`; // Formato de la etiqueta en el tooltip
+            }
           }
         }
       },
@@ -222,8 +226,8 @@ const crearGrafico3= (mesas, ventas_mesas) => {
           bottom: 10
         }
       },
+      cutoutPercentage: 0, // Esto asegura que sea un gráfico de torta completo (sin agujero en el medio)
       backgroundColor: '#ffffff', // Fondo blanco para el gráfico
     }
   });
 };
-

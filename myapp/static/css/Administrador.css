@@ -40,9 +40,23 @@ body {
 }
 
 .content {
-    flex-grow: 1;
+    display: flex;          /* Usamos Flexbox para la distribución */
+    justify-content: space-around; /* Espaciado entre los gráficos */
+    gap: 20px;              /* Espacio entre cada canvas */
+    flex-wrap: wrap;        /* Permite que los elementos se envuelvan en pantallas pequeñas */
     padding: 20px;
-    position: relative;
+}
+
+/* Contenedor individual para cada canvas */
+.chart-container {
+    width: 100%;            /* Ocupa todo el ancho disponible */
+    max-width: 300px;       /* Limitar el ancho máximo de cada gráfico */
+    text-align: center;     /* Centrar el contenido */
+}
+
+canvas {
+    max-width: 100%;        /* Aseguramos que el canvas no desborde */
+    height: auto;           /* Mantener la relación de aspecto */
 }
 
 .logo {
