@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", function() {
       const valores = data.valores;
 
       const meseros = data.nombres_meseros;
-      const ventas = data.cantidades_vendidas;
+      const ventas = data.cantidades_vendidas_meseros
 
       // Agrupar las facturas por fecha y sumar los valores
       const fechasAgrupadas = [];
