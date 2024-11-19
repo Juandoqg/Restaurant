@@ -12,6 +12,9 @@ document.addEventListener("DOMContentLoaded", function() {
       const fechas = data.fechas;
       const valores = data.valores;
 
+      const meseros = data.nombres_meseros;
+      const ventas = data.cantidades_vendidas;
+
       // Agrupar las facturas por fecha y sumar los valores
       const fechasAgrupadas = [];
       const valoresSumados = [];
@@ -36,6 +39,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
       // Llamar a la función para crear el gráfico con los datos agrupados
       crearGrafico(fechasAgrupadas, valoresSumados);
+      crearGrafico2(meseros,ventas);
     })
     .catch(error => {
       console.error("Error al obtener los datos:", error);
@@ -100,3 +104,63 @@ const crearGrafico = (fechas, valores) => {
     }
   });
 };
+
+const crearGrafico2 = (nombres, ventas) => {
+  const ctx = document.getElementById('meseros').getContext('2d');
+  const myChart = new Chart(ctx, {
+    type: 'bar', // Tipo de gráfico: Barras
+    data: {
+      labels: nombres, // Las etiquetas serán los nombres de los meseros
+      datasets: [{
+        label: 'Venta de meseros',
+        data: ventas, // Las ventas totales por mesero
+        backgroundColor: 'rgba(54, 162, 235, 0.6)', // Color azul con opacidad de las barras
+        borderColor: 'rgba(54, 162, 235, 1)', // Color del borde de las barras (azul)
+        borderWidth: 1, // Ancho del borde de las barras
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: {
+          position: 'top', // Posición de la leyenda
+          labels: {
+            font: {
+              family: 'Arial', // Tipo de fuente para la leyenda
+              size: 14 // Tamaño de la fuente
+            }
+          }
+        }
+      },
+      scales: {
+        y: {
+          beginAtZero: true, // Asegura que el eje Y comience en cero
+          ticks: {
+            color: 'black' // Color de los números en el eje Y
+          },
+          grid: {
+            color: 'rgba(0, 0, 0, 0.1)' // Color de las líneas de la cuadrícula en el eje Y
+          }
+        },
+        x: {
+          ticks: {
+            color: 'black' // Color de los números en el eje X
+          },
+          grid: {
+            color: 'rgba(0, 0, 0, 0.1)' // Color de las líneas de la cuadrícula en el eje X
+          }
+        }
+      },
+      layout: {
+        padding: {
+          left: 10,
+          right: 10,
+          top: 10,
+          bottom: 10
+        }
+      },
+      backgroundColor: '#ffffff', // Fondo blanco para el gráfico
+    }
+  });
+};
+

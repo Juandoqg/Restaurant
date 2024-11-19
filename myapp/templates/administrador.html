@@ -51,9 +51,8 @@
 
       </div>
       <div class="content">
-        <i class="fas fa-bars toggle-sidebar"></i>
         <canvas id="histograma" width="200" height="100"></canvas>
-
+        <canvas id="meseros" width="200" height="100"></canvas>
       </div>
     </div>
     <a href="{% url 'signout' %}" class="btn btn-secondary btn-sm logout">Cerrar sesión</a>
@@ -63,14 +62,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.7.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-    <script>
-      $(document).ready(function () {
-        $('.toggle-sidebar').click(function () {
-          $('#dashboard-container').toggleClass('hide-sidebar')
-          $('.logout').toggle() // This will toggle the visibility of the logout button
-        })
-      })
-    </script>
+  
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <script src="{% static 'js/grafico.js' %}"></script>
