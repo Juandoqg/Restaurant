@@ -16,11 +16,19 @@ document.addEventListener("DOMContentLoaded", function() {
       const ventas = data.cantidades_vendidas_meseros
       // datos mesa grafico
       const mesas = data.nombres_mesas
-      const ventas_mesas = data.cantidades_vendidas_mesas 
+      
 
       // Agrupar las facturas por fecha y sumar los valores
       const fechasAgrupadas = [];
       const valoresSumados = [];
+      const ventas_mesas = data.cantidades_vendidas_mesas; // Asegúrate de que esta variable esté definida correctamente
+let total_venta_mesas = 0; // Inicializamos el total en 0
+
+ventas_mesas.forEach(cantidad => {
+  total_venta_mesas += cantidad;  // Sumamos cada valor al total
+});
+
+console.log('Total venta mesas:', total_venta_mesas);
 
       // Crear un objeto para almacenar las fechas únicas y sus valores sumados
       const sumaPorFecha = {};
@@ -43,7 +51,7 @@ document.addEventListener("DOMContentLoaded", function() {
       // Llamar a la función para crear el gráfico con los datos agrupados
       crearGrafico(fechasAgrupadas, valoresSumados);
       crearGrafico2(meseros,ventas);
-      crearGrafico3(mesas, ventas_mesas);
+      crearGrafico3(mesas, ventas_mesas, total_venta_mesas);
     })
     .catch(error => {
       console.error("Error al obtener los datos:", error);
@@ -169,7 +177,7 @@ const crearGrafico2 = (nombres, ventas) => {
 };
 
 
-const crearGrafico3 = (mesas, ventas_mesas) => {
+const crearGrafico3 = (mesas, ventas_mesas, total_venta_mesas) => {
   const ctx = document.getElementById('mesas').getContext('2d');
   const myChart = new Chart(ctx, {
     type: 'pie', // Tipo de gráfico: Torta
@@ -178,15 +186,15 @@ const crearGrafico3 = (mesas, ventas_mesas) => {
       datasets: [{
         label: 'Total venta por mesa',
         data: ventas_mesas, // Los valores sumados para cada mesa
-          backgroundColor: [
-            'rgba(54, 162, 235, 1)', // Color para la primera sección
-            'rgba(255, 99, 132, 1)', // Color para la segunda sección
-            'rgba(255, 159, 64, 1)', // Color para la tercera sección
-            'rgba(75, 192, 192, 1)', // Color para la cuarta sección
-            'rgba(153, 102, 255, 1)', // Color para la quinta sección
-            'rgba(255, 159, 64, 1)', // Color para más secciones
-            'rgba(255, 205, 86, 1)'  // Otro color si hay más mesas
-          ],
+        backgroundColor: [
+          'rgba(54, 162, 235, 1)', // Color para la primera sección
+          'rgba(255, 99, 132, 1)', // Color para la segunda sección
+          'rgba(255, 159, 64, 1)', // Color para la tercera sección
+          'rgba(75, 192, 192, 1)', // Color para la cuarta sección
+          'rgba(153, 102, 255, 1)', // Color para la quinta sección
+          'rgba(255, 159, 64, 1)', // Color para más secciones
+          'rgba(255, 205, 86, 1)'  // Otro color si hay más mesas
+        ],
         borderColor: [
           'rgba(54, 162, 235, 1)', // Color de borde para la primera sección
           'rgba(255, 99, 132, 1)', // Color de borde para la segunda sección
@@ -216,6 +224,20 @@ const crearGrafico3 = (mesas, ventas_mesas) => {
             label: function(tooltipItem) {
               return `${tooltipItem.label}: ${tooltipItem.raw}`; // Formato de la etiqueta en el tooltip
             }
+          }
+        },
+        title: {
+          display: true, // Habilitar el título
+          text: `Total ventas de mesas: ${total_venta_mesas}`, // Título dinámico con el valor de total_venta_mesas
+          font: {
+            size: 18, // Tamaño de la fuente del título
+            family: 'Arial', // Tipo de fuente
+            weight: 'bold' // Peso de la fuente
+          },
+          color: '#333', // Color del título
+          padding: {
+            top: 10,    // Espacio superior
+            bottom: 30  // Espacio inferior
           }
         }
       },
