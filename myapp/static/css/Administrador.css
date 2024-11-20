@@ -107,49 +107,61 @@ canvas {
 }
 .content {
     display: flex;
-    flex-wrap: wrap;                    /* Permite que los contenedores se muevan a una nueva línea */
-    gap: 20px;                           /* Espacio entre los gráficos */
-    justify-content: flex-start;         /* Alinea los elementos al principio */
-    padding: 20px;
-    box-sizing: border-box;              /* Asegura que el padding no afecte el ancho total */
+    justify-content: flex-start; /* Alinea los elementos en fila */
+    align-items: flex-start; /* Alinea los elementos en la parte superior */
+    width: 100%; /* Asegura que el contenedor ocupe todo el ancho disponible */
+    flex-wrap: wrap; /* Permite que los elementos se ajusten a nuevas filas si es necesario */
 }
+
+/* Contenedor para el primer gráfico */
 .chart-container {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 10px;
-    max-height: 600px;                   /* Altura máxima */
-    max-width: 800px;                    /* Limita el ancho máximo */
+    margin-top: 5px;
+    max-height: 800px;
+    max-width: 950px;
     width: 100%;
     text-align: center;
     margin-bottom: 20px;
+    margin-left: 40px;
+}
+
+/* Contenedor para los gráficos 2 y 3 en columna */
+.chart-column {
+    display: flex;
+    flex-direction: column; /* Alinea los contenedores 2 y 3 en una columna */
+    justify-content: flex-start;
+    align-items: center;
 }
 
 /* Contenedor para el segundo gráfico */
-.chart-container2 {
+.chart-container2{
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 24px;
-    max-height: 300px;                   /* Altura máxima */
-    max-width: 400px;                    /* Limita el ancho máximo */
-    width: 100%;
+    width: 100%; /* Ocupa todo el ancho disponible */
+    height: 100%;
     text-align: center;
-    margin-right: -50px;
-}
+    margin-bottom: 20px;
+    max-height: 400px;
+    max-width: 500px;
+    margin-left: 40px;
+    margin-top:35px;
 
-/* Contenedor para el tercer gráfico */
+}
 .chart-container3 {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 330px;                    /* Ajusta la distancia con el contenedor anterior */
-    max-height: 300px;                   /* Altura máxima */
-    max-width: 300px;                    /* Limita el ancho máximo */
     width: 100%;
+    height: 100%; /* Ocupa todo el ancho disponible */
     text-align: center;
     margin-bottom: 20px;
-    margin-left: -320px;  
+    max-height: 450px;
+    max-width: 450px;
+    margin-left: 40px;
+
 }
 
 #histograma {

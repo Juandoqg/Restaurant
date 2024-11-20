@@ -47,20 +47,23 @@
           <a href="{% url 'signout'%}" class="d-flex align-items-center justify-content-start w-100"> 
             </i> Cerrar sesión
           </a>
-        </div>
+        </div>  
 
       </div>
       <div class="content">
-        <div class="chart-container"> 
-            <canvas id="histograma" width="800" height="600"></canvas>
+        <div class="chart-container">
+            <canvas id="histograma" width="950" height="750"></canvas>
         </div>
-        <div class="chart-container2">
-            <canvas id="meseros" width="400" height="300"></canvas>
-            
+        <div class="chart-column">
+            <div class="chart-container2">
+                <canvas id="meseros" width="500" height="350"></canvas>
+            </div>
+            <div class="chart-container3">
+                <canvas id="mesas" width="500" height="350"></canvas>
+            </div>
         </div>
-        <div class="chart-container3">
-            <canvas id="mesas" width="400" height="300"></canvas>
-        </div>
+    </div>
+    
     </div>
     </div>
     <a href="{% url 'signout' %}" class="btn btn-secondary btn-sm logout">Cerrar sesión</a>
