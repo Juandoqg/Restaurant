@@ -52,6 +52,11 @@ console.log('Total venta mesas:', total_venta_mesas);
       crearGrafico(fechasAgrupadas, valoresSumados);
       crearGrafico2(meseros,ventas);
       crearGrafico3(mesas, ventas_mesas, total_venta_mesas);
+      document.getElementById('descargar-pdf').addEventListener('click', function() {
+        descargarPDF('histograma', 'grafico_ventas_dia.pdf', 950, 750); // Tamaños del primer gráfico
+        descargarPDF('meseros', 'grafico_ventas_meseros.pdf', 500, 350); // Tamaños del segundo gráfico
+        descargarPDF('mesas', 'grafico_ventas_mesas.pdf', 500, 500); 
+      });
     })
     .catch(error => {
       console.error("Error al obtener los datos:", error);
@@ -291,3 +296,18 @@ const crearGrafico3 = (mesas, ventas_mesas, total_venta_mesas) => {
     }
   });
 };
+
+function descargarPDF(canvasId, nombreArchivo, width, height) {
+  const { jsPDF } = window.jspdf; // Acceder a jsPDF v2.x
+  const doc = new jsPDF();
+  
+  // Convertir el gráfico en imagen
+  const canvas = document.getElementById(canvasId);
+  const imgData = canvas.toDataURL('image/png'); // Convertir el canvas a imagen
+  
+  // Agregar la imagen al PDF
+  doc.addImage(imgData, 'PNG', 10, 10, width * 0.75, height * 0.75); // Ajustar el tamaño al 75% del canvas original
+
+  // Guardar el PDF
+  doc.save(nombreArchivo);
+}
