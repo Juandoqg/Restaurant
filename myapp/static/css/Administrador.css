@@ -38,26 +38,17 @@ body {
 .sidebar-option a i {
     margin-right: 10px;
 }
-
-.content {
-    display: flex;          /* Usamos Flexbox para la distribución */
-    justify-content: space-around; /* Espaciado entre los gráficos */
-    gap: 20px;              /* Espacio entre cada canvas */
-    flex-wrap: wrap;        /* Permite que los elementos se envuelvan en pantallas pequeñas */
-    padding: 20px;
-}
-
+ 
 /* Contenedor individual para cada canvas */
-.chart-container {
-    width: 100%;            /* Ocupa todo el ancho disponible */
-    max-width: 300px;       /* Limitar el ancho máximo de cada gráfico */
-    text-align: center;     /* Centrar el contenido */
+
+
+canvas {
+    width: 100% !important;            /* Aseguramos que el canvas no desborde */
+    height: auto;                      /* Mantener la relación de aspecto */
 }
 
-canvas  {
-    max-width: 100%;        /* Aseguramos que el canvas no desborde */
-    height: auto;           /* Mantener la relación de aspecto */
-}
+/* Estilos específicos para cada contenedor de gráfico */
+ 
 #histograma, #meseros, #mesas {
     background-color: #ffffff !important; /* Forzamos el fondo blanco */
   }
@@ -124,11 +115,52 @@ canvas  {
     margin-bottom: 20px;
     color: #333;
 }
-
+.content {
+    display: flex;
+    flex-wrap: wrap;                    /* Permite que los contenedores se muevan a una nueva línea */
+    gap: 20px;                           /* Espacio entre los gráficos */
+    justify-content: flex-start;         /* Alinea los elementos al principio */
+    padding: 20px;
+    box-sizing: border-box;              /* Asegura que el padding no afecte el ancho total */
+}
 .chart-container {
-    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 30px;
+    margin-top: 10px;
+    max-height: 600px;                   /* Altura máxima */
+    max-width: 800px;                    /* Limita el ancho máximo */
+    width: 100%;
+    text-align: center;
+    margin-bottom: 20px;
 }
+
+/* Contenedor para el segundo gráfico */
+.chart-container2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 24px;
+    max-height: 300px;                   /* Altura máxima */
+    max-width: 400px;                    /* Limita el ancho máximo */
+    width: 100%;
+    text-align: center;
+    margin-bottom: 20px;
+    margin-right: -50px;
+}
+
+/* Contenedor para el tercer gráfico */
+.chart-container3 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 330px;                    /* Ajusta la distancia con el contenedor anterior */
+    max-height: 300px;                   /* Altura máxima */
+    max-width: 300px;                    /* Limita el ancho máximo */
+    width: 100%;
+    text-align: center;
+    margin-bottom: 20px;
+    margin-left: -320px;  
+}
+
+ 

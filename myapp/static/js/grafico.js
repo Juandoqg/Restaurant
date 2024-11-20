@@ -93,6 +93,15 @@ const crearGrafico = (fechas, valores) => {
           },
           grid: {
             color: 'rgba(0, 0, 0, 0.1)' // Color de la cuadrícula en el eje Y
+          },
+          title: {
+            display: true,
+            text: 'Cantidad', // Título del eje Y
+            color: 'black', // Color del título del eje Y
+            font: {
+              size: 16,  // Tamaño de la fuente del título
+              family: 'Arial' // Fuente del título
+            }
           }
         },
         x: {
@@ -101,6 +110,15 @@ const crearGrafico = (fechas, valores) => {
           },
           grid: {
             color: 'rgba(0, 0, 0, 0.1)' // Color de la cuadrícula en el eje X
+          },
+          title: {
+            display: true,
+            text: 'Día', // Título del eje X
+            color: 'black', // Color del título del eje X
+            font: {
+              size: 16,  // Tamaño de la fuente del título
+              family: 'Arial' // Fuente del título
+            }
           }
         }
       },
@@ -116,6 +134,7 @@ const crearGrafico = (fechas, valores) => {
     }
   });
 };
+
 
 const crearGrafico2 = (nombres, ventas) => {
   const ctx = document.getElementById('meseros').getContext('2d');
@@ -146,20 +165,38 @@ const crearGrafico2 = (nombres, ventas) => {
       },
       scales: {
         y: {
-          beginAtZero: true, // Asegura que el eje Y comience en cero
+          beginAtZero: true,
           ticks: {
-            color: 'black' // Color de los números en el eje Y
+            color: 'black' // Color de los ticks del eje Y
           },
           grid: {
-            color: 'rgba(0, 0, 0, 0.1)' // Color de las líneas de la cuadrícula en el eje Y
+            color: 'rgba(0, 0, 0, 0.1)' // Color de la cuadrícula en el eje Y
+          },
+          title: {
+            display: true,
+            text: 'Cantidad', // Título del eje Y
+            color: 'black', // Color del título del eje Y
+            font: {
+              size: 16,  // Tamaño de la fuente del título
+              family: 'Arial' // Fuente del título
+            }
           }
         },
         x: {
           ticks: {
-            color: 'black' // Color de los números en el eje X
+            color: 'black' // Color de los ticks del eje X
           },
           grid: {
-            color: 'rgba(0, 0, 0, 0.1)' // Color de las líneas de la cuadrícula en el eje X
+            color: 'rgba(0, 0, 0, 0.1)' // Color de la cuadrícula en el eje X
+          },
+          title: {
+            display: true,
+            text: 'Nombre de usuario', // Título del eje X
+            color: 'black', // Color del título del eje X
+            font: {
+              size: 16,  // Tamaño de la fuente del título
+              family: 'Arial' // Fuente del título
+            }
           }
         }
       },
@@ -228,7 +265,7 @@ const crearGrafico3 = (mesas, ventas_mesas, total_venta_mesas) => {
         },
         title: {
           display: true, // Habilitar el título
-          text: `Total ventas de mesas: ${total_venta_mesas}`, // Título dinámico con el valor de total_venta_mesas
+          text: `Ventas de mesas x productos: ${total_venta_mesas}`, // Título dinámico con el valor de total_venta_mesas
           font: {
             size: 18, // Tamaño de la fuente del título
             family: 'Arial', // Tipo de fuente
@@ -237,7 +274,7 @@ const crearGrafico3 = (mesas, ventas_mesas, total_venta_mesas) => {
           color: '#333', // Color del título
           padding: {
             top: 10,    // Espacio superior
-            bottom: 30  // Espacio inferior
+            bottom: 20  // Espacio inferior
           }
         }
       },
