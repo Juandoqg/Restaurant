@@ -11,7 +11,7 @@ body {
 }
 
 .sidebar {
-    width: 250px;
+    width: 300px;
     background-color: #fbe5ad;
     transition: width 0.5s;
 }
@@ -98,16 +98,6 @@ canvas {
     display: block;
 }
 
-/* Estilos específicos para el gráfico */
-#histograma {
-    width: 100%; /* El gráfico ocupará todo el ancho disponible */
-    height: 400px; /* Altura del gráfico */
-    background-color: white; /* Fondo blanco */
-    margin-top: 30px;
-    border-radius: 8px; /* Bordes redondeados */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
-  }
-  
   
 
 .content h2 {
@@ -145,7 +135,6 @@ canvas {
     max-width: 400px;                    /* Limita el ancho máximo */
     width: 100%;
     text-align: center;
-    margin-bottom: 20px;
     margin-right: -50px;
 }
 
@@ -163,4 +152,23 @@ canvas {
     margin-left: -320px;  
 }
 
- 
+#histograma {
+    width: 100%; /* El gráfico ocupará todo el ancho disponible */
+    background-color: white; /* Fondo blanco */
+    margin-top: 30px;
+    border-radius: 8px; /* Bordes redondeados */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
+  }
+  #meseros {
+    width: 100%; /* El gráfico ocupará todo el ancho disponible */
+    background-color: white; /* Fondo blanco */
+    margin-top: 0px;
+    border-radius: 8px; /* Bordes redondeados */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
+  }
+  #mesas {
+    width: 100%; /* El gráfico ocupará todo el ancho disponible */
+    background-color: white; /* Fondo blanco */
+    border-radius: 8px; /* Bordes redondeados */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
+  }

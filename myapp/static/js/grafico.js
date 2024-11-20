@@ -67,8 +67,8 @@ const crearGrafico = (fechas, valores) => {
       datasets: [{
         label: 'Total venta del día',
         data: valores, // Los valores sumados para cada fecha
-        backgroundColor: 'rgba(54, 162, 235, 0.6)', // Color de las barras (azul con opacidad)
-        borderColor: 'rgba(54, 162, 235, 1)', // Color del borde de las barras (azul)
+        backgroundColor: 'rgba(255, 165, 0, 0.6)', // Color naranja con opacidad de las barras
+        borderColor: 'rgba(255, 165, 0, 0.6)', // Color del borde de las barras (azul)
         borderWidth: 1, // Ancho del borde de las barras
       }]
     },
@@ -145,8 +145,8 @@ const crearGrafico2 = (nombres, ventas) => {
       datasets: [{
         label: 'Venta de meseros',
         data: ventas, // Las ventas totales por mesero
-        backgroundColor: 'rgba(54, 162, 235, 0.6)', // Color azul con opacidad de las barras
-        borderColor: 'rgba(54, 162, 235, 1)', // Color del borde de las barras (azul)
+        backgroundColor: 'rgba(255, 165, 0, 0.6)', // Color naranja con opacidad de las barras
+        borderColor: 'rgba(255, 165, 0, 0.6)', // Color del borde de las barras (azul)
         borderWidth: 1, // Ancho del borde de las barras
       }]
     },
