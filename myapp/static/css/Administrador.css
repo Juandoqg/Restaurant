@@ -11,7 +11,7 @@ body {
 }
 
 .sidebar {
-    width: 300px;
+    width: 250px;
     background-color: #fbe5ad;
     transition: width 0.5s;
 }
