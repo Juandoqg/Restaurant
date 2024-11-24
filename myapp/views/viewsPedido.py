@@ -42,10 +42,9 @@ def enviar_factura(request, idMesa):
     email.content_subtype = 'html'  # Define que el contenido es HTML
     email.send()
     Pedido.objects.filter(mesa=idMesa).delete()
-    messages.success(request, 'Correo enviado correctamente.')
 
     # Redirigir a la vista de mesas después de enviar el correo y eliminar los pedidos
-    return redirect('verMesas') 
+    return JsonResponse({'message': 'Correo enviado correctamente.'})
     
 
 

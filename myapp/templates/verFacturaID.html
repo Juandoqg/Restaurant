@@ -107,30 +107,39 @@
             });
         });
 
-        document.getElementById('emailForm').addEventListener('submit', function(event) {
-        event.preventDefault();
-        const email = document.getElementById('email').value;
-        console.log(email)
+        
+    document.getElementById('emailForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+    const email = document.getElementById('email').value;
 
-        fetch(`/enviar_factura/${idMesa}/`, {
-    method: 'POST',
-    headers: {
-        'Content-Type': 'application/json',
-        'X-CSRFToken': '{{ csrf_token }}',
-    },
-    body: JSON.stringify({ email: email }),
-})
-.then(response => response.json())
-.then(data => {
-    if (data.message) {
-        Swal.fire('Éxito', data.message, 'success');
-        $('#emailModal').modal('hide');
-    } else if (data.error) {
-        Swal.fire('Error', data.error, 'error');
-    }
-})
-.catch(error => console.error('Error:', error));
+    fetch(`/enviar_factura/${idMesa}/`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': '{{ csrf_token }}',  // Asegúrate de que el CSRF token está siendo enviado
+        },
+        body: JSON.stringify({ email: email }),
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.message) {
+            // Muestra mensaje de éxito con SweetAlert2
+            Swal.fire('Éxito', data.message, 'success')
+                .then(() => {
+                    // Después de mostrar el mensaje de éxito, redirige a la vista de mesas
+                    window.location.href = '/verMesas/';  // Cambia a la URL correcta de tu vista de mesas
+                });
+        } else if (data.error) {
+            // Muestra mensaje de error con SweetAlert2
+            Swal.fire('Error', data.error, 'error');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        Swal.fire('Error', 'Hubo un problema al enviar el correo.', 'error');
     });
+});
+
     </script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
