@@ -128,3 +128,10 @@ AUTH_USER_MODEL = 'myapp.User'
 CSRF_TRUSTED_ORIGINS = [
     'https://restaurant-production-3c06.up.railway.app',
 ]
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'patronauso12345@gmail.com'  # Cambia por tu correo
+EMAIL_HOST_PASSWORD = 'negc yunq gpan sbvm'  # Cambia por tu contraseña o usa una app password si usas Gmail

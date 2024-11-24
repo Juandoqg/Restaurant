@@ -1,8 +1,47 @@
 from django.shortcuts import render, redirect
 from ..models import Producto
 from ..models import Pedido
+from ..models import Mesa
 from django.contrib.auth.decorators import login_required
-# Create your views here.
+from django.core.mail import EmailMessage
+from django.template.loader import render_to_string
+from django.conf import settings
+from django.http import JsonResponse
+import json
+def enviar_factura(request, idMesa):
+    # Obtén los datos necesarios de la factura (por ejemplo, pedidos, total, etc.)
+    pedidos = Pedido.objects.filter(mesa=idMesa)  # Filtra los pedidos por la mesa
+    mesa = Mesa.objects.get(idMesa=idMesa)
+    total = sum([pedido.idProducto.precio * pedido.cantidad for pedido in pedidos])
+    total_quantity = sum([pedido.cantidad for pedido in pedidos])
+
+    user_id = pedidos.first().idMesero.id
+
+    data = json.loads(request.body)
+    destinatario = data.get('email')
+    # Renderiza la plantilla HTML como string
+    html_content = render_to_string('factura_email.html', {
+                'idMesa': mesa.numero,
+                'user_id': user_id,  # Aquí accedemos al id del mesero del primer pedido
+                'pedidos': pedidos,
+                'total': total,
+                'total_quantity': total_quantity,
+            })
+    if not destinatario:
+        return JsonResponse({'error': 'Por favor, proporciona un correo electrónico.'}, status=400)
+
+    # Crea el correo
+    email = EmailMessage(
+        subject='Factura de La Patrana',
+        body=html_content,
+        from_email=settings.EMAIL_HOST_USER,
+        to=[destinatario],
+    )
+    email.content_subtype = 'html'  # Define que el contenido es HTML
+    email.send()
+
+    return JsonResponse({'message': 'Correo enviado correctamente.'})
+
 
 @login_required
 def verPedido(request, idMesa):
