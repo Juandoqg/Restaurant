@@ -8,6 +8,8 @@ from django.template.loader import render_to_string
 from django.conf import settings
 from django.http import JsonResponse
 import json
+from django.contrib import messages
+
 def enviar_factura(request, idMesa):
     # Obtén los datos necesarios de la factura (por ejemplo, pedidos, total, etc.)
     pedidos = Pedido.objects.filter(mesa=idMesa)  # Filtra los pedidos por la mesa
@@ -39,8 +41,12 @@ def enviar_factura(request, idMesa):
     )
     email.content_subtype = 'html'  # Define que el contenido es HTML
     email.send()
+    Pedido.objects.filter(mesa=idMesa).delete()
+    messages.success(request, 'Correo enviado correctamente.')
 
-    return JsonResponse({'message': 'Correo enviado correctamente.'})
+    # Redirigir a la vista de mesas después de enviar el correo y eliminar los pedidos
+    return redirect('verMesas') 
+    
 
 
 @login_required
