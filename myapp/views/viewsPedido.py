@@ -8,7 +8,8 @@ from django.template.loader import render_to_string
 from django.conf import settings
 from django.http import JsonResponse
 import json
-from django.contrib import messages
+from django.utils import timezone
+
 
 def enviar_factura(request, idMesa):
     # Obtén los datos necesarios de la factura (por ejemplo, pedidos, total, etc.)
@@ -18,6 +19,7 @@ def enviar_factura(request, idMesa):
     total_quantity = sum([pedido.cantidad for pedido in pedidos])
 
     user_id = pedidos.first().idMesero.id
+    hora_actual = timezone.now()
 
     data = json.loads(request.body)
     destinatario = data.get('email')
@@ -26,6 +28,7 @@ def enviar_factura(request, idMesa):
                 'idMesa': mesa.numero,
                 'user_id': user_id,  # Aquí accedemos al id del mesero del primer pedido
                 'pedidos': pedidos,
+                'hora': hora_actual,
                 'total': total,
                 'total_quantity': total_quantity,
             })
