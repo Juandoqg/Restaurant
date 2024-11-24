@@ -184,3 +184,27 @@ canvas {
     border-radius: 8px; /* Bordes redondeados */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
   }
+  #descargar-pdf {
+    background-color: green; /* Color azul */
+    color: white; /* Texto blanco */
+    font-size: 16px;
+    padding: 10px 20px; /* Espaciado interno */
+    border: none; /* Sin bordes */
+    border-radius: 5px; /* Bordes redondeados */
+    cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Sombra */
+    transition: all 0.3s ease; /* Animación suave */
+    margin-left: 40px;
+
+  }
+  
+  #descargar-pdf:hover {
+    background-color: green; /* Color azul más oscuro al pasar el cursor */
+    box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.2); /* Aumenta la sombra */
+    transform: translateY(-2px); /* Eleva ligeramente el botón */
+  }
+  
+  #descargar-pdf:active {
+    background-color: green; /* Color más oscuro al hacer clic */
+    transform: translateY(2px); /* Deprime ligeramente el botón */
+  }
