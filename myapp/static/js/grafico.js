@@ -5,36 +5,15 @@ document.addEventListener("DOMContentLoaded", function() {
     .then(data => {
       // Verificar los datos
       console.log("Datos recibidos:", data);
-    
-
       
       // Obtener las fechas y valores de la respuesta
-      const fechas = data.fechas;
+      const fechas = data.fechas; // Formato yyyy-mm-dd
       const valores = data.valores;
-      // datos mesero grafico
-      const meseros = data.nombres_meseros;
-      const ventas = data.cantidades_vendidas_meseros
-      // datos mesa grafico
-      const mesas = data.nombres_mesas
       
+      // Crear un objeto para almacenar las fechas agrupadas por "Mes - Semana del mes" y sus valores sumados
+      const sumaPorSemanaDelMes = {};
 
-      // Agrupar las facturas por fecha y sumar los valores
-      const fechasAgrupadas = [];
-      const valoresSumados = [];
-      const ventas_mesas = data.cantidades_vendidas_mesas; // Asegúrate de que esta variable esté definida correctamente
-let total_venta_mesas = 0; // Inicializamos el total en 0
-
-ventas_mesas.forEach(cantidad => {
-  total_venta_mesas += cantidad;  // Sumamos cada valor al total
-});
-
-console.log('Total venta mesas2:', total_venta_mesas);
-
-      // Crear un objeto para almacenar las fechas únicas y sus valores sumados
-      const sumaPorMes = {};
-      console.log('sumaPorMes :', sumaPorMes );
-
-      // Agrupar por mes
+      // Agrupar por mes y semana del mes
       fechas.forEach((fechaStr, index) => {
         // Convertir la fecha de formato 'yyyy-mm-dd' a un objeto Date
         const fecha = new Date(fechaStr); // Esto crea una fecha válida a partir de una cadena 'yyyy-mm-dd'
@@ -43,31 +22,46 @@ console.log('Total venta mesas2:', total_venta_mesas);
         const mes = fecha.toLocaleString('es-ES', { month: 'long' });
         const año = fecha.getFullYear(); // Año de la fecha
 
-        // Crear una clave combinada 'Mes - Año'
-        const clave = `${mes} ${año}`;
-        console.log('Clave:', clave);
+        // Obtener el día del mes
+        const diaDelMes = fecha.getDate();
 
-        // Agrupar las ventas por 'Mes - Año'
-        if (sumaPorMes[clave]) {
-          sumaPorMes[clave] += valores[index];
+        // Calcular la semana del mes (dividimos el día entre 7 y redondeamos hacia arriba)
+        const semanaDelMes = Math.ceil(diaDelMes / 7);
+
+        // Crear una clave combinada 'Mes - Semana del mes'
+        const clave = `${mes} Semana ${semanaDelMes} ${año}`;
+
+        // Agrupar las ventas por 'Mes - Semana del mes'
+        if (sumaPorSemanaDelMes[clave]) {
+          sumaPorSemanaDelMes[clave] += valores[index];
         } else {
-          sumaPorMes[clave] = valores[index];
+          sumaPorSemanaDelMes[clave] = valores[index];
         }
       });
 
-      // Convertir el objeto de fechas agrupadas a arreglos para las etiquetas y valores del gráfico
-      for (const fecha in sumaPorMes) {
-        fechasAgrupadas.push(fecha);
-        valoresSumados.push(sumaPorMes[fecha]);
+      // Convertir el objeto agrupado en arrays para las etiquetas y valores del gráfico
+      const fechasAgrupadas = [];
+      const valoresSumados = [];
+
+      // Iterar sobre las claves y agregar las etiquetas y los valores
+      for (const clave in sumaPorSemanaDelMes) {
+        fechasAgrupadas.push(clave);  // Ej: "Abril Semana 1 2025"
+        valoresSumados.push(sumaPorSemanaDelMes[clave]);  // Ventas sumadas
       }
 
       // Llamar a la función para crear el gráfico con los datos agrupados
       crearGrafico(fechasAgrupadas, valoresSumados);
-      crearGrafico2(meseros,ventas);
-      crearGrafico3(mesas, ventas_mesas, total_venta_mesas);
+
+      // Otros gráficos si es necesario
+      const meseros = data.nombres_meseros;
+      const ventas_meseros = data.cantidades_vendidas_meseros;
+      const mesas = data.nombres_mesas;
+      crearGrafico2(meseros, ventas_meseros);
+      crearGrafico3(mesas, data.cantidades_vendidas_mesas, 0);
+
       document.getElementById('descargar-pdf').addEventListener('click', function() {
-        descargarPDF('histograma', 'grafico_ventas_dia.pdf', 180, 160); // Tamaños del primer gráfico
-        descargarPDF('meseros', 'grafico_ventas_meseros.pdf', 180, 160 ); // Tamaños del segundo gráfico
+        descargarPDF('histograma', 'grafico_ventas_mes_semana.pdf', 180, 160); 
+        descargarPDF('meseros', 'grafico_ventas_meseros.pdf', 180, 160 ); 
         descargarPDF('mesas', 'grafico_ventas_mesas.pdf', 180, 160); 
       });
     })
@@ -75,6 +69,7 @@ console.log('Total venta mesas2:', total_venta_mesas);
       console.error("Error al obtener los datos:", error);
     });
 });
+
 
 const crearGrafico = (fechas, valores) => {
   const ctx = document.getElementById('histograma').getContext('2d');
