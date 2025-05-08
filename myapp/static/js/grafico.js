@@ -28,24 +28,37 @@ ventas_mesas.forEach(cantidad => {
   total_venta_mesas += cantidad;  // Sumamos cada valor al total
 });
 
-console.log('Total venta mesas:', total_venta_mesas);
+console.log('Total venta mesas2:', total_venta_mesas);
 
       // Crear un objeto para almacenar las fechas únicas y sus valores sumados
-      const sumaPorFecha = {};
+      const sumaPorMes = {};
+      console.log('sumaPorMes :', sumaPorMes );
 
-      // Agrupar por fecha
-      fechas.forEach((fecha, index) => {
-        if (sumaPorFecha[fecha]) {
-          sumaPorFecha[fecha] += valores[index]; // Sumar el valor de las facturas del mismo día
+      // Agrupar por mes
+      fechas.forEach((fechaStr, index) => {
+        // Convertir la fecha de formato 'yyyy-mm-dd' a un objeto Date
+        const fecha = new Date(fechaStr); // Esto crea una fecha válida a partir de una cadena 'yyyy-mm-dd'
+
+        // Obtener el mes (nombre) y el año de la fecha
+        const mes = fecha.toLocaleString('es-ES', { month: 'long' });
+        const año = fecha.getFullYear(); // Año de la fecha
+
+        // Crear una clave combinada 'Mes - Año'
+        const clave = `${mes} ${año}`;
+        console.log('Clave:', clave);
+
+        // Agrupar las ventas por 'Mes - Año'
+        if (sumaPorMes[clave]) {
+          sumaPorMes[clave] += valores[index];
         } else {
-          sumaPorFecha[fecha] = valores[index]; // Crear una nueva entrada para la fecha
+          sumaPorMes[clave] = valores[index];
         }
       });
 
       // Convertir el objeto de fechas agrupadas a arreglos para las etiquetas y valores del gráfico
-      for (const fecha in sumaPorFecha) {
+      for (const fecha in sumaPorMes) {
         fechasAgrupadas.push(fecha);
-        valoresSumados.push(sumaPorFecha[fecha]);
+        valoresSumados.push(sumaPorMes[fecha]);
       }
 
       // Llamar a la función para crear el gráfico con los datos agrupados
