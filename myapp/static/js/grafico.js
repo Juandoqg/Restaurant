@@ -49,20 +49,24 @@ document.addEventListener("DOMContentLoaded", function() {
         valoresSumados.push(sumaPorSemanaDelMes[clave]);  // Ventas sumadas
       }
 
-      // Llamar a la función para crear el gráfico con los datos agrupados
-      crearGrafico(fechasAgrupadas, valoresSumados);
-
-      // Otros gráficos si es necesario
+    
       const meseros = data.nombres_meseros;
       const ventas_meseros = data.cantidades_vendidas_meseros;
       const mesas = data.nombres_mesas;
+      console.log(data.productos, data.cantidades_productos)
+      
+      crearGrafico(fechasAgrupadas, valoresSumados);
       crearGrafico2(meseros, ventas_meseros);
       crearGrafico3(mesas, data.cantidades_vendidas_mesas, 0);
+      crearGrafico4(data.productos, data.cantidades_productos);
+
 
       document.getElementById('descargar-pdf').addEventListener('click', function() {
         descargarPDF('histograma', 'grafico_ventas_mes_semana.pdf', 180, 160); 
         descargarPDF('meseros', 'grafico_ventas_meseros.pdf', 180, 160 ); 
         descargarPDF('mesas', 'grafico_ventas_mesas.pdf', 180, 160); 
+        descargarPDF('productosChart', 'grafico_productos_mas_vendidos.pdf', 180, 160);
+
       });
     })
     .catch(error => {
@@ -305,6 +309,84 @@ const crearGrafico3 = (mesas, ventas_mesas, total_venta_mesas) => {
   });
 };
 
+
+const crearGrafico4 = (productos, cantidades) => {
+  const ctx = document.getElementById('histogramaProductos').getContext('2d');
+  const myChart = new Chart(ctx, {
+    type: 'bar', // Cambiar el tipo de gráfico a 'bar' (barras)
+    data: {
+      labels: productos, // Las fechas se pasan como etiquetas en el eje X
+      datasets: [{
+        label: 'Total vendido por producto',
+        data: cantidades, // Los valores sumados para cada fecha
+        backgroundColor: 'rgba(255, 165, 0, 0.6)', // Color naranja con opacidad de las barras
+        borderColor: 'rgba(255, 165, 0, 0.6)', // Color del borde de las barras (azul)
+        borderWidth: 1, // Ancho del borde de las barras
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: {
+          position: 'top',
+          labels: {
+            font: {
+              family: 'Arial',
+              size: 14
+            }
+          }
+        }
+      },
+      scales: {
+        y: {
+          beginAtZero: true,
+          ticks: {
+            color: 'black' // Color de los ticks del eje Y
+          },
+          grid: {
+            color: 'rgba(0, 0, 0, 0.1)' // Color de la cuadrícula en el eje Y
+          },
+          title: {
+            display: true,
+            text: 'Cantidad', // Título del eje Y
+            color: 'black', // Color del título del eje Y
+            font: {
+              size: 16,  // Tamaño de la fuente del título
+              family: 'Arial' // Fuente del título
+            }
+          }
+        },
+        x: {
+          ticks: {
+            color: 'black' // Color de los ticks del eje X
+          },
+          grid: {
+            color: 'rgba(0, 0, 0, 0.1)' // Color de la cuadrícula en el eje X
+          },
+          title: {
+            display: true,
+            text: 'Día', // Título del eje X
+            color: 'black', // Color del título del eje X
+            font: {
+              size: 16,  // Tamaño de la fuente del título
+              family: 'Arial' // Fuente del título
+            }
+          }
+        }
+      },
+      layout: {
+        padding: {
+          left: 10,
+          right: 10,
+          top: 10,
+          bottom: 10
+        }
+      },
+      backgroundColor: '#ffffff', // Fondo blanco para el gráfico
+    }
+  });
+};
+
 function descargarPDF(canvasId, nombreArchivo, width, height) {
   const { jsPDF } = window.jspdf; // Acceder a jsPDF v2.x
   const doc = new jsPDF();
@@ -319,3 +401,5 @@ function descargarPDF(canvasId, nombreArchivo, width, height) {
   // Guardar el PDF
   doc.save(nombreArchivo);
 }
+
+

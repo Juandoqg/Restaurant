@@ -3,6 +3,7 @@ from django.http.response import JsonResponse
 from ..models import Mesa
 from ..models import Pedido
 from ..models import Factura
+from collections import defaultdict
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 import re
@@ -15,17 +16,17 @@ def datos_facturas(request):
     fechas = [factura.fecha.strftime('%Y-%m-%d') for factura in facturas]
     valores = [float(factura.valor) for factura in facturas]
     
-    # Diccionario para acumular las cantidades de productos vendidos por cada mesero
+    # Diccionarios para acumular ventas por mesero y mesa
     cantidad_por_mesero = {}
-    # Diccionario para acumular las cantidades de productos vendidos por cada mesa
     cantidad_por_mesa = {}
 
-    # Recorrer cada factura y extraer las cantidades de los productos
+    # Diccionario para productos más vendidos
+    productos_vendidos = defaultdict(int)
+
+    # Recorrer cada factura y extraer datos
     for factura in facturas:
-        # Extraer la lista de productos y cantidades usando regex
         productos = re.findall(r'([A-Za-z\s]+)\s\(Cantidad:\s(\d+)\)', factura.cosasPedidas)
 
-        # Iterar sobre los productos y acumular las cantidades
         for producto, cantidad in productos:
             cantidad = int(cantidad)
 
@@ -43,23 +44,29 @@ def datos_facturas(request):
             else:
                 cantidad_por_mesa[mesa_id] = {'nombre': f'Mesa {factura.mesa.idMesa}', 'cantidad': cantidad}
 
+            # Acumulando las cantidades vendidas por producto
+            productos_vendidos[producto.strip()] += cantidad
+
     # Preparar los datos para la respuesta JSON
-    # Datos de meseros
     nombres_meseros = [info['nombre'] for info in cantidad_por_mesero.values()]
     cantidades_vendidas_meseros = [info['cantidad'] for info in cantidad_por_mesero.values()]
 
-    # Datos de mesas
     nombres_mesas = [info['nombre'] for info in cantidad_por_mesa.values()]
     cantidades_vendidas_mesas = [info['cantidad'] for info in cantidad_por_mesa.values()]
+
+    nombres_productos = list(productos_vendidos.keys())
+    cantidades_productos = list(productos_vendidos.values())
 
     # Crear el diccionario de datos para la respuesta JSON
     data = {
         'fechas': fechas,
         'valores': valores,
-        'nombres_meseros': nombres_meseros,  # Nombres de los meseros
-        'cantidades_vendidas_meseros': cantidades_vendidas_meseros,  # Cantidad total vendida por cada mesero
-        'nombres_mesas': nombres_mesas,  # Nombres de las mesas
-        'cantidades_vendidas_mesas': cantidades_vendidas_mesas  # Cantidad total vendida por cada mesa
+        'nombres_meseros': nombres_meseros,
+        'cantidades_vendidas_meseros': cantidades_vendidas_meseros,
+        'nombres_mesas': nombres_mesas,
+        'cantidades_vendidas_mesas': cantidades_vendidas_mesas,
+        'productos': nombres_productos,
+        'cantidades_productos': cantidades_productos
     }
 
     return JsonResponse(data)
