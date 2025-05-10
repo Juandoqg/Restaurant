@@ -286,7 +286,7 @@ const crearGrafico3 = (mesas, ventas_mesas, total_venta_mesas) => {
         },
         title: {
           display: true, // Habilitar el título
-          text: `Ventas de mesas x productos: ${total_venta_mesas}`, // Título dinámico con el valor de total_venta_mesas
+          text: `Cantidad de ventas por mesa`, // Título dinámico con el valor de total_venta_mesas
           font: {
             size: 18, // Tamaño de la fuente del título
             family: 'Arial', // Tipo de fuente
