@@ -7,47 +7,44 @@ from collections import defaultdict
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 import re
+import calendar
 
 def datos_facturas(request):
-    # Obtener todas las facturas
     facturas = Factura.objects.all()
 
-    # Inicializar listas para fechas y valores
     fechas = [factura.fecha.strftime('%Y-%m-%d') for factura in facturas]
     valores = [float(factura.valor) for factura in facturas]
-    
-    # Diccionarios para acumular ventas por mesero y mesa
+
     cantidad_por_mesero = {}
     cantidad_por_mesa = {}
-
-    # Diccionario para productos más vendidos
     productos_vendidos = defaultdict(int)
+    ventas_por_dia = defaultdict(float)  # Nuevo: para acumular ventas por día de la semana
 
-    # Recorrer cada factura y extraer datos
     for factura in facturas:
         productos = re.findall(r'([A-Za-z\s]+)\s\(Cantidad:\s(\d+)\)', factura.cosasPedidas)
+
+        # Día de la semana (0=lunes, 6=domingo)
+        dia_semana = factura.fecha.weekday()
+        nombre_dia = calendar.day_name[dia_semana]
+        ventas_por_dia[nombre_dia] += float(factura.valor)
 
         for producto, cantidad in productos:
             cantidad = int(cantidad)
 
-            # Acumulando las ventas por mesero
             mesero_id = factura.idMesero.id
             if mesero_id in cantidad_por_mesero:
                 cantidad_por_mesero[mesero_id]['cantidad'] += cantidad
             else:
                 cantidad_por_mesero[mesero_id] = {'nombre': factura.idMesero.username, 'cantidad': cantidad}
 
-            # Acumulando las ventas por mesa
             mesa_id = factura.mesa.idMesa
             if mesa_id in cantidad_por_mesa:
                 cantidad_por_mesa[mesa_id]['cantidad'] += cantidad
             else:
                 cantidad_por_mesa[mesa_id] = {'nombre': f'Mesa {factura.mesa.idMesa}', 'cantidad': cantidad}
 
-            # Acumulando las cantidades vendidas por producto
             productos_vendidos[producto.strip()] += cantidad
 
-    # Preparar los datos para la respuesta JSON
     nombres_meseros = [info['nombre'] for info in cantidad_por_mesero.values()]
     cantidades_vendidas_meseros = [info['cantidad'] for info in cantidad_por_mesero.values()]
 
@@ -57,7 +54,10 @@ def datos_facturas(request):
     nombres_productos = list(productos_vendidos.keys())
     cantidades_productos = list(productos_vendidos.values())
 
-    # Crear el diccionario de datos para la respuesta JSON
+    # Nuevo: convertir diccionario de ventas por día a listas
+    dias_semana = list(ventas_por_dia.keys())
+    ventas_dias = list(ventas_por_dia.values())
+
     data = {
         'fechas': fechas,
         'valores': valores,
@@ -66,7 +66,9 @@ def datos_facturas(request):
         'nombres_mesas': nombres_mesas,
         'cantidades_vendidas_mesas': cantidades_vendidas_mesas,
         'productos': nombres_productos,
-        'cantidades_productos': cantidades_productos
+        'cantidades_productos': cantidades_productos,
+        'dias_semana': dias_semana,
+        'ventas_dias': ventas_dias
     }
 
     return JsonResponse(data)

@@ -219,6 +219,14 @@ canvas {
     border-radius: 8px; /* Bordes redondeados */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
   }
+
+    #histogramaDias {
+    width: 100%; /* El gráfico ocupará todo el ancho disponible */
+    background-color: white; /* Fondo blanco */
+    margin-top: 10px;
+    border-radius: 8px; /* Bordes redondeados */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
+  } 
   #descargar-pdf {
     background-color: green; /* Color azul */
     color: white; /* Texto blanco */
