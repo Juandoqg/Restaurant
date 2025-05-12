@@ -91,3 +91,9 @@ body {
     /* Positioned to the left */
 
 }
+
+input.form-control,
+select.form-control,
+textarea.form-control {
+    border-radius:10px; /* Más redondeado que el default */
+}
