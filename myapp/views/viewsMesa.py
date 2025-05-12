@@ -47,24 +47,23 @@ def crearMesas(request):
     elif request.method == 'POST':
         try:
             num_tables = int(request.POST['num_tables'])
+            tipo = request.POST['tipo']
+            descripcion = request.POST['descripcion']
+            disponible = 'disponible' in request.POST
+
+            # Crear las mesas
             for i in range(num_tables):
-             mesa = Mesa.objects.create()
-             mesa.numero = mesa.idMesa  # Asignar el campo 'numero' igual al valor de 'id'
-             mesa.save()
+                mesa = Mesa.objects.create(
+                    tipo=tipo,
+                    descripcion=descripcion,
+                    disponible=disponible
+                )
+                mesa.numero = mesa.idMesa  # Asignar el campo 'numero' igual al valor de 'id'
+                mesa.save()
 
-
-            # Guardar la imagen en la carpeta restaurante/myapp/static/img
-            if 'imgProducto' in request.FILES:
-                imagen = request.FILES['imgProducto']
-                ruta_imagen = os.path.join(settings.BASE_DIR, 'myapp', 'static', 'img', imagen.name)
-                with open(ruta_imagen, 'wb') as f:
-                    for chunk in imagen.chunks():
-                        f.write(chunk)
-                Producto.imgProducto = os.path.join('img/', imagen.name)
             return render(request, 'crearMesas.html', {'success': True})
         except Exception as e:
             return render(request, 'crearMesas.html', {'success': False, 'error': str(e)})
-        
 
 
   # MESAS DEL ADMINISTRADOR

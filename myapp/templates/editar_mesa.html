@@ -27,9 +27,13 @@
 
             <!-- Tipo -->
             <div class="mb-3">
-                <label for="tipo" class="form-label">Tipo</label>
-                <input type="text" class="form-control" name="tipo" id="tipo" value="{{ mesa.tipo }}">
+              <label for="tipo" class="form-label">Tipo</label>
+             <select class="form-control" name="tipo" id="tipo" required>
+               <option value="Normal" {% if mesa.tipo == "Normal" %}selected{% endif %}>Normal</option>
+              <option value="VIP" {% if mesa.tipo == "VIP" %}selected{% endif %}>VIP</option>
+            </select>
             </div>
+
 
             <!-- Descripción -->
             <div class="mb-3">
