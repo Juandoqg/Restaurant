@@ -35,6 +35,7 @@ urlpatterns = [
      path('recuperarContra/', viewsUser.recuperarContra, name='recuperarContra'),
      path('actualizarContra/', viewsUser.actualizarContra, name='actualizarContra'),
      path('borrarPedido/<int:idMesa>/', viewsPedido.borrarPedido, name='borrarPedido'),
-     path('enviar_factura/<int:idMesa>/', viewsPedido.enviar_factura, name='enviar_factura')
-
+     path('enviar_factura/<int:idMesa>/', viewsPedido.enviar_factura, name='enviar_factura'),
+     path('productos/borrar/<int:producto_id>/', viewsProducto.borrar_producto, name='borrar_producto'),
+     path('productos/editar/<int:producto_id>/', viewsProducto.editar_producto, name='editar_producto'),
 ] 

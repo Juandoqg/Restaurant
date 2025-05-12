@@ -4,6 +4,8 @@ from ..models import Producto
 from mysite import settings
 from django.contrib.auth.decorators import login_required
 import os
+from django.shortcuts import get_object_or_404, redirect
+
 # Create your views here.
 
 @login_required    
@@ -44,8 +46,20 @@ def createProduct(request):
         except Exception as e:
             return render(request, 'createProduct.html', {'success': False, 'error': str(e)})
 
-@login_required            
+@login_required
 def showProduct(request):
-    Productos = Producto.objects.all()
+    Productos = Producto.objects.filter(visible=True)  # Solo los visibles
     return render(request, 'showProduct.html', {'Productos': Productos})
 
+@login_required
+def borrar_producto(request, producto_id):
+    producto = get_object_or_404(Producto, pk=producto_id)
+    producto.visible = False
+    producto.save()
+    return redirect('showProduct')
+
+@login_required
+def editar_producto(request, producto_id):
+    producto = get_object_or_404(Producto, pk=producto_id)
+
+    return render(request, 'showProduct.html', {'productos': producto})
