@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http.response import JsonResponse
 from ..models import Mesa
 from ..models import Pedido
@@ -117,7 +117,7 @@ def verFacturaID(request, idMesa):
 
 @login_required
 def verFactura(request):
-    facturas = Factura.objects.all()
+    facturas = Factura.objects.filter(visible=True)
     processed_facturas = []
 
     for factura in facturas:
@@ -136,4 +136,15 @@ def verFactura(request):
         })
 
     return render(request, 'verFactura.html', {'processed_facturas': processed_facturas})
+
+@login_required
+def borrar_factura(request, factura_id):
+    try:
+        factura = Factura.objects.get(idFactura=factura_id)
+        factura.visible = False  # Establecemos el estado visible a False
+        factura.save()
+    except Factura.DoesNotExist:
+        # Aquí puedes manejar el error si la factura no existe
+        pass
+    return redirect('verFactura') 
 

@@ -17,7 +17,6 @@
                     <h1 class="text-center">Factura #{{ processed_factura.factura.idFactura }}</h1>
                     <div class="d-flex justify-content-center mb-3">
                         <img src="{% static 'img/logo-icono1.png' %}" alt="Logo principal" class="img-fluid mb-3" style="max-width: 255px" />
-        
                     </div>
                     <table class="table info-table">
                         <tr>
@@ -49,6 +48,13 @@
                             <td class="left-align">${{ processed_factura.factura.valor|floatformat:0 }} COP</td>
                         </tr>
                     </table>
+
+                    <!-- Botón de Borrar -->
+                    <form method="POST" action="{% url 'borrar_factura' processed_factura.factura.idFactura %}">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger">Borrar</button>
+                    </form>
+
                     <div class="footer text-center">
                         &copy; 2024 La Patrana. Todos los derechos reservados.
                     </div>
@@ -63,7 +69,7 @@
             <a href="{% url 'administrador'%}" class="btn btn-danger d-none d-md-block">
               <span class="btn-text">Volver al menu</span>
             </a>
-          </div>
+        </div>
     </div>
 </body>
 </html>
