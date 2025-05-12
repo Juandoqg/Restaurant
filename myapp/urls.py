@@ -17,7 +17,7 @@ urlpatterns = [
      path('createUser/', views.createUser, name='createUser'),
      path("showUsers/",viewsUser.showUsers, name ="showUsers"),
      path("listUsers/",viewsUser.listUsers, name = "listUsers"),
-      path("listUserPorId/<int:user_id>",viewsUser.listUserPorId, name = "listUsersPorId"),
+     path("listUserPorId/<int:user_id>",viewsUser.listUserPorId, name = "listUsersPorId"),
      path("listMesas/",viewsMesa.listMesas, name = "listMesas"),
      path("listMesasPorId/<int:idMesa>",viewsMesa.listMesasPorId, name = "listMesasPorId"),
      path("listProductos/",viewsProducto.listProductos, name = "listProductos"),
@@ -39,5 +39,9 @@ urlpatterns = [
      path('productos/borrar/<int:producto_id>/', viewsProducto.borrar_producto, name='borrar_producto'),
      path('productos/editar/<int:producto_id>/', viewsProducto.editar_producto, name='editar_producto'),
      path('borrar_factura/<int:factura_id>/', viewsFactura.borrar_factura, name='borrar_factura'),
+     path('mesas/', viewsMesa.Mesas, name = "mesas"),
+     path('mesas/borrar/<int:producto_id>/', viewsMesa.borrar_mesa, name='borrar_mesa'),
+     path('mesas/editar/<int:producto_id>/', viewsMesa.editar_mesa, name='editar_mesa'),
+
 
 ] 

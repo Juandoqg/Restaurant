@@ -24,6 +24,8 @@ class Mesa(models.Model):
     numero = models.IntegerField(null=True, blank=True)
     descripcion = models.CharField(max_length=200, blank=True, null=True)  # Nueva descripción
     visible = models.BooleanField(default=True)  # Nuevo campo
+    disponible = models.BooleanField(default=True)  # Nuevo campo
+
 
 class Pedido(models.Model):
     idPedido = models.AutoField(primary_key=True)

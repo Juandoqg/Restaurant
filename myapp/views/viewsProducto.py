@@ -58,6 +58,7 @@ def borrar_producto(request, producto_id):
     producto.save()
     return redirect('showProduct')
 
+@login_required
 def editar_producto(request, producto_id):
     producto = get_object_or_404(Producto, pk=producto_id)
 

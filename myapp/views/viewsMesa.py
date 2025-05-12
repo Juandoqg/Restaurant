@@ -64,3 +64,34 @@ def crearMesas(request):
             return render(request, 'crearMesas.html', {'success': True})
         except Exception as e:
             return render(request, 'crearMesas.html', {'success': False, 'error': str(e)})
+        
+
+
+  # MESAS DEL ADMINISTRADOR
+        
+@login_required
+def Mesas(request):
+    mesas = Mesa.objects.filter(visible=True)
+    return render(request,'Mesas.html',{'mesas':mesas})
+
+@login_required
+def borrar_mesa(request, producto_id):
+    mesa = get_object_or_404(Mesa, pk=producto_id)
+    mesa.visible = False
+    mesa.save()
+    return redirect('mesas')
+
+
+@login_required
+def editar_mesa(request, producto_id):
+    mesa = get_object_or_404(Mesa, pk=producto_id)
+
+    if request.method == 'POST':
+        mesa.tipo = request.POST.get('tipo')
+        mesa.descripcion = request.POST.get('descripcion')
+        mesa.disponible = 'disponible' in request.POST
+        mesa.save()
+        return redirect('mesas')
+
+    return render(request, 'editar_mesa.html', {'mesa': mesa})
+
