@@ -59,7 +59,7 @@ def verPedido(request, idMesa):
 @login_required
 def tomarPedido(request, idMesa):
     # Obtener solo los productos disponibles
-    productos_disponibles = Producto.objects.filter(disponible=True)
+    productos_disponibles = Producto.objects.filter(disponible=True, visible =True)
     idMesa = idMesa
     return render(request, 'tomarPedido.html', {'Productos': productos_disponibles, 'idMesa': idMesa})
 
