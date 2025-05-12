@@ -58,8 +58,17 @@ def borrar_producto(request, producto_id):
     producto.save()
     return redirect('showProduct')
 
-@login_required
 def editar_producto(request, producto_id):
     producto = get_object_or_404(Producto, pk=producto_id)
 
-    return render(request, 'showProduct.html', {'productos': producto})
+    if request.method == 'POST':
+        producto.nombre = request.POST.get('nombre')
+        producto.descripcion = request.POST.get('descripcion')
+        producto.precio = request.POST.get('precio')
+        producto.disponible = 'disponible' in request.POST
+        if 'imgProducto' in request.FILES:
+            producto.imgProducto = request.FILES['imgProducto']
+        producto.save()
+        return redirect('showProduct')  # o a donde quieras
+
+    return render(request, 'editar_producto.html', {'producto': producto})
