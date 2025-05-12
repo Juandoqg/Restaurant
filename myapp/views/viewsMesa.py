@@ -23,9 +23,9 @@ def verMesas(request):
 
 @login_required 
 def listMesas(request):
-   mesa = list(Mesa.objects.values())
-   data = {'mesa': mesa}
-   return JsonResponse(data)
+    mesa = list(Mesa.objects.filter(visible=True).values())
+    data = {'mesa': mesa}
+    return JsonResponse(data)
 
 
 def listMesasPorId(request, idMesa):
