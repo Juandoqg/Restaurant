@@ -81,10 +81,13 @@
                     </table>
 
                     <!-- Botón de Borrar -->
-                    <form method="POST" action="{% url 'borrar_factura' processed_factura.factura.idFactura %}" data-confirm-delete>
-                        {% csrf_token %}
-                        <button type="submit" class="btn btn-danger">Borrar</button>
-                    </form>
+                    <div class="d-flex justify-content-center">
+                            <form method="POST" action="{% url 'borrar_factura' processed_factura.factura.idFactura %}" data-confirm-delete>
+                              {% csrf_token %}
+                              <button type="submit" class="btn btn-danger">Borrar</button>
+                            </form>
+                    </div>
+
 
                     <div class="footer text-center">
                         &copy; 2024 La Patrana. Todos los derechos reservados.
