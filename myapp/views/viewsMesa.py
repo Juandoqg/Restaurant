@@ -75,10 +75,13 @@ def Mesas(request):
 
 @login_required
 def borrar_mesa(request, producto_id):
-    mesa = get_object_or_404(Mesa, pk=producto_id)
-    mesa.visible = False
-    mesa.save()
-    return redirect('mesas')
+    try:
+        mesa = get_object_or_404(Mesa, pk=producto_id)
+        mesa.visible = False
+        mesa.save()
+        return redirect('mesas')  
+    except Exception as e:
+        return render(request, 'Mesas.html', {'success': False, 'error': str(e)})
 
 
 @login_required
