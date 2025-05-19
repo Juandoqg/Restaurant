@@ -8,7 +8,9 @@ from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 import re
 import calendar
+from django.contrib.auth import  get_user_model
 
+User = get_user_model()
 def datos_facturas(request):
     facturas = Factura.objects.all()
 
@@ -115,11 +117,35 @@ def verFacturaID(request, idMesa):
         'total_quantity': total_quantity  
     })
 
+
 @login_required
 def verFactura(request):
     facturas = Factura.objects.filter(visible=True)
-    processed_facturas = []
 
+    # Obtener filtros desde GET
+    fecha = request.GET.get('fecha')
+    mesero_username = request.GET.get('mesero')
+    numero_mesa = request.GET.get('numero_mesa')
+    total_minimo = request.GET.get('total_minimo')
+
+    # Aplicar filtros si están presentes
+    if fecha:
+        facturas = facturas.filter(hora__date=fecha)
+
+    if mesero_username:
+        facturas = facturas.filter(idMesero__username__icontains=mesero_username)
+
+    if numero_mesa:
+        facturas = facturas.filter(mesa__numero=numero_mesa)
+
+    if total_minimo:
+        try:
+            facturas = facturas.filter(valor__gte=float(total_minimo))
+        except ValueError:
+            pass  # Ignorar si no es un número válido
+
+    # Procesar productos por factura
+    processed_facturas = []
     for factura in facturas:
         productos = factura.cosasPedidas.split(', ')
         productos_procesados = []
@@ -135,8 +161,9 @@ def verFactura(request):
             'productos': productos_procesados
         })
 
-    return render(request, 'verFactura.html', {'processed_facturas': processed_facturas})
-
+    return render(request, 'verFactura.html', {
+        'processed_facturas': processed_facturas,
+    })
 @login_required
 def borrar_factura(request, factura_id):
     try:

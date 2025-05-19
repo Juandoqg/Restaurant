@@ -8,9 +8,40 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="{% static 'css/verFactura.css' %}" />
     <link rel="icon" href="{% static 'img/Logo-icono.svg' %}" type="image/png" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
 </head>
 <body>
-    <div class="container mt-4">
+
+    <form method="get" class="filter-form p-3 rounded shadow-sm mb-4">
+  <h4 class="mb-3 text-center font-weight-bold">Filtrar Facturas</h4>
+  <div class="form-row">
+    <div class="form-group col-md-3">
+      <label for="fecha">Fecha</label>
+      <input type="date" name="fecha" id="fecha" class="form-control" value="{{ request.GET.fecha }}">
+    </div>
+    <div class="form-group col-md-3">
+      <label for="mesero">Mesero</label>
+      <input type="text" name="mesero" id="mesero" class="form-control" placeholder="Nombre del mesero" value="{{ request.GET.mesero }}">
+    </div>
+    <div class="form-group col-md-2">
+      <label for="numero_mesa">Mesa #</label>
+      <input type="number" name="numero_mesa" id="numero_mesa" class="form-control" value="{{ request.GET.numero_mesa }}">
+    </div>
+    <div class="form-group col-md-2">
+      <label for="total_minimo">Total mínimo (COP)</label>
+      <input type="number" step="any" name="total_minimo" id="total_minimo" class="form-control" value="{{ request.GET.total_minimo }}">
+    </div>
+    <div class="form-group col-md-2 d-flex align-items-end">
+      <button type="submit" class="btn btn-primary w-100">
+        <i class="fas fa-filter mr-1"></i> Filtrar
+      </button>
+    </div>
+  </div>
+</form>
+
+
+
         {% if processed_facturas %}
             {% for processed_factura in processed_facturas %}
                 <div class="invoice-container">
@@ -24,7 +55,7 @@
                             <td>{{ processed_factura.factura.mesa.numero }}</td>
                         </tr>
                         <tr>
-                            <th>Id del mesero</th>
+                            <th>Nombre de usuario del mesero</th>
                             <td>{{ processed_factura.factura.idMesero.username }}</td>
                         </tr>
                         <tr>
@@ -100,5 +131,22 @@
     });
   });
 </script>
+
+<script>
+  document.getElementById("filtroInput").addEventListener("keyup", function () {
+    const filtro = this.value.toLowerCase();
+    const facturas = document.querySelectorAll(".invoice-container");
+
+    facturas.forEach(factura => {
+      const textoFactura = factura.innerText.toLowerCase();
+      if (textoFactura.includes(filtro)) {
+        factura.style.display = "block";
+      } else {
+        factura.style.display = "none";
+      }
+    });
+  });
+</script>
+
 </body>
 </html>

@@ -11,15 +11,11 @@ body {
     margin: 0 auto;
     background-color: #ffffff;
     padding: 20px;
-    box-shadow: 0 0 100px #b67e38;
     border-radius: 10px;
     margin-bottom: 20px;
     overflow: hidden;
 }
 
-.invoice-container:hover {
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-}
 
 h1 {
     text-align: center;
@@ -100,4 +96,34 @@ img {
 
 .floating-button .btn-text {
     margin-left: 10px; /* Espacio entre el icono y el texto */
+}
+.filter-form {
+    background-color: #f8f9fa; /* Gris claro */
+    border-left: 5px solid #ffffff; /* Azul lateral */
+}
+
+.filter-form h4 {
+    color: #343a40;
+}
+
+.filter-form label {
+    font-weight: 500;
+    color: #495057;
+}
+
+.filter-form input {
+    border-radius: 0.25rem;
+}
+
+.filter-form button {
+    font-weight: bold;
+}
+
+@media (max-width: 768px) {
+    .filter-form .form-row {
+        flex-direction: column;
+    }
+    .filter-form .form-group {
+        width: 100%;
+    }
 }
