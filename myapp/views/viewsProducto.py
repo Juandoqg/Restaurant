@@ -5,6 +5,7 @@ from mysite import settings
 from django.contrib.auth.decorators import login_required
 import os
 from django.shortcuts import get_object_or_404, redirect
+from ..decorators import admin_required, waiter_required, chef_required
 
 # Create your views here.
 
@@ -14,7 +15,7 @@ def listProductos(request):
    data = {'producto': mesa}
    return JsonResponse(data) 
 
-@login_required
+@admin_required
 def createProduct(request):
     if request.method == 'GET':
         return render(request, 'createProduct.html')
@@ -46,12 +47,12 @@ def createProduct(request):
         except Exception as e:
             return render(request, 'createProduct.html', {'success': False, 'error': str(e)})
 
-@login_required
+@admin_required
 def showProduct(request):
     Productos = Producto.objects.filter(visible=True)  # Solo los visibles
     return render(request, 'showProduct.html', {'Productos': Productos})
 
-@login_required
+@admin_required
 def borrar_producto(request, producto_id):
     try:
         producto = get_object_or_404(Producto, pk=producto_id)
@@ -61,7 +62,7 @@ def borrar_producto(request, producto_id):
     except Exception as e:
         return render(request, 'showProduct.html', {'success': False, 'error': str(e)})
 
-@login_required
+@admin_required
 def editar_producto(request, producto_id):
     if request.method == 'GET':
         producto = get_object_or_404(Producto, pk=producto_id)

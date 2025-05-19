@@ -9,8 +9,9 @@ from django.conf import settings
 from django.http import JsonResponse
 import json
 from django.utils import timezone
+from ..decorators import admin_required, waiter_required, chef_required
 
-
+@waiter_required
 def enviar_factura(request, idMesa):
     # Obtén los datos necesarios de la factura (por ejemplo, pedidos, total, etc.)
     pedidos = Pedido.objects.filter(mesa=idMesa)  # Filtra los pedidos por la mesa
@@ -51,12 +52,12 @@ def enviar_factura(request, idMesa):
     
 
 
-@login_required
+@waiter_required
 def verPedido(request, idMesa):
     pedidos = Pedido.objects.filter(mesa__numero=idMesa)
     return render(request, 'verPedido.html', {'pedidos': pedidos, 'idMesa': idMesa})
 
-@login_required
+@waiter_required
 def tomarPedido(request, idMesa):
     # Obtener solo los productos disponibles
     productos_disponibles = Producto.objects.filter(disponible=True, visible =True)
@@ -64,7 +65,7 @@ def tomarPedido(request, idMesa):
     return render(request, 'tomarPedido.html', {'Productos': productos_disponibles, 'idMesa': idMesa})
 
 
-@login_required
+@waiter_required
 def savePedido(request, idMesa):
     if request.method == 'POST':
         try:
@@ -95,7 +96,7 @@ def savePedido(request, idMesa):
         return render(request, 'tomarPedido.html', {'idMesa': idMesa})
 
 
-@login_required
+@waiter_required
 def borrarPedido (request, idMesa):
     Pedido.objects.filter(mesa=idMesa).delete()
     return redirect('verMesas')  

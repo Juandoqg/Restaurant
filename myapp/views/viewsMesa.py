@@ -14,8 +14,9 @@ from django.views.decorators.csrf import csrf_exempt
 from django.utils import timezone
 from django.utils.dateformat import DateFormat
 # Create your views here.
+from ..decorators import admin_required, waiter_required, chef_required
 
-@login_required
+@waiter_required
 def verMesas(request):
     user_id = request.user.id
     users = User.objects.get(id=user_id)
@@ -40,7 +41,7 @@ def listMesasPorId(request, idMesa):
         return JsonResponse({'error': 'Método no permitido'}, status=405)
     
 
-@login_required
+@admin_required
 def crearMesas(request):
     if request.method == 'GET':
         return render(request, 'crearMesas.html')
@@ -68,12 +69,12 @@ def crearMesas(request):
 
   # MESAS DEL ADMINISTRADOR
         
-@login_required
+@admin_required
 def Mesas(request):
     mesas = Mesa.objects.filter(visible=True)
     return render(request,'Mesas.html',{'mesas':mesas})
 
-@login_required
+@admin_required
 def borrar_mesa(request, producto_id):
     try:
         mesa = get_object_or_404(Mesa, pk=producto_id)
@@ -84,7 +85,7 @@ def borrar_mesa(request, producto_id):
         return render(request, 'Mesas.html', {'success': False, 'error': str(e)})
 
 
-@login_required
+@admin_required
 def editar_mesa(request, producto_id):
     if request.method == "GET":
         mesa = get_object_or_404(Mesa, pk=producto_id)

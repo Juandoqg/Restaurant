@@ -7,9 +7,10 @@ import os
 from django.views.decorators.csrf import csrf_exempt
 import json
 from django.utils.dateformat import DateFormat
+from ..decorators import admin_required, waiter_required, chef_required
 
 
-@login_required    
+@admin_required   
 def showUsers(request):
     users = User.objects.all()
     return render(request, 'showUsers.html', {'users': users})
@@ -42,12 +43,11 @@ def listUserPorId(request, user_id):
         return JsonResponse({'error': 'Método no permitido'}, status=405)
     
 
-@login_required    
+@admin_required    
 def deleteUser(request, user_id):
     usuario = get_object_or_404(User, pk=user_id)
     usuario.delete()
     return redirect('/showUsers')
-
 
 @csrf_exempt
 def actualizarDatosUsuario(request, user_id):

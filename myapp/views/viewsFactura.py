@@ -9,6 +9,9 @@ from django.utils import timezone
 import re
 import calendar
 from django.contrib.auth import  get_user_model
+from ..decorators import admin_required, waiter_required
+
+
 
 User = get_user_model()
 def datos_facturas(request):
@@ -77,7 +80,7 @@ def datos_facturas(request):
 
 
 
-@login_required            
+@waiter_required           
 def verFacturaID(request, idMesa):
     pedidos = Pedido.objects.filter(mesa__numero=idMesa)
     
@@ -118,7 +121,7 @@ def verFacturaID(request, idMesa):
     })
 
 
-@login_required
+@admin_required
 def verFactura(request):
     facturas = Factura.objects.filter(visible=True)
 
@@ -164,7 +167,7 @@ def verFactura(request):
     return render(request, 'verFactura.html', {
         'processed_facturas': processed_facturas,
     })
-@login_required
+@admin_required
 def borrar_factura(request, factura_id):
     try:
         factura = Factura.objects.get(idFactura=factura_id)

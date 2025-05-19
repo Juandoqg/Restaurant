@@ -2,9 +2,10 @@ from django.shortcuts import render
 from ..models import User
 from ..models import Pedido
 from django.contrib.auth.decorators import login_required
+from ..decorators import  chef_required
 
 
-@login_required
+@chef_required
 def chef(request):
     user_id = request.user.id
     usuario = User.objects.get(id=user_id)

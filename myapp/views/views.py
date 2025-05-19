@@ -3,7 +3,7 @@ from django.contrib.auth import login, logout, authenticate
 from ..models import User
 from ..models import Pedido
 from django.contrib.auth.decorators import login_required
-
+from ..decorators import admin_required
 
 
 def signin(request):
@@ -39,7 +39,7 @@ def signin(request):
         except Exception as e:
             return render(request, 'index.html', {'error': True, 'error_message': str(e)})
 
-@login_required
+@admin_required
 def createUser(request):
     if request.method == 'GET':
         return render(request, 'createUser.html')
@@ -68,7 +68,7 @@ def createUser(request):
         except Exception as e:
             return render(request, 'createUser.html', {'success': False, 'error': str(e)}) 
         
-@login_required
+@admin_required
 def administrador(request):
     return render(request, 'administrador.html')
 
