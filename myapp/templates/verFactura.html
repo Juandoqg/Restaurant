@@ -50,7 +50,7 @@
                     </table>
 
                     <!-- Botón de Borrar -->
-                    <form method="POST" action="{% url 'borrar_factura' processed_factura.factura.idFactura %}">
+                    <form method="POST" action="{% url 'borrar_factura' processed_factura.factura.idFactura %}" data-confirm-delete>
                         {% csrf_token %}
                         <button type="submit" class="btn btn-danger">Borrar</button>
                     </form>
@@ -71,5 +71,34 @@
             </a>
         </div>
     </div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const forms = document.querySelectorAll('form[data-confirm-delete]');
+    forms.forEach(form => {
+      form.addEventListener('submit', function (e) {
+        e.preventDefault(); // Detener el envío del formulario
+
+        Swal.fire({
+          title: '¿Estás seguro?',
+          text: '¡No podrás deshacer esta acción!',
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#d33',
+          cancelButtonColor: '#3085d6',
+          confirmButtonText: 'Sí, borrar',
+          cancelButtonText: 'Cancelar'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            form.submit(); // Solo se envía si se confirma
+          }
+        });
+      });
+    });
+  });
+</script>
 </body>
 </html>
