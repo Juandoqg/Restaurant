@@ -1,15 +1,14 @@
 body {
     font-family: sans-serif;
-    background-image: url('../img/Fondo2.jpg');
-    background-size: cover;
-    background-position: center center;
+    background-image: url("../img/Fondo2.jpg");
+    background-size: cover; 
 }
 
 h1 {
-    font-family: Helvetica;
-    color: rgb(241, 234, 234);
+    font-family: sans-serif;
     text-align: center;
-    font-size: 2rem;
+    background-color: transparent;
+    color: white; 
 }
 
 /* Estilo de la tarjeta seleccionada */
