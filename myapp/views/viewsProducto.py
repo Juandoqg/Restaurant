@@ -53,10 +53,13 @@ def showProduct(request):
 
 @login_required
 def borrar_producto(request, producto_id):
-    producto = get_object_or_404(Producto, pk=producto_id)
-    producto.visible = False
-    producto.save()
-    return redirect('showProduct')
+    try:
+        producto = get_object_or_404(Producto, pk=producto_id)
+        producto.visible = False
+        producto.save()
+        return redirect('showProduct')
+    except Exception as e:
+        return render(request, 'showProduct.html', {'success': False, 'error': str(e)})
 
 @login_required
 def editar_producto(request, producto_id):
