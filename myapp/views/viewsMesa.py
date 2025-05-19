@@ -83,14 +83,17 @@ def borrar_mesa(request, producto_id):
 
 @login_required
 def editar_mesa(request, producto_id):
-    mesa = get_object_or_404(Mesa, pk=producto_id)
-
-    if request.method == 'POST':
-        mesa.tipo = request.POST.get('tipo')
-        mesa.descripcion = request.POST.get('descripcion')
-        mesa.disponible = 'disponible' in request.POST
-        mesa.save()
-        return redirect('mesas')
-
-    return render(request, 'editar_mesa.html', {'mesa': mesa})
+    if request.method == "GET":
+        mesa = get_object_or_404(Mesa, pk=producto_id)
+        return render(request, 'editar_mesa.html', {'mesa': mesa})
+    else:
+        try: 
+            mesa = get_object_or_404(Mesa, pk=producto_id)
+            mesa.tipo = request.POST.get('tipo')
+            mesa.descripcion = request.POST.get('descripcion')
+            mesa.disponible = 'disponible' in request.POST
+            mesa.save()
+            return render(request, 'editar_mesa.html', {'success': True})
+        except Exception as e:
+             return render(request, 'editar_mesa.html', {'success': False, 'error': str(e)}) 
 
