@@ -111,7 +111,7 @@ def cambiar_estado_pedido(request, pedido_id):
 
     # Enviar mensaje a los meseros
     channel_layer = get_channel_layer()
-    mensaje = f"🛎️ El pedido de la mesa {pedido.mesa.numero} está listo"
+    mensaje = f"🛎️ El pedido {pedido.idPedido} de la mesa {pedido.mesa.numero} está listo"
 
     async_to_sync(channel_layer.group_send)(
         "meseros",  # grupo al que están suscritos los meseros
