@@ -54,6 +54,38 @@ document.addEventListener("DOMContentLoaded", function() {
       const ventas_meseros = data.cantidades_vendidas_meseros;
       const mesas = data.nombres_mesas;
       console.log(data.productos, data.cantidades_productos)
+
+
+
+
+      function ajustarCanvasAltaResolucion(canvas) {
+    const ctx = canvas.getContext('2d');
+    const dpr = window.devicePixelRatio || 1;
+
+    // Guardamos tamaño CSS actual
+    const cssWidth = canvas.clientWidth;
+    const cssHeight = canvas.clientHeight;
+
+    // Ajustamos el tamaño real del canvas para mayor resolución
+    canvas.width = cssWidth * dpr;
+    canvas.height = cssHeight * dpr;
+
+    // Mantener tamaño CSS para que no cambie en pantalla
+    canvas.style.width = cssWidth + "px";
+    canvas.style.height = cssHeight + "px";
+
+    // Escalamos contexto para que los dibujos se vean nítidos
+    ctx.scale(dpr, dpr);
+}
+
+const ids = ["histograma", "meseros", "mesas", "histogramaProductos", "histogramaDias"];
+
+ids.forEach(id => {
+    const canvas = document.getElementById(id);
+    if (canvas) ajustarCanvasAltaResolucion(canvas);
+});
+
+
       
       crearGrafico(fechasAgrupadas, valoresSumados);
       crearGrafico2(meseros, ventas_meseros);
@@ -77,6 +109,9 @@ document.addEventListener("DOMContentLoaded", function() {
       console.error("Error al obtener los datos:", error);
     });
 });
+
+ 
+
 
 
 const crearGrafico = (fechas, valores) => {
@@ -468,19 +503,123 @@ const crearGrafico5= (dias, cantidadesDias) => {
   });
 };
 
-function descargarPDF(canvasId, nombreArchivo, width, height) {
-  const { jsPDF } = window.jspdf; // Acceder a jsPDF v2.x
-  const doc = new jsPDF();
-  
-  // Convertir el gráfico en imagen
-  const canvas = document.getElementById(canvasId);
-  const imgData = canvas.toDataURL('image/png'); // Convertir el canvas a imagen
-  
-  // Agregar la imagen al PDF
-  doc.addImage(imgData, 'PNG', 10, 10, width, height); // Ajustar el tamaño al 75% del canvas original
 
-  // Guardar el PDF
-  doc.save(nombreArchivo);
+
+
+
+
+// Interfaz base
+class ExportStrategy {
+    export(canvasIdOrArray, nombreArchivo, width, height) {
+        throw new Error("Debes implementar el método export.");
+    }
+}
+
+// Estrategia para exportar todos los gráficos en un PDF (cada uno en página diferente)
+class MultiChartPDFExportStrategy extends ExportStrategy {
+    export(canvasIds, nombreArchivo, maxWidth = 180, maxHeight = 160) {
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF();
+
+        canvasIds.forEach((canvasId, index) => {
+            const canvas = document.getElementById(canvasId);
+            if (!canvas) {
+                console.warn(`Canvas con id "${canvasId}" no encontrado.`);
+                return;
+            }
+
+            const imgData = canvas.toDataURL("image/png");
+
+            if (index > 0) doc.addPage();
+
+            // Tamaño real del canvas
+            const canvasWidth = canvas.width;
+            const canvasHeight = canvas.height;
+
+            // Calcular escala para que quepa dentro del tamaño máximo sin deformar
+            const widthRatio = maxWidth / canvasWidth;
+            const heightRatio = maxHeight / canvasHeight;
+            const scale = Math.min(widthRatio, heightRatio, 1);
+
+            const w = canvasWidth * scale;
+            const h = canvasHeight * scale;
+
+            // Centrar imagen en página PDF
+            const pageWidth = doc.internal.pageSize.getWidth();
+            const pageHeight = doc.internal.pageSize.getHeight();
+
+            const x = (pageWidth - w) / 2;
+            const y = (pageHeight - h) / 2;
+
+            doc.addImage(imgData, "PNG", x, y, w, h);
+        });
+
+        doc.save(nombreArchivo);
+    }
 }
 
 
+// Estrategia para exportar todos los gráficos en PNG (varios archivos, uno por gráfico)
+class MultiChartPNGExportStrategy extends ExportStrategy {
+    export(canvasIds, nombreArchivoBase) {
+        canvasIds.forEach((canvasId) => {
+            const canvas = document.getElementById(canvasId);
+            if (!canvas) {
+                console.warn(`Canvas con id "${canvasId}" no encontrado.`);
+                return;
+            }
+            const img = canvas.toDataURL("image/png");
+
+            // Crear enlace y descargar cada PNG con nombre diferente
+            const link = document.createElement("a");
+            link.href = img;
+            link.download = `${nombreArchivoBase}_${canvasId}.png`;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        });
+    }
+}
+
+// Contexto
+class Exporter {
+    constructor(strategy) {
+        this.strategy = strategy;
+    }
+
+    setStrategy(strategy) {
+        this.strategy = strategy;
+    }
+
+    export(canvasIds, nombreArchivo, width = 180, height = 160) {
+        this.strategy.export(canvasIds, nombreArchivo, width, height);
+    }
+}
+
+// Funciones para botones
+function exportarTodosLosGraficosComoPDF() {
+    const canvasIds = [
+        "histograma",
+        "meseros",
+        "mesas",
+        "histogramaProductos",
+        "histogramaDias"
+    ];
+
+    const exporter = new Exporter(new MultiChartPDFExportStrategy());
+    // maxWidth y maxHeight los puedes cambiar según necesites
+    exporter.export(canvasIds, "todos_los_graficos.pdf", 180, 160);
+}
+
+
+function exportarTodosLosGraficosComoPNG() {
+    const canvasIds = [
+        "histograma",
+        "meseros",
+        "mesas",
+        "histogramaProductos",
+        "histogramaDias"
+    ];
+    const exporter = new Exporter(new MultiChartPNGExportStrategy());
+    exporter.export(canvasIds, "grafico");
+}
