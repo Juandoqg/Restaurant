@@ -4,7 +4,7 @@ from ..models import User
 from ..models import Pedido
 from django.contrib.auth.decorators import login_required
 from ..decorators import admin_required
-
+from ..factories.user_factory import UsuarioFactory
 
 def signin(request):
     if request.method == 'GET':
@@ -45,28 +45,11 @@ def createUser(request):
         return render(request, 'createUser.html')
     else:
         try:
-            if request.POST["Tipo"] == 'Mesero':
-                is_waiter = 1
-                is_chef = 0
-            else:
-                is_chef = 1
-                is_waiter = 0
-
-            user = User.objects.create_user(
-                username=request.POST["username"],
-                password=request.POST["password"],
-                first_name=request.POST["name"],
-                last_name=request.POST["lastname"],
-                email=request.POST["email"],
-                documento = request.POST["document"],
-                expedicion = request.POST["date"],
-                is_waiter=is_waiter,
-                is_chef=is_chef
-            )
+            user = UsuarioFactory.crear_usuario(request.POST)
             user.save()
             return render(request, 'createUser.html', {'success': True})
         except Exception as e:
-            return render(request, 'createUser.html', {'success': False, 'error': str(e)}) 
+            return render(request, 'createUser.html', {'success': False, 'error': str(e)})
         
 @admin_required
 def administrador(request):
