@@ -29,6 +29,18 @@
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="{% static 'js/listMesas.js' %}"></script>
+ <script>
+const socket = new WebSocket('ws://' + window.location.host + '/ws/verMesas/');
+
+socket.onmessage = function(e) {
+    const data = JSON.parse(e.data);
+    alert(data.mensaje);  // Puedes cambiarlo por una notificación en pantalla
+};
+
+socket.onclose = function(e) {
+    console.error('Socket cerrado inesperadamente');
+};
+</script>
 </body>
 
 </html>

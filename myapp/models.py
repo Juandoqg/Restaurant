@@ -14,7 +14,7 @@ class Producto(models.Model):
     disponible = models.BooleanField(default=True)
     precio = models.DecimalField(max_digits=10, decimal_places=2)
     nombre = models.CharField(max_length=50, default="")
-    imgProducto = models.ImageField(upload_to="myapp/static/img", null=True)
+    imgProducto = models.ImageField(upload_to='img/', null=True)
     visible = models.BooleanField(default=True)  # Nuevo campo
 
 

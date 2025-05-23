@@ -22,7 +22,7 @@
                 {% for producto in Productos %}
                 <div class="col">
                   <div class="card h-100">
-                    <img src="{% static producto.imgProducto %}" alt="Imagen del producto" class="card-img-top" />
+                    <img src="{{ producto.imgProducto.url }}" alt="Imagen del producto" class="card-img-top" />
                     <div class="card-body">
                       <h5 class="card-title">{{ producto.nombre }}</h5>
                       <p class="card-text">{{ producto.descripcion }}</p>

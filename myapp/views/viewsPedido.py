@@ -9,7 +9,10 @@ from django.conf import settings
 from django.http import JsonResponse
 import json
 from django.utils import timezone
-from ..decorators import admin_required, waiter_required, chef_required
+from ..decorators import admin_required, waiter_required
+from channels.layers import get_channel_layer
+from asgiref.sync import async_to_sync
+
 
 @waiter_required
 def enviar_factura(request, idMesa):
@@ -101,9 +104,21 @@ def borrarPedido (request, idMesa):
     Pedido.objects.filter(mesa=idMesa).delete()
     return redirect('verMesas')  
 
-@login_required
 def cambiar_estado_pedido(request, pedido_id):
     pedido = Pedido.objects.get(idPedido=pedido_id)
-    pedido.hecho = not pedido.hecho  
+    pedido.hecho = True  # o el nuevo estado que uses
     pedido.save()
-    return redirect('chef') 
+
+    # Enviar mensaje a los meseros
+    channel_layer = get_channel_layer()
+    mensaje = f"🛎️ El pedido de la mesa {pedido.mesa.numero} está listo"
+
+    async_to_sync(channel_layer.group_send)(
+        "meseros",  # grupo al que están suscritos los meseros
+        {
+            "type": "recibir_pedido",
+            "mensaje": mensaje
+        }
+    )
+
+    return redirect('chef')
