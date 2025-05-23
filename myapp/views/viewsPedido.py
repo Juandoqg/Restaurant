@@ -91,6 +91,16 @@ def savePedido(request, idMesa):
                         idProducto_id=producto_id
                     )
                     pedido.save()
+                    channel_layer = get_channel_layer()
+                    mensaje = f"📥 Nuevo pedido en la mesa {idMesa}"
+                    print("se esta enviadno")
+                    async_to_sync(channel_layer.group_send)(
+                        "chefs",  
+                        {
+                            "type": "nuevo_pedido",
+                            "mensaje": mensaje
+                        }
+                    )
             return render(request, 'tomarPedido.html', {'success': True, 'idMesa': idMesa})
         
         except Exception as e:
