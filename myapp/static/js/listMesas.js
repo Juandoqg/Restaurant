@@ -24,7 +24,7 @@ const listMesas = async () => {
       cardDiv.innerHTML = `
     <div class="card text-center p-3 mb-4" style="width: 22rem; background-color: #f9e3b3;">
         <h5 class="card-title text-center mb-4">Mesa ${mesa.idMesa}</h5>
-        <img src="/static/img/mesa.jpg" alt="Imagen de mesa" style="border-radius: 10px;">
+        <img src="/static/img/mesa.webp" alt="Imagen de mesa" style="border-radius: 10px;">
         <div class="card-body">
             <div class=" d-flex justify-content-center gap-5 mb-4" >
                 <a href="${tomarPedidoURL}" class="btn btn-success">Realizar pedido</a>
