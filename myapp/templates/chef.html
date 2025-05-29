@@ -83,14 +83,24 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-beta3/js/bootstrap.min.js"></script>
     <script src="{% static 'js/cambiar_estado.js' %}"></script>
    <script>
-const socket = new WebSocket('ws://' + window.location.host + '/ws/chef/');
+    const loc = window.location;
+    const wsScheme = loc.protocol === "https:" ? "wss" : "ws";
+    const socket = new WebSocket(`${wsScheme}://${loc.host}/ws/chef/`);
 
-socket.onmessage = function(e) {
-    const data = JSON.parse(e.data);
-    alert(data.mensaje);
-    location.reload(); // Opcional
-};
+    socket.onmessage = function(e) {
+        const data = JSON.parse(e.data);
+        alert(data.mensaje);  // Puedes personalizar esta parte
+    };
+
+    socket.onclose = function(e) {
+        console.error('Socket cerrado inesperadamente');
+    };
+
+    socket.onerror = function(e) {
+        console.error('Error en el WebSocket', e);
+    };
 </script>
+
 
   </body>
 </html>
