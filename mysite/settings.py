@@ -144,7 +144,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'myapp.User'
 
 CSRF_TRUSTED_ORIGINS = [
-    'https://restaurant-production-3c06.up.railway.app',
+    'https://restaurant-production-d84b.up.railway.app',
 ]
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
