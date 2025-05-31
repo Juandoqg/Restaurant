@@ -11,31 +11,36 @@ def signin(request):
         return render(request, 'index.html')
     elif request.method == 'POST':
         try:
-            username = request.POST['username']
-            password = request.POST['password']
+            username = request.POST.get('username', '').strip()
+            password = request.POST.get('password', '').strip()
+            errors = []
+
+            if not username:
+                errors.append("Por favor, introduce tu nombre de usuario.")
+            if not password:
+                errors.append("Por favor, introduce tu contraseña.")
+
+            if errors:
+                return render(request, 'index.html', {'error': True, 'error_message': " ".join(errors)})
+
             user = authenticate(request, username=username, password=password)
-            
             if user is None:
-                errors = {}
-                if not username:
-                    errors = "Por favor, introduce tu nombre de usuario."
-                if not password:
-                    errors = "Por favor, introduce tu contraseña."
-                else:
-                    errors = "El nombre de usuario o la contraseña no coinciden."
-                return render(request, 'index.html', {'error': True, 'error_message': errors})
-            else :
-             login(request, user)
-             success_url = ''
-             if user.is_waiter:
+                return render(request, 'index.html', {
+                    'error': True,
+                    'error_message': "Las credenciales son incorrectas."
+                })
+
+            login(request, user)
+
+            success_url = ''
+            if user.is_waiter:
                 success_url = '/verMesas'
-             elif user.is_chef:
+            elif user.is_chef:
                 success_url = '/chef'
-             elif user.is_superuser:
+            elif user.is_superuser:
                 success_url = '/administrador'
-            
-             return render(request, 'index.html', {'success': True, 'success_url': success_url})
-        
+                
+            return render(request, 'index.html', {'success': True, 'success_url': success_url})        
         except Exception as e:
             return render(request, 'index.html', {'error': True, 'error_message': str(e)})
 
