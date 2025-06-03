@@ -6,7 +6,8 @@ class User(AbstractUser):
     expedicion = models.DateField(null=True)
     is_chef = models.BooleanField(default=False)
     is_waiter = models.BooleanField(default=False)
-    visible = models.BooleanField(default=True)  # Nuevo campo
+    is_client = models.BooleanField(default=False)
+    visible = models.BooleanField(default=True) 
 
 class Producto(models.Model):
     idProducto = models.AutoField(primary_key=True)
@@ -15,16 +16,16 @@ class Producto(models.Model):
     precio = models.DecimalField(max_digits=10, decimal_places=2)
     nombre = models.CharField(max_length=50, default="")
     imgProducto = models.ImageField(upload_to='img/', null=True)
-    visible = models.BooleanField(default=True)  # Nuevo campo
+    visible = models.BooleanField(default=True) 
 
 
 class Mesa(models.Model):
     idMesa = models.AutoField(primary_key=True)
-    tipo = models.CharField(max_length=200, blank=True, null=True)  # Nueva descripción
+    tipo = models.CharField(max_length=200, blank=True, null=True)
     numero = models.IntegerField(null=True, blank=True)
-    descripcion = models.CharField(max_length=200, blank=True, null=True)  # Nueva descripción
-    visible = models.BooleanField(default=True)  # Nuevo campo
-    disponible = models.BooleanField(default=True)  # Nuevo campo
+    descripcion = models.CharField(max_length=200, blank=True, null=True)
+    visible = models.BooleanField(default=True)
+    disponible = models.BooleanField(default=True)
 
 
 class Pedido(models.Model):
@@ -45,4 +46,4 @@ class Factura(models.Model):
     cosasPedidas = models.CharField(max_length=400)
     idMesero = models.ForeignKey(User, on_delete=models.CASCADE)
     mesa = models.ForeignKey(Mesa, on_delete=models.CASCADE)
-    visible = models.BooleanField(default=True)  # Nuevo campo
+    visible = models.BooleanField(default=True)  
