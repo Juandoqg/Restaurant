@@ -1,0 +1,62 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Registro</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/registroCliente.css' %}" />
+
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen px-4" id="inicio">
+
+  <form class="bg-white p-6 md:p-8 rounded-xl shadow-md w-full max-w-sm space-y-4">
+    <h2 class="text-xl md:text-2xl font-semibold text-center text-gray-800">Registro</h2>
+
+    <div>
+      <label for="nombre" class="text-sm text-gray-700">Nombre</label>
+      <input id="nombre" type="text" placeholder="Juan" required
+             class="w-full mt-1 p-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 outline-none">
+    </div>
+
+    <div>
+      <label for="apellido" class="text-sm text-gray-700">Apellido</label>
+      <input id="apellido" type="text" placeholder="Pérez" required
+             class="w-full mt-1 p-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 outline-none">
+    </div>
+
+    <div>
+      <label for="email" class="text-sm text-gray-700">Correo electrónico</label>
+      <input id="email" type="email" placeholder="ejemplo@correo.com" required
+             class="w-full mt-1 p-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 outline-none">
+    </div>
+
+    <div>
+      <label for="documento" class="text-sm text-gray-700">Documento de identidad</label>
+      <input id="documento" type="text" placeholder="123456789" required
+             class="w-full mt-1 p-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 outline-none">
+    </div>
+
+    <div>
+      <label for="fecha" class="text-sm text-gray-700">Fecha de nacimiento</label>
+      <input id="fecha" type="date" required
+             class="w-full mt-1 p-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 outline-none">
+    </div>
+
+    <div>
+      <label for="telefono" class="text-sm text-gray-700">Número de teléfono</label>
+      <input id="telefono" type="tel" placeholder="+57 300 1234567" required
+             class="w-full mt-1 p-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 outline-none">
+    </div>
+
+    <button type="submit"
+            id="BtnRegistro"
+            class="w-full custom-btn py-2 rounded-lg"
+    >
+      Registrarse
+    </button>
+  </form>
+
+</body>
+</html>

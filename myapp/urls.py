@@ -6,6 +6,7 @@ from .views import viewsProducto
 from .views import viewsPedido
 from .views import viewsFactura
 from .views import viewsChef
+from .views import viewsCliente
 
 urlpatterns = [
      path('',views.signin, name = "signin"),
@@ -15,6 +16,7 @@ urlpatterns = [
      path('chef/', viewsChef.chef, name = "chef"),
      path('signout/', views.signout, name='signout'),
      path('createUser/', views.createUser, name='createUser'),
+     path('registroCliente/', viewsCliente.createClient, name='registroCliente'),
      path("showUsers/",viewsUser.showUsers, name ="showUsers"),
      path("listUsers/",viewsUser.listUsers, name = "listUsers"),
      path("listUserPorId/<int:user_id>",viewsUser.listUserPorId, name = "listUsersPorId"),
