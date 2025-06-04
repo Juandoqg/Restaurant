@@ -20,14 +20,22 @@ body {
 }
 
 #btn-regresar {
-  background-color: #e48e3f;
-  border-radius: 15px;
-  color: white;
-  padding: 10px 20px;        /* Espacio interno arriba/abajo e izquierda/derecha */
-  font-weight: bold;
+  background-color: rgba(255, 255, 255, 0.9); /* blanco semi-transparente */
+  color: #e48e3f;                             /* mantiene tu naranja */
   border: none;
+  border-radius: 15px;
+  padding: 10px 20px;
+  font-weight: 600;
   display: inline-flex;
   align-items: center;
-  gap: 8px;                  /* Espacio entre el icono y el texto si usas uno */
+  gap: 8px;
   cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: all 0.2s ease-in-out;
+}
+
+#btn-regresar:hover {
+  background-color: white;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.2);
 }
