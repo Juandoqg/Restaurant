@@ -7,15 +7,6 @@ body {
     background-color: #e48e3f;
     border: none;
     color: white;
-    font-weight: 600;
-    font-size: 1.1rem;
-    letter-spacing: 1px;
-    padding: 0.75rem 0;
-    transition: background 0.2s;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-    font-family: "Segoe UI", "Helvetica Neue", Arial, "Liberation Sans", sans-serif; /* Igual que Bootstrap */
-    text-align: center;
-    line-height: 1.5;
 }
 
 .custom-btn:hover {
@@ -26,4 +17,17 @@ body {
     background-color: #fbe5ad;
     border-radius: 15px;
     height: 90%;
+}
+
+#btn-regresar {
+  background-color: #e48e3f;
+  border-radius: 15px;
+  color: white;
+  padding: 10px 20px;        /* Espacio interno arriba/abajo e izquierda/derecha */
+  font-weight: bold;
+  border: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;                  /* Espacio entre el icono y el texto si usas uno */
+  cursor: pointer;
 }

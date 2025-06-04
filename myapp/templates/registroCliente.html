@@ -6,10 +6,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Registro</title>
   <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" type="text/css" href="{% static 'css/registroCliente.css' %}" />
-
+  <link rel="stylesheet" type="text/css" href="{% static 'css/registroCliente.css' %}" />
 </head>
 <body class="bg-gray-100 flex items-center justify-center min-h-screen px-4" id="inicio">
+
+  <!-- Botón regresar arriba a la izquierda -->
+  <a href="/"
+     class="absolute top-6 left-6 flex items-center text-[#e48e3f] font-semibold hover:underline"
+     id="btn-regresar">
+    <!-- Icono de flecha (SVG) -->
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+    </svg>
+    Volver al inicio
+  </a>
 
   <form class="bg-white p-6 md:p-8 rounded-xl shadow-md w-full max-w-sm space-y-4">
     <h2 class="text-xl md:text-2xl font-semibold text-center text-gray-800">Registro</h2>
