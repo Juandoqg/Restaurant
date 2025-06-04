@@ -17,6 +17,7 @@ urlpatterns = [
      path('signout/', views.signout, name='signout'),
      path('createUser/', views.createUser, name='createUser'),
      path('registroCliente/', viewsCliente.createClient, name='registroCliente'),
+     path('reservaCliente/', viewsCliente.reservaCliente, name='reservaCliente'),
      path("showUsers/",viewsUser.showUsers, name ="showUsers"),
      path("listUsers/",viewsUser.listUsers, name = "listUsers"),
      path("listUserPorId/<int:user_id>",viewsUser.listUserPorId, name = "listUsersPorId"),

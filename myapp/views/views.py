@@ -39,6 +39,8 @@ def signin(request):
                 success_url = '/chef'
             elif user.is_superuser:
                 success_url = '/administrador'
+            elif user.is_client:
+                success_url = '/reservaCliente'
                 
             return render(request, 'index.html', {'success': True, 'success_url': success_url})        
         except Exception as e:

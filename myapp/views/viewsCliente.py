@@ -41,3 +41,8 @@ def createClient(request):
         })
 
     return render(request, 'registroCliente.html')
+
+
+def reservaCliente(request):
+    if request.method == 'GET':
+        return render(request, 'reservaCliente.html')
