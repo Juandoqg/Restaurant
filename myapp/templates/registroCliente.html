@@ -6,67 +6,85 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Registro</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <link rel="stylesheet" type="text/css" href="{% static 'css/registroCliente.css' %}" />
 </head>
-<body class="bg-gray-100 flex items-center justify-center min-h-screen px-4" id="inicio">
-
-  <!-- Botón regresar arriba a la izquierda -->
-  <a href="/"
-     class="absolute top-6 left-6 flex items-center text-[#e48e3f] font-semibold hover:underline"
-     id="btn-regresar">
-    <!-- Icono de flecha (SVG) -->
-    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-    </svg>
-    Volver al inicio
-  </a>
-
-  <form class="bg-white p-6 md:p-8 rounded-xl shadow-md w-full max-w-sm space-y-4">
-    <h2 class="text-xl md:text-2xl font-semibold text-center text-gray-800">Registro</h2>
-
-    <div>
-      <label for="nombre" class="text-sm text-gray-700">Nombre</label>
-      <input id="nombre" type="text" placeholder="Juan" required
-             class="w-full mt-1 p-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 outline-none">
-    </div>
-
-    <div>
-      <label for="apellido" class="text-sm text-gray-700">Apellido</label>
-      <input id="apellido" type="text" placeholder="Pérez" required
-             class="w-full mt-1 p-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 outline-none">
-    </div>
-
-    <div>
-      <label for="email" class="text-sm text-gray-700">Correo electrónico</label>
-      <input id="email" type="email" placeholder="ejemplo@correo.com" required
-             class="w-full mt-1 p-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 outline-none">
-    </div>
-
-    <div>
-      <label for="documento" class="text-sm text-gray-700">Documento de identidad</label>
-      <input id="documento" type="text" placeholder="123456789" required
-             class="w-full mt-1 p-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 outline-none">
-    </div>
-
-    <div>
-      <label for="fecha" class="text-sm text-gray-700">Fecha de nacimiento</label>
-      <input id="fecha" type="date" required
-             class="w-full mt-1 p-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 outline-none">
-    </div>
-
-    <div>
-      <label for="telefono" class="text-sm text-gray-700">Número de teléfono</label>
-      <input id="telefono" type="tel" placeholder="+57 300 1234567" required
-             class="w-full mt-1 p-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 outline-none">
-    </div>
-
-    <button type="submit"
-            id="BtnRegistro"
-            class="w-full custom-btn py-2 rounded-lg"
-    >
-      Registrarse
-    </button>
-  </form>
-
+<body class="flex items-center justify-center min-h-screen px-4" style="background-color: #e48e3f;">
+  <div class="bg-white p-6 md:p-8 rounded-xl shadow w-full max-w-xl mx-auto relative">
+    <a href="/" class="absolute top-4 left-4 text-[#e48e3f] font-semibold hover:underline flex items-center">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+      </svg>
+      Volver al inicio
+    </a>
+    <h2 class="text-2xl font-semibold text-center text-gray-800 mb-4">Registro</h2>
+    <form method="POST" action="{% url 'registroCliente' %}">
+      {% csrf_token %}
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <label for="nombre" class="form-label text-gray-700">Nombre</label>
+          <input id="nombre" name="nombre" type="text" placeholder="Juan" required
+                 class="form-input w-full mt-1 p-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 outline-none">
+        </div>
+        <div>
+          <label for="apellido" class="form-label text-gray-700">Apellido</label>
+          <input id="apellido" name="apellido" type="text" placeholder="Pérez" required
+                 class="form-input w-full mt-1 p-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 outline-none">
+        </div>
+        <div>
+          <label for="email" class="form-label text-gray-700">Correo electrónico</label>
+          <input id="email" name="email" type="email" placeholder="ejemplo@correo.com" required
+                 class="form-input w-full mt-1 p-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 outline-none">
+        </div>
+        <div>
+          <label for="documento" class="form-label text-gray-700">Documento de identidad</label>
+          <input id="documento" name="documento" type="text" placeholder="123456789" required
+                 class="form-input w-full mt-1 p-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 outline-none">
+        </div>
+        <div>
+          <label for="expedicion" class="form-label text-gray-700">Fecha de expedición del documento</label>
+          <input id="expedicion" name="expedicion" type="date" required
+                 class="form-input w-full mt-1 p-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 outline-none">
+        </div>
+        <div>
+          <label for="fecha" class="form-label text-gray-700">Fecha de nacimiento</label>
+          <input id="fecha" name="fecha" type="date" required
+                 class="form-input w-full mt-1 p-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 outline-none">
+        </div>
+        <div>
+          <label for="telefono" class="form-label text-gray-700">Número de teléfono</label>
+          <input id="telefono" name="telefono" type="tel" placeholder="+57 300 1234567" required
+                 class="form-input w-full mt-1 p-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 outline-none">
+        </div>
+        <div>
+          <label for="contrasenia" class="form-label text-gray-700">Contraseña</label>
+          <input id="contrasenia" name="contrasenia" type="password" placeholder="********" required
+                 class="form-input w-full mt-1 p-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 outline-none">
+        </div>
+      </div>
+      <button type="submit"
+              class="btn btn-primary w-full py-2 rounded-lg mt-4 bg-[#e48e3f] text-white font-semibold hover:bg-[#cf7a2c] transition">
+        Registrarse
+      </button>
+    </form>
+  </div>
+  {% if messages %}
+    {% for message in messages %}
+      {% if "exitosamente" in message %}
+        <script>
+          Swal.fire({
+            icon: 'success',
+            title: '¡Registro exitoso!',
+            text: '{{ message }}',
+            confirmButtonColor: '#e48e3f'
+          }).then((result) => {
+            if (result.isConfirmed) {
+              window.location.href = "{% url 'signin' %}";
+            }
+          });
+        </script>
+      {% endif %}
+    {% endfor %}
+  {% endif %}
 </body>
 </html>
