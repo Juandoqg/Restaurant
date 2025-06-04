@@ -4,6 +4,8 @@ from django.db import models
 class User(AbstractUser):
     documento = models.IntegerField(null=True)
     expedicion = models.DateField(null=True)
+    fecha_nacimiento = models.DateField(null=True, blank=True)  
+    telefono = models.CharField(max_length=20, null=True, blank=True)  
     is_chef = models.BooleanField(default=False)
     is_waiter = models.BooleanField(default=False)
     is_client = models.BooleanField(default=False)
@@ -46,4 +48,4 @@ class Factura(models.Model):
     cosasPedidas = models.CharField(max_length=400)
     idMesero = models.ForeignKey(User, on_delete=models.CASCADE)
     mesa = models.ForeignKey(Mesa, on_delete=models.CASCADE)
-    visible = models.BooleanField(default=True)  
+    visible = models.BooleanField(default=True)
