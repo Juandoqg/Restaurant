@@ -45,8 +45,13 @@ urlpatterns = [
      path('mesas/', viewsMesa.Mesas, name = "mesas"),
      path('mesas/borrar/<int:producto_id>/', viewsMesa.borrar_mesa, name='borrar_mesa'),
      path('mesas/editar/<int:producto_id>/', viewsMesa.editar_mesa, name='editar_mesa'),
-     path('reservarMesas/', viewsCliente.reservarMesas, name = "reservarMesasCliente"),
+
+
+     path('reservarMesas/', viewsCliente.lista_mesas_para_reservar, name = "verMesasCliente"),
      path('verReservas/', viewsCliente.verReservasCliente, name = "verReservasCliente"),
+     path('reservar/<int:idMesa>/', viewsCliente.reservarMesa, name='reservarMesa'),
+     path('reservaExitosa/', viewsCliente.reservaExitosa, name='reservaExitosa'),
+
 
 
 

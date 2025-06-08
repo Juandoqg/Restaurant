@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Reserva Exitosa</title>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body>
+  <script>
+    Swal.fire({
+      title: '¡Reserva exitosa!',
+      text: 'Tu mesa ha sido reservada correctamente.',
+      icon: 'success',
+      confirmButtonText: 'Volver'
+    }).then(() => {
+      window.location.href = "{% url 'reservaCliente' %}";
+    });
+  </script>
+</body>
+</html>

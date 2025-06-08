@@ -49,3 +49,10 @@ class Factura(models.Model):
     idMesero = models.ForeignKey(User, on_delete=models.CASCADE)
     mesa = models.ForeignKey(Mesa, on_delete=models.CASCADE)
     visible = models.BooleanField(default=True)
+
+class Reserva(models.Model):
+    mesa = models.ForeignKey(Mesa, on_delete=models.CASCADE, related_name='reservas')
+    cliente = models.ForeignKey(User, on_delete=models.CASCADE, related_name='reservas')
+    fecha = models.DateField()
+    hora = models.TimeField()
+    creado_en = models.DateTimeField(auto_now_add=True)
