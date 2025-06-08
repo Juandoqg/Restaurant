@@ -21,3 +21,11 @@ def createClient(request):
 def reservaCliente(request):
     if request.method == 'GET':
         return render(request, 'reservaCliente.html')
+    
+def reservarMesas(request):
+    if request.method =="GET":
+        return render (request, 'reservaMesasCliente.html')
+
+def verReservasCliente(request):
+    if request.method =="GET":
+        return render (request, 'verReservasCliente.html')
