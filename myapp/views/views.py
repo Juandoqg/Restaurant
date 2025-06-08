@@ -29,20 +29,20 @@ def signin(request):
                     'error': True,
                     'error_message': "Las credenciales son incorrectas."
                 })
+            else:
+                login(request, user)
 
-            login(request, user)
-
-            success_url = ''
-            if user.is_waiter:
-                success_url = '/verMesas'
-            elif user.is_chef:
-                success_url = '/chef'
-            elif user.is_superuser:
-                success_url = '/administrador'
-            elif user.is_client:
-                success_url = '/reservaCliente'
-                
-            return render(request, 'index.html', {'success': True, 'success_url': success_url})        
+                success_url = ''
+                if user.is_waiter:
+                    success_url = '/verMesas'
+                elif user.is_chef:
+                    success_url = '/chef'
+                elif user.is_superuser:
+                    success_url = '/administrador'
+                elif user.is_client:
+                    success_url = '/reservaCliente'
+                    
+                return render(request, 'index.html', {'success': True, 'success_url': success_url})        
         except Exception as e:
             return render(request, 'index.html', {'error': True, 'error_message': str(e)})
 

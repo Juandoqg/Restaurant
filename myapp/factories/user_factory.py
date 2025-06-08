@@ -16,6 +16,8 @@ class UsuarioFactory:
             "email": datos["email"],
             "documento": datos["document"],
             "expedicion": datos["date"],
+            "telefono": datos["telefono"],
+            "fecha_nacimiento" : datos["nacimiento"]
         }
 
         if tipo == "Mesero":
