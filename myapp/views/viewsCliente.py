@@ -28,9 +28,10 @@ def reservarMesas(request):
     if request.method =="GET":
         return render (request, 'reservaMesasCliente.html', {'mesas': mesas})
 
+@login_required
 def verReservasCliente(request):
-    if request.method =="GET":
-        return render (request, 'verReservasCliente.html')
+    reservas = Reserva.objects.filter(cliente=request.user).select_related('mesa').order_by('-fecha', '-hora')
+    return render(request, 'verReservasCliente.html', {'reservas': reservas})
     
 
 def reservarMesa(request, idMesa):

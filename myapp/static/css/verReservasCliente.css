@@ -1,0 +1,42 @@
+/* Fondo general */
+body {
+  background-image: url('../img/Fondo2.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Contenedor blanco centrado */
+.reservas-container {
+  background-color: white;
+  border-radius: 15px;
+  padding: 30px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+  max-width: 900px;
+  margin: 50px auto;
+}
+
+/* Tabla elegante */
+.table {
+  margin-top: 20px;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.table thead {
+  background-color: #e48e3f;
+  color: white;
+}
+
+.table tbody tr:hover {
+  background-color: #f1f1f1;
+}
+
+.btn {
+  border-radius: 8px;
+   background-color:red
+}
