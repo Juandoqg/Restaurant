@@ -30,3 +30,21 @@ class UsuarioFactory:
             raise ValueError("Tipo de usuario no reconocido")
 
         return User(**base_fields)
+
+
+    def crear_usuarioCliente(datos):
+
+        base_fields = {
+            "username": datos["email"],
+            "password": make_password(datos["password"]),  # encriptación
+            "first_name": datos["nombre"],
+            "last_name": datos["apellido"],
+            "email": datos["email"],
+            "documento": datos["documento"],
+            "expedicion": datos["expedicion"],
+            "telefono": datos["telefono"],
+            "fecha_nacimiento" : datos["fecha"],
+            "is_client" : True
+        }
+
+        return User(**base_fields)
