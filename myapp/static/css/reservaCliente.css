@@ -1,32 +1,63 @@
+/* Fondo general */
 body {
+    background-image: url('../img/Fondo2.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     font-family: Arial, sans-serif;
     text-align: center;
-    background-color: #f7f7f7;
-    padding: 50px;
 }
 
+/* Contenedor principal centrado y un poco más alto */
+#inicio {
+    background-color: #fbe5ad;
+    border-radius: 15px;
+    padding: 50px 40px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    max-width: 90%;
+    width: 320px;
+}
+
+/* Título */
 h1 {
     color: #333;
+    margin-bottom: 30px;
+    font-size: 24px;
 }
 
+/* Contenedor de botones */
 .botones-container {
-    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
 }
 
+/* Botones personalizados */
 .boton {
-    background-color: #4CAF50;
+    background-color: #e48e3f;
+    border: 2px solid wheat;
     color: white;
-    padding: 15px 30px;
-    margin: 10px;
-    border: none;
+    padding: 12px 24px;
     border-radius: 8px;
-    cursor: pointer;
     font-size: 16px;
-    transition: background-color 0.3s ease;
     text-decoration: none;
-    display: inline-block;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    width: 220px;
+    text-align: center;
 }
 
 .boton:hover {
-    background-color: #45a049;
+    background-color: #cf7c2f;
+    transform: scale(1.03);
+}
+
+/* Texto auxiliar */
+.texto-has-olvidado {
+    color: black;
 }

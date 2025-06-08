@@ -9,12 +9,15 @@
 </head>
 <body>
 
-    <h1>Bienvenido, {{ user.first_name }}</h1>
+    <div id="inicio">
+        <h1>Bienvenido, {{ user.first_name }}</h1>
 
-    <div class="botones-container">
-        <a href="{% url 'reservarMesasCliente' %}" class="boton">Reservar mesas</a>
+        <div class="botones-container">
+            <a href="{% url 'reservarMesasCliente' %}" class="boton">Reservar mesas</a>
         <a href="{% url 'verReservasCliente' %}" class="boton">Ver mis reservas</a>
+        </div>
     </div>
 
 </body>
 </html>
+
