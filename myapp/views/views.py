@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, logout, authenticate
-from ..models import User
-from ..models import Pedido
+from ..models import Reserva
+
 from django.contrib.auth.decorators import login_required
 from ..decorators import admin_required
 from ..factories.user_factory import UsuarioFactory
@@ -68,4 +68,7 @@ def signout(request):
     logout(request)
     return redirect("/")    
 
-    
+@admin_required
+def verReservas(request):
+    reservas = Reserva.objects.select_related('mesa', 'cliente').all().order_by('-fecha', '-hora')
+    return render(request, 'verReservas.html', {'reservas': reservas})

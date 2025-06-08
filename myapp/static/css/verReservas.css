@@ -1,0 +1,23 @@
+body {
+  background-image: url('../img/Fondo2.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+.card {
+  background-color: white;
+  border-radius: 12px;
+}
+
+.btn-rojo {
+  background-color: #dc3545 !important;
+  color: white !important;
+  border: none;
+  transition: background-color 0.3s ease;
+}
+
+.btn-rojo:hover {
+  background-color: #c82333 !important;
+  color: white !important;
+}

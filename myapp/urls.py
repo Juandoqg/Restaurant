@@ -48,9 +48,10 @@ urlpatterns = [
 
 
      path('reservarMesas/', viewsCliente.lista_mesas_para_reservar, name = "verMesasCliente"),
-     path('verReservas/', viewsCliente.verReservasCliente, name = "verReservasCliente"),
+     path('verReservasCliente/', viewsCliente.verReservasCliente, name = "verReservasCliente"),
      path('reservar/<int:idMesa>/', viewsCliente.reservarMesa, name='reservarMesa'),
      path('reservaExitosa/', viewsCliente.reservaExitosa, name='reservaExitosa'),
+     path('verReservas/', views.verReservas, name='verReservas'),
 
 
 
