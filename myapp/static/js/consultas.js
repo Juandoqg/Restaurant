@@ -6,6 +6,9 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     document.getElementById("buscarVentaPorFecha").addEventListener("click", () => {
+    // Desmarcar todos los checkbox únicos
+    document.querySelectorAll(".checkbox-unico").forEach(cb => cb.checked = false);
+
     const fecha = document.getElementById("fechaVenta").value;
     if (!fecha) {
         alert("Selecciona una fecha.");
@@ -16,13 +19,29 @@ document.addEventListener("DOMContentLoaded", () => {
         .then(response => response.json())
         .then(data => {
             actualizarGrafico(
-                [data.fecha],  // solo una fecha
-                [data.valor_total],  // solo un valor
+                [data.fecha],
+                [data.valor_total],
                 `Venta del ${data.fecha}`
             );
         })
         .catch(error => console.error("Error al obtener la venta por fecha:", error));
 });
+
+
+ const manejarSeleccionExclusivaPorClase = (clase) => {
+    document.querySelectorAll(".checkbox-unico").forEach(checkbox => {
+    checkbox.addEventListener("change", () => {
+        if (checkbox.checked) {
+            document.querySelectorAll(".checkbox-unico").forEach(cb => {
+                if (cb !== checkbox) cb.checked = false;
+            });
+        }
+    });
+});
+};
+
+manejarSeleccionExclusivaPorClase("checkbox-ventas");
+manejarSeleccionExclusivaPorClase("checkbox-reservas");
 
 
     const ctx = canvas.getContext("2d");
@@ -98,7 +117,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     actualizarGrafico(
                         data.reservas_meseros,
                         data.cantidad_reservas_meseros,
-                        "Reservas por Mesero"
+                        "Reservas por Cliente"
                     );
                 } else if (reservaMesa) {
                     actualizarGrafico(
