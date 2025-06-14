@@ -14,46 +14,6 @@ from channels.layers import get_channel_layer
 from asgiref.sync import async_to_sync
 
 
-@waiter_required
-def enviar_factura(request, idMesa):
-    # Obtén los datos necesarios de la factura (por ejemplo, pedidos, total, etc.)
-    pedidos = Pedido.objects.filter(mesa=idMesa)  # Filtra los pedidos por la mesa
-    mesa = Mesa.objects.get(idMesa=idMesa)
-    total = sum([pedido.idProducto.precio * pedido.cantidad for pedido in pedidos])
-    total_quantity = sum([pedido.cantidad for pedido in pedidos])
-
-    user_id = pedidos.first().idMesero.id
-    hora_actual = timezone.now()
-
-    data = json.loads(request.body)
-    destinatario = data.get('email')
-    # Renderiza la plantilla HTML como string
-    html_content = render_to_string('factura_email.html', {
-                'idMesa': mesa.numero,
-                'user_id': user_id,  # Aquí accedemos al id del mesero del primer pedido
-                'pedidos': pedidos,
-                'hora': hora_actual,
-                'total': total,
-                'total_quantity': total_quantity,
-            })
-    if not destinatario:
-        return JsonResponse({'error': 'Por favor, proporciona un correo electrónico.'}, status=400)
-
-    # Crea el correo
-    email = EmailMessage(
-        subject='Factura de La Patrana',
-        body=html_content,
-        from_email=settings.EMAIL_HOST_USER,
-        to=[destinatario],
-    )
-    email.content_subtype = 'html'  # Define que el contenido es HTML
-    email.send()
-    Pedido.objects.filter(mesa=idMesa).delete()
-
-    # Redirigir a la vista de mesas después de enviar el correo y eliminar los pedidos
-    return JsonResponse({'message': 'Correo enviado correctamente.'})
-    
-
 
 @waiter_required
 def verPedido(request, idMesa):

@@ -10,9 +10,13 @@ import re
 import calendar
 from django.contrib.auth import  get_user_model
 from ..decorators import admin_required, waiter_required
-
+from django.core.mail import EmailMessage
+from django.template.loader import render_to_string
+from django.conf import settings
+from django.http import JsonResponse
 from channels.layers import get_channel_layer
 from asgiref.sync import async_to_sync
+import json
 
 User = get_user_model()
 def datos_facturas(request):
@@ -111,6 +115,8 @@ def verFacturaID(request, idMesa):
         mesa=mesa
     )
     factura.save()
+    factura_id = factura.idFactura
+    request.session['factura_id_email'] = factura_id    
     channel_layer = get_channel_layer()
     async_to_sync(channel_layer.group_send)(
                         "admin",
@@ -119,6 +125,7 @@ def verFacturaID(request, idMesa):
                             "redirect": True  # Podemos incluir una señal adicional si lo deseas
                         } )
     return render(request, 'verFacturaID.html', {
+        'idFactura' : factura_id,
         'pedidos': pedidos,
         'user_id': user_id,
         'hora': hora,
@@ -185,3 +192,46 @@ def borrar_factura(request, factura_id):
         pass
     return redirect('verFactura') 
 
+@waiter_required
+def enviar_factura(request, idMesa):
+    # Obtén los datos necesarios de la factura (por ejemplo, pedidos, total, etc.)
+    pedidos = Pedido.objects.filter(mesa=idMesa)  # Filtra los pedidos por la mesa
+    mesa = Mesa.objects.get(idMesa=idMesa)
+    total = sum([pedido.idProducto.precio * pedido.cantidad for pedido in pedidos])
+    total_quantity = sum([pedido.cantidad for pedido in pedidos])
+
+    user_id = pedidos.first().idMesero.id
+    hora_actual = timezone.now()
+    factura_id_email = request.session.get('factura_id_email')
+    if not factura_id_email:
+        factura_id_email = ''
+
+    data = json.loads(request.body)
+    destinatario = data.get('email')
+    # Renderiza la plantilla HTML como string
+    html_content = render_to_string('factura_email.html', {
+                'idFactura' : factura_id_email,
+                'idMesa': mesa.numero,
+                'user_id': user_id,  # Aquí accedemos al id del mesero del primer pedido
+                'pedidos': pedidos,
+                'hora': hora_actual,
+                'total': total,
+                'total_quantity': total_quantity,
+            })
+    if not destinatario:
+        return JsonResponse({'error': 'Por favor, proporciona un correo electrónico.'}, status=400)
+
+    # Crea el correo
+    email = EmailMessage(
+        subject='Factura de La Patrana',
+        body=html_content,
+        from_email=settings.EMAIL_HOST_USER,
+        to=[destinatario],
+    )
+    email.content_subtype = 'html'  # Define que el contenido es HTML
+    email.send()
+    Pedido.objects.filter(mesa=idMesa).delete()
+
+    # Redirigir a la vista de mesas después de enviar el correo y eliminar los pedidos
+    return JsonResponse({'message': 'Correo enviado correctamente.'})
+    
