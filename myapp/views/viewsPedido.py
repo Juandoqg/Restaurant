@@ -101,6 +101,7 @@ def savePedido(request, idMesa):
                             "mensaje": mensaje
                         }
                     )
+
             return render(request, 'tomarPedido.html', {'success': True, 'idMesa': idMesa})
         
         except Exception as e:

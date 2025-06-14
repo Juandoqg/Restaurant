@@ -112,6 +112,28 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <script src="{% static 'js/grafico.js' %}"></script>
-    
+
+
+    <script>
+    const loc = window.location;
+    const wsScheme = loc.protocol === "https:" ? "wss" : "ws";
+    const socket = new WebSocket(`${wsScheme}://${loc.host}/ws/administrador/`);
+
+    socket.onmessage = function(e) {
+        const data = JSON.parse(e.data);
+        if (data.type === "update") {
+             window.location.href = "/administrador/";
+            }
+        };
+
+    socket.onclose = function(e) {
+        console.error('Socket cerrado inesperadamente');
+    };
+
+    socket.onerror = function(e) {
+        console.error('Error en el WebSocket', e);
+    };
+</script>
+
   </body>
 </html>

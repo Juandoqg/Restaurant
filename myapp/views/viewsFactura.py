@@ -11,7 +11,8 @@ import calendar
 from django.contrib.auth import  get_user_model
 from ..decorators import admin_required, waiter_required
 
-
+from channels.layers import get_channel_layer
+from asgiref.sync import async_to_sync
 
 User = get_user_model()
 def datos_facturas(request):
@@ -110,7 +111,13 @@ def verFacturaID(request, idMesa):
         mesa=mesa
     )
     factura.save()
-
+    channel_layer = get_channel_layer()
+    async_to_sync(channel_layer.group_send)(
+                        "admin",
+                        {
+                            "type": "send_chart_update",
+                            "redirect": True  # Podemos incluir una señal adicional si lo deseas
+                        } )
     return render(request, 'verFacturaID.html', {
         'pedidos': pedidos,
         'user_id': user_id,
