@@ -68,6 +68,8 @@ h1 {
 input[type="checkbox"] {
     margin-top: 5px;
     transform: scale(1.2);
+    accent-color: #28a745; /* verde Bootstrap */
+
 }
 
 /* Botón de realizar pedido */
@@ -98,3 +100,4 @@ input[type="checkbox"] {
     height: 200px;
     object-fit: cover;
 }
+
