@@ -1,0 +1,67 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Consultas</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        .filtros {
+            margin-bottom: 20px;
+        }
+
+        .filtros label {
+            margin-right: 15px;
+        }
+
+        #graficoGeneral {
+            max-width: 1000px;
+            height: 500px;
+        }
+
+        button {
+            margin-top: 10px;
+            padding: 10px 15px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <h1>Consultas y Estadísticas</h1>
+
+    <div class="filtros">
+        <strong>Ventas:</strong><br>
+        <label><input type="checkbox" id="mesero"> Ventas por Mesero</label>
+        <label><input type="checkbox" id="mesa"> Ventas por Mesa</label>
+        <label><input type="checkbox" id="producto"> Ventas por Producto</label>
+
+        <br><br><strong>Reservas:</strong><br>
+        <label><input type="checkbox" id="reservaMesero"> Reservas por Mesero</label>
+        <label><input type="checkbox" id="reservaMesa"> Reservas por Mesa</label>
+        <label><input type="checkbox" id="reservaFecha"> Reservas por Fecha</label>
+    </div>
+
+    <button id="actualizar">Actualizar Gráfico</button>
+
+    <canvas id="graficoGeneral"></canvas>
+
+    <script src="{% static 'js/consultas.js' %}"></script>
+</body>
+</html>

@@ -53,6 +53,10 @@ urlpatterns = [
      path('reservaExitosa/', viewsCliente.reservaExitosa, name='reservaExitosa'),
      path('verReservas/', views.verReservas, name='verReservas'),
 
+     path('consultas/', views.consultas, name='consultas'),
+     path('datos_consultas/', views.datos_consultas, name='datos_consultas'),
+
+
 
 
 
