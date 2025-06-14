@@ -13,8 +13,10 @@
         <h1>Bienvenido, {{ user.first_name }}</h1>
 
         <div class="botones-container">
-            <a href="{% url 'verMesasCliente' %}" class="boton">Reservar mesas</a>
+        <a href="{% url 'verMesasCliente' %}" class="boton">Reservar mesas</a>
         <a href="{% url 'verReservasCliente' %}" class="boton">Ver mis reservas</a>
+        <a href="{% url 'signout' %}" class="boton boton-rojo boton-cerrar-sesion">Cerrar sesión</a>
+
         </div>
     </div>
 

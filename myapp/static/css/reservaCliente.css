@@ -61,3 +61,25 @@ h1 {
 .texto-has-olvidado {
     color: black;
 }
+.boton {
+    display: inline-block;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    margin: 5px;
+    font-size: 16px;
+}
+
+.boton-rojo {
+    background-color: #e74c3c;
+    color: white;
+}
+.boton-rojo:hover {
+    background-color: #cf2f2f;
+    transform: scale(1.03);
+}
+.boton-cerrar-sesion {
+    margin-top: 10px;        /* separa verticalmente del botón anterior */
+    padding: 8px 16px;       /* más pequeño horizontalmente */
+    width: auto;             /* asegura que no sea ancho como los otros, si usas width fija */
+}
