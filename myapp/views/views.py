@@ -8,6 +8,7 @@ from django.contrib.auth.decorators import login_required
 from ..decorators import admin_required
 from ..factories.user_factory import UsuarioFactory
 from django.http.response import JsonResponse
+from django.db.models import Sum
 
 def signin(request):
     if request.method == 'GET':
@@ -86,7 +87,10 @@ def consultas(request):
 def datos_consultas(request):
     facturas = Factura.objects.all()
     reservas = Reserva.objects.all()
+    ventas_por_fecha = Factura.objects.values('fecha').annotate(total=Sum('valor')).order_by('fecha')
 
+    fechas_ventas = [item['fecha'].strftime('%Y-%m-%d') for item in ventas_por_fecha]
+    valores_ventas_dias = [float(item['total']) for item in ventas_por_fecha]
     # ----------------------------
     # Datos de facturas (ventas)
     # ----------------------------
@@ -154,6 +158,21 @@ def datos_consultas(request):
         'cantidad_reservas_mesas': list(reservas_por_mesa.values()),
         'fechas_reservas': list(reservas_por_fecha.keys()),
         'cantidad_reservas_fechas': list(reservas_por_fecha.values()),
+        "fechas_ventas": fechas_ventas,
+        "valores_ventas_dias": valores_ventas_dias,
     }
 
     return JsonResponse(data)
+
+
+def venta_por_fecha(request):
+    fecha = request.GET.get('fecha')
+    if not fecha:
+        return JsonResponse({'error': 'Fecha no proporcionada'}, status=400)
+
+    total = Factura.objects.filter(fecha=fecha).aggregate(total=Sum('valor'))['total'] or 0
+
+    return JsonResponse({
+        'fecha': fecha,
+        'valor_total': float(total)
+    })

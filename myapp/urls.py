@@ -55,6 +55,7 @@ urlpatterns = [
 
      path('consultas/', views.consultas, name='consultas'),
      path('datos_consultas/', views.datos_consultas, name='datos_consultas'),
+     path('venta_por_fecha/', views.venta_por_fecha, name='venta_por_fecha'),
 
 
 

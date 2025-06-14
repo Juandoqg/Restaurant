@@ -5,6 +5,26 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
     }
 
+    document.getElementById("buscarVentaPorFecha").addEventListener("click", () => {
+    const fecha = document.getElementById("fechaVenta").value;
+    if (!fecha) {
+        alert("Selecciona una fecha.");
+        return;
+    }
+
+    fetch(`/venta_por_fecha/?fecha=${fecha}`)
+        .then(response => response.json())
+        .then(data => {
+            actualizarGrafico(
+                [data.fecha],  // solo una fecha
+                [data.valor_total],  // solo un valor
+                `Venta del ${data.fecha}`
+            );
+        })
+        .catch(error => console.error("Error al obtener la venta por fecha:", error));
+});
+
+
     const ctx = canvas.getContext("2d");
     let grafico;
 
@@ -86,9 +106,15 @@ document.addEventListener("DOMContentLoaded", () => {
                         data.cantidad_reservas_mesas,
                         "Reservas por Mesa"
                     );
+                } else if (ventasDia) {
+                    actualizarGrafico(
+                        data.fechas_ventas,
+                        data.valores_ventas_dias,
+                        "Valor de Ventas por Día"
+                    );
                 } else if (reservaFecha) {
                     actualizarGrafico(
-                        data.fechas_reservas,
+                        data.fechas_Agrupadas,
                         data.cantidad_reservas_fechas,
                         "Reservas por Fecha"
                     );
@@ -106,3 +132,4 @@ document.addEventListener("DOMContentLoaded", () => {
         console.error("Botón con id 'actualizar' no encontrado.");
     }
 });
+
