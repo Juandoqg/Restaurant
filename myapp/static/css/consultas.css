@@ -1,45 +1,104 @@
 body {
+    background-image: url('../img/Fondo2.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
     font-family: Arial, sans-serif;
-    background-color: #f3f3f3;
     margin: 0;
-    padding: 20px;
+    padding: 0;
+    color: #333;
 }
 
-.container {
-    max-width: 900px;
-    margin: auto;
-    background-color: white;
-    padding: 20px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-    border-radius: 8px;
+#inicio {
+    background-color: rgba(251, 229, 173, 0.95);
+    border-radius: 15px;
+    margin: 30px auto;
+    padding: 30px;
+    max-width: 1100px;
+    box-shadow: 0px 4px 10px rgba(0,0,0,0.2);
 }
 
-.filtros {
+h1 {
+    text-align: center;
+    color: #d86f19;
+    margin-bottom: 25px;
+}
+
+.contenedor-filtros {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 20px;
     margin-bottom: 20px;
 }
 
-.filtros label {
-    display: inline-block;
-    margin-right: 15px;
+.grupo {
+    flex: 1;
+    min-width: 200px;
+    background-color: #fff4dc;
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 0 0 8px rgba(0,0,0,0.1);
+}
+
+.grupo h3 {
+    color: #cf772e;
+    margin-bottom: 10px;
+    font-size: 1.1em;
+}
+
+.grupo label {
+    display: block;
+    margin: 8px 0;
     font-weight: bold;
 }
 
-button#actualizar {
-    padding: 6px 14px;
-    margin-left: 10px;
-    background-color: #2196F3;
-    color: white;
+.grupo-fecha {
+    flex: 1;
+    min-width: 240px;
+    background-color: #fff4dc;
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 0 0 8px rgba(0,0,0,0.1);
+}
+
+.grupo-fecha h3 {
+    color: #cf772e;
+    margin-bottom: 10px;
+}
+
+.grupo-fecha input[type="date"] {
+    padding: 6px 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+button, #buscarVentaPorFecha {
+    background-color: #e48e3f;
     border: none;
-    border-radius: 4px;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 8px;
     cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s;
 }
 
-button#actualizar:hover {
-    background-color: #1976D2;
+button:hover, #buscarVentaPorFecha:hover {
+    background-color: #cf772e;
 }
 
-.grafico {
-    position: relative;
-    width: 100%;
-    height: 400px;
+.botones-accion {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+#graficoGeneral {
+    display: block;
+    max-width: 100%;
+    height: 500px;
+    margin: 30px auto 0;
+    background-color: white;
+    border-radius: 10px;
+    padding: 10px;
 }

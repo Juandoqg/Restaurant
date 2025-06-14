@@ -1,73 +1,45 @@
-{%load static%}
+{% load static %}
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <title>Consultas</title>
+    <link rel="stylesheet" href="{% static 'css/consultas.css' %}">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-        }
-
-        h1 {
-            margin-bottom: 20px;
-        }
-
-        .filtros {
-            margin-bottom: 20px;
-        }
-
-        .filtros label {
-            margin-right: 15px;
-        }
-
-        #graficoGeneral {
-            max-width: 1000px;
-            height: 500px;
-        }
-
-        button {
-            margin-top: 10px;
-            padding: 10px 15px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background-color: #45a049;
-        }
-    </style>
 </head>
 <body>
-    <h1>Consultas y Estadísticas</h1>
+    <div id="inicio">
+        <h1>Consultas y Estadísticas</h1>
 
-    <div class="filtros">
-        <strong>Ventas:</strong><br>
-        <label><input type="checkbox" id="mesero"> Ventas por Mesero</label>
-        <label><input type="checkbox" id="mesa"> Ventas por Mesa</label>
-        <label><input type="checkbox" id="producto"> Ventas por Producto</label>
-        <label><input type="checkbox" id="ventasDia"> Ventas por Día</label>
+        <div class="contenedor-filtros">
+            <div class="grupo">
+                <h3>Ventas</h3>
+                <label><input type="checkbox" id="mesero"> Por Mesero</label>
+                <label><input type="checkbox" id="mesa"> Por Mesa</label>
+                <label><input type="checkbox" id="producto"> Por Producto</label>
+                <label><input type="checkbox" id="ventasDia"> Por Día</label>
+            </div>
 
-        <br><br><strong>Reservas:</strong><br>
-        <label><input type="checkbox" id="reservaMesero"> Reservas por Mesero</label>
-        <label><input type="checkbox" id="reservaMesa"> Reservas por Mesa</label>
-        <label><input type="checkbox" id="reservaFecha"> Reservas por Fecha</label>
+            <div class="grupo">
+                <h3>Reservas</h3>
+                <label><input type="checkbox" id="reservaMesero"> Por Mesero</label>
+                <label><input type="checkbox" id="reservaMesa"> Por Mesa</label>
+                <label><input type="checkbox" id="reservaFecha"> Por Fecha</label>
+            </div>
 
-        <div>
-        <label for="fechaVenta">Selecciona una fecha:</label>
-        <input type="date" id="fechaVenta">
-        <button id="buscarVentaPorFecha">Buscar Venta</button>
+            <div class="grupo-fecha">
+                <h3>Consultar Venta por Fecha</h3>
+                <input type="date" id="fechaVenta">
+                <button id="buscarVentaPorFecha">Buscar</button>
+            </div>
         </div>
+
+        <div class="botones-accion">
+            <button id="actualizar">Actualizar Gráfico</button>
+        </div>
+
+        <canvas id="graficoGeneral"></canvas>
     </div>
-
-    <button id="actualizar">Actualizar Gráfico</button>
-
-    <canvas id="graficoGeneral"></canvas>
 
     <script src="{% static 'js/consultas.js' %}"></script>
 </body>
