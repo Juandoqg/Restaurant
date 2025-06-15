@@ -9,11 +9,11 @@ from ..decorators import admin_required, waiter_required, chef_required
 
 # Create your views here.
 
-@login_required    
 def listProductos(request):
-   mesa = list(Producto.objects.values())
-   data = {'producto': mesa}
-   return JsonResponse(data) 
+   if request.method == "GET":
+    datos = list(Producto.objects.values())
+    data = {'producto': datos}
+    return JsonResponse(data) 
 
 @admin_required
 def createProduct(request):

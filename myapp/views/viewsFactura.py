@@ -20,66 +20,67 @@ import json
 
 User = get_user_model()
 def datos_facturas(request):
-    facturas = Factura.objects.all()
+    if request.method == "GET":
+        facturas = Factura.objects.all()
 
-    fechas = [factura.fecha.strftime('%Y-%m-%d') for factura in facturas]
-    valores = [float(factura.valor) for factura in facturas]
+        fechas = [factura.fecha.strftime('%Y-%m-%d') for factura in facturas]
+        valores = [float(factura.valor) for factura in facturas]
 
-    cantidad_por_mesero = {}
-    cantidad_por_mesa = {}
-    productos_vendidos = defaultdict(int)
-    ventas_por_dia = defaultdict(float)  # Nuevo: para acumular ventas por día de la semana
+        cantidad_por_mesero = {}
+        cantidad_por_mesa = {}
+        productos_vendidos = defaultdict(int)
+        ventas_por_dia = defaultdict(float)  # Nuevo: para acumular ventas por día de la semana
 
-    for factura in facturas:
-        productos = re.findall(r'([A-Za-z\s]+)\s\(Cantidad:\s(\d+)\)', factura.cosasPedidas)
+        for factura in facturas:
+            productos = re.findall(r'([A-Za-z\s]+)\s\(Cantidad:\s(\d+)\)', factura.cosasPedidas)
 
-        # Día de la semana (0=lunes, 6=domingo)
-        dia_semana = factura.fecha.weekday()
-        nombre_dia = calendar.day_name[dia_semana]
-        ventas_por_dia[nombre_dia] += float(factura.valor)
+            # Día de la semana (0=lunes, 6=domingo)
+            dia_semana = factura.fecha.weekday()
+            nombre_dia = calendar.day_name[dia_semana]
+            ventas_por_dia[nombre_dia] += float(factura.valor)
 
-        for producto, cantidad in productos:
-            cantidad = int(cantidad)
+            for producto, cantidad in productos:
+                cantidad = int(cantidad)
 
-            mesero_id = factura.idMesero.id
-            if mesero_id in cantidad_por_mesero:
-                cantidad_por_mesero[mesero_id]['cantidad'] += cantidad
-            else:
-                cantidad_por_mesero[mesero_id] = {'nombre': factura.idMesero.username, 'cantidad': cantidad}
+                mesero_id = factura.idMesero.id
+                if mesero_id in cantidad_por_mesero:
+                    cantidad_por_mesero[mesero_id]['cantidad'] += cantidad
+                else:
+                    cantidad_por_mesero[mesero_id] = {'nombre': factura.idMesero.username, 'cantidad': cantidad}
 
-            mesa_id = factura.mesa.idMesa
-            if mesa_id in cantidad_por_mesa:
-                cantidad_por_mesa[mesa_id]['cantidad'] += cantidad
-            else:
-                cantidad_por_mesa[mesa_id] = {'nombre': f'Mesa {factura.mesa.idMesa}', 'cantidad': cantidad}
+                mesa_id = factura.mesa.idMesa
+                if mesa_id in cantidad_por_mesa:
+                    cantidad_por_mesa[mesa_id]['cantidad'] += cantidad
+                else:
+                    cantidad_por_mesa[mesa_id] = {'nombre': f'Mesa {factura.mesa.idMesa}', 'cantidad': cantidad}
 
-            productos_vendidos[producto.strip()] += cantidad
+                productos_vendidos[producto.strip()] += cantidad
 
-    nombres_meseros = [info['nombre'] for info in cantidad_por_mesero.values()]
-    cantidades_vendidas_meseros = [info['cantidad'] for info in cantidad_por_mesero.values()]
+        nombres_meseros = [info['nombre'] for info in cantidad_por_mesero.values()]
+        cantidades_vendidas_meseros = [info['cantidad'] for info in cantidad_por_mesero.values()]
 
-    nombres_mesas = [info['nombre'] for info in cantidad_por_mesa.values()]
-    cantidades_vendidas_mesas = [info['cantidad'] for info in cantidad_por_mesa.values()]
+        nombres_mesas = [info['nombre'] for info in cantidad_por_mesa.values()]
+        cantidades_vendidas_mesas = [info['cantidad'] for info in cantidad_por_mesa.values()]
 
-    nombres_productos = list(productos_vendidos.keys())
-    cantidades_productos = list(productos_vendidos.values())
+        nombres_productos = list(productos_vendidos.keys())
+        cantidades_productos = list(productos_vendidos.values())
 
-    # Nuevo: convertir diccionario de ventas por día a listas
-    dias_semana = list(ventas_por_dia.keys())
-    ventas_dias = list(ventas_por_dia.values())
+        # Nuevo: convertir diccionario de ventas por día a listas
+        dias_semana = list(ventas_por_dia.keys())
+        ventas_dias = list(ventas_por_dia.values())
 
-    data = {
-        'fechas': fechas,
-        'valores': valores,
-        'nombres_meseros': nombres_meseros,
-        'cantidades_vendidas_meseros': cantidades_vendidas_meseros,
-        'nombres_mesas': nombres_mesas,
-        'cantidades_vendidas_mesas': cantidades_vendidas_mesas,
-        'productos': nombres_productos,
-        'cantidades_productos': cantidades_productos,
-        'dias_semana': dias_semana,
-        'ventas_dias': ventas_dias
-    }
+        data = {
+            'fechas': fechas,
+            'valores': valores,
+            'nombres_meseros': nombres_meseros,
+            'cantidades_vendidas_meseros': cantidades_vendidas_meseros,
+            'nombres_mesas': nombres_mesas,
+            'cantidades_vendidas_mesas': cantidades_vendidas_mesas,
+            'productos': nombres_productos,
+            'cantidades_productos': cantidades_productos,
+            'dias_semana': dias_semana,
+            'ventas_dias': ventas_dias
+        }
 
     return JsonResponse(data)
 
@@ -234,4 +235,10 @@ def enviar_factura(request, idMesa):
 
     # Redirigir a la vista de mesas después de enviar el correo y eliminar los pedidos
     return JsonResponse({'message': 'Correo enviado correctamente.'})
-    
+
+
+def listFacturas(request):
+   if request.method == "GET":
+    datos = list(Factura.objects.values())
+    data = {'facturas': datos}
+    return JsonResponse(data) 

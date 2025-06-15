@@ -89,7 +89,8 @@
 
     socket.onmessage = function(e) {
         const data = JSON.parse(e.data);
-        alert(data.mensaje);  // Puedes personalizar esta parte
+        alert(data.mensaje); 
+        location.reload(); 
     };
 
     socket.onclose = function(e) {

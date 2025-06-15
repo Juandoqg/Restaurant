@@ -7,9 +7,29 @@ from django.shortcuts import render, redirect
 from ..models import Reserva  # Importa tu modelo personalizado
 from django.contrib import messages
 from django.shortcuts import redirect, get_object_or_404
+from django.views.decorators.csrf import csrf_exempt
+import re
 
+def es_contrasena_valida(password):
+    """Valida que la contraseña tenga al menos 8 caracteres, una mayúscula, un número y un carácter especial."""
+    if (len(password) < 8 or
+        not re.search(r"[A-Z]", password) or
+        not re.search(r"\d", password) or
+        not re.search(r"[!@#$%^&*()_+\-=\[\]{};':\"\\|,.<>\/?]", password)):
+        return False
+    return True
+
+@csrf_exempt
 def createClient(request):
     if request.method == 'POST':
+        password = request.POST.get("password")
+        # validación personalizada
+        if not es_contrasena_valida(password):
+            return render(request, 'registroCliente.html', {
+                'messages': ['La contraseña debe tener al menos 8 caracteres, una mayúscula, un número y un carácter especial.'],
+                'data': request.POST
+            })
+
         user = UsuarioFactory.crear_usuarioCliente(request.POST)
         user.save()
         return render(request, 'registroCliente.html', {
@@ -17,6 +37,7 @@ def createClient(request):
         })
 
     return render(request, 'registroCliente.html')
+
 
 
 def reservaCliente(request):
