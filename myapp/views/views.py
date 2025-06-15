@@ -55,6 +55,20 @@ def createUser(request):
     if request.method == 'GET':
         return render(request, 'createUser.html')
     else:
+        password = request.POST.get("password", "")
+        
+        # Validación de contraseña segura
+        if (len(password) < 8 or
+            not re.search(r"[A-Z]", password) or
+            not re.search(r"\d", password) or
+            not re.search(r"[!@#$%^&*(),.?\":{}|<>]", password)):
+            return render(request, 'createUser.html', {
+                'success': False,
+                'error': 'La contraseña debe tener al menos 8 caracteres, una mayúscula, un número y un carácter especial.',
+                'data': request.POST
+
+            })
+
         try:
             user = UsuarioFactory.crear_usuario(request.POST)
             user.save()
